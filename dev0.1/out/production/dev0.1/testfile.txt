@@ -1,0 +1,14 @@
+int main()
+int intL, mainA, getintLLLLL;
+[1,2,3,4,5]
+adff =
+adff ==
+adff !!
+adff ||
+adff | || |||
+{
+        int c;
+	c = getint();
+	printf("%d",c);
+	return c;
+}

@@ -1,0 +1,171 @@
+Date : 2022-10-04 00:07:10
+Directory : c:\Users\86135\Desktop\CT\projects\dev0.2
+Total : 109 files,  3023 codes, 139 comments, 316 blanks, all 3478 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Python   |         24 |      1,059 |         66 |         84 |      1,209 |
+| Java     |         59 |      1,017 |         43 |        190 |      1,250 |
+| XML      |         22 |        707 |         30 |         30 |        767 |
+| Markdown |          4 |        240 |          0 |         12 |        252 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                             | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                |        109 |      3,023 |        139 |        316 |      3,478 |
+| ..                                                                                               |         12 |       -412 |         -7 |        -86 |       -505 |
+| ..\submit0.1                                                                                     |         12 |       -412 |         -7 |        -86 |       -505 |
+| ..\submit0.1\driver                                                                              |          2 |       -125 |         -3 |        -22 |       -150 |
+| ..\submit0.1\frontend                                                                            |          9 |       -275 |         -4 |        -60 |       -339 |
+| ..\submit0.1\frontend\exceptions                                                                 |          2 |        -15 |          0 |         -6 |        -21 |
+| ..\submit0.1\frontend\tokenize                                                                   |          6 |       -209 |         -4 |        -40 |       -253 |
+| .idea                                                                                            |          5 |         53 |          0 |          0 |         53 |
+| .idea\libraries                                                                                  |          2 |         18 |          0 |          0 |         18 |
+| Resourse                                                                                         |          9 |        502 |         32 |         38 |        572 |
+| driver                                                                                           |          3 |        154 |          4 |         32 |        190 |
+| frontend                                                                                         |         43 |      1,335 |         46 |        236 |      1,617 |
+| frontend\error                                                                                   |          2 |         77 |          0 |         24 |        101 |
+| frontend\exceptions                                                                              |          2 |         15 |          0 |          6 |         21 |
+| frontend\syntax                                                                                  |         31 |        837 |         42 |        140 |      1,019 |
+| frontend\syntax\decl                                                                             |          7 |        168 |          6 |         27 |        201 |
+| frontend\syntax\decl\parse                                                                       |          7 |        168 |          6 |         27 |        201 |
+| frontend\syntax\expr                                                                             |         15 |        248 |         14 |         57 |        319 |
+| frontend\syntax\expr\parse                                                                       |         15 |        248 |         14 |         57 |        319 |
+| frontend\syntax\func                                                                             |          5 |        105 |          5 |         20 |        130 |
+| frontend\syntax\func\parse                                                                       |          5 |        105 |          5 |         20 |        130 |
+| frontend\syntax\stmt                                                                             |          2 |        198 |         14 |         15 |        227 |
+| frontend\syntax\stmt\parser                                                                      |          2 |        198 |         14 |         15 |        227 |
+| frontend\tokenize                                                                                |          6 |        248 |          4 |         47 |        299 |
+| out                                                                                              |         32 |      1,287 |         64 |         82 |      1,433 |
+| out\production                                                                                   |         32 |      1,287 |         64 |         82 |      1,433 |
+| out\production\dev0.1                                                                            |         14 |        568 |         32 |         38 |        638 |
+| out\production\dev0.1\.idea                                                                      |          4 |         44 |          0 |          0 |         44 |
+| out\production\dev0.1\.idea\libraries                                                            |          1 |          9 |          0 |          0 |          9 |
+| out\production\dev0.1\Resourse                                                                   |          9 |        502 |         32 |         38 |        572 |
+| out\production\dev0.2                                                                            |         18 |        719 |         32 |         44 |        795 |
+| out\production\dev0.2\.idea                                                                      |          5 |         53 |          0 |          0 |         53 |
+| out\production\dev0.2\.idea\libraries                                                            |          2 |         18 |          0 |          0 |         18 |
+| out\production\dev0.2\Resourse                                                                   |          9 |        502 |         32 |         38 |        572 |
+| out\production\dev0.2\frontend                                                                   |          1 |        107 |          0 |          5 |        112 |
+| util                                                                                             |          1 |         35 |          0 |          9 |         44 |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                         | language | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\86135\Desktop\CT\projects\dev0.2\.idea\checkstyle-idea.xml                              | XML      |         16 |          0 |          0 |         16 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\.idea\libraries\Mars_2021.xml                          | XML      |          9 |          0 |          0 |          9 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\.idea\libraries\Mars_20211.xml                         | XML      |          9 |          0 |          0 |          9 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\.idea\misc.xml                                         | XML      |         11 |          0 |          0 |         11 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\.idea\modules.xml                                      | XML      |          8 |          0 |          0 |          8 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\Compiler.java                                          | Java     |         12 |          0 |          4 |         16 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\Resourse\AutoCompileTest.py                            | Python   |         49 |          3 |          3 |         55 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\Resourse\AutoFiltedPacker.py                           | Python   |         31 |          0 |          5 |         36 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\Resourse\AutoMatchTwo.py                               | Python   |         47 |          3 |          3 |         53 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\Resourse\AutoMidCompare.py                             | Python   |         55 |          6 |          4 |         65 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\Resourse\AutoMipsCompare.py                            | Python   |         77 |          7 |          4 |         88 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\Resourse\AutoRunJar.py                                 | Python   |         28 |          1 |          3 |         32 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\Resourse\AutoTestJar.py                                | Python   |         40 |          2 |          3 |         45 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\Resourse\ImportStyleCheck.py                           | Python   |         26 |          0 |          3 |         29 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\Resourse\config.xml                                    | XML      |        149 |         10 |         10 |        169 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\dev0.1.iml                                             | XML      |         22 |          0 |          0 |         22 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\dev0.2.iml                                             | XML      |         22 |          0 |          0 |         22 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\driver\CompilerDriver.java                             | Java     |         26 |          2 |          6 |         34 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\driver\Config.java                                     | Java     |        102 |          2 |         17 |        121 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\driver\Output.java                                     | Java     |         26 |          0 |          9 |         35 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\Source.java                                   | Java     |         51 |          0 |         14 |         65 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\error\Error.java                              | Java     |         56 |          0 |         15 |         71 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\error\ErrorBuffer.java                        | Java     |         21 |          0 |          9 |         30 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\exceptions\FrontendBaseException.java         | Java     |          9 |          0 |          3 |         12 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\exceptions\TokenTypeNotFoundException.java    | Java     |          6 |          0 |          3 |          9 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\lang_design.md                                | Markdown |        107 |          0 |          5 |        112 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\CompUnitParser.java                    | Java     |         51 |          1 |          4 |         56 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\ParserBase.java                        | Java     |         67 |          2 |         17 |         86 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\decl\parse\BTypeParser.java            | Java     |         14 |          0 |          3 |         17 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\decl\parse\ConstDeclParser.java        | Java     |         22 |          1 |          4 |         27 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\decl\parse\ConstDefParser.java         | Java     |         25 |          1 |          4 |         30 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\decl\parse\ConstInitValParser.java     | Java     |         32 |          1 |          4 |         37 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\decl\parse\InitValParser.java          | Java     |         32 |          1 |          4 |         37 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\decl\parse\VarDeclParser.java          | Java     |         19 |          1 |          4 |         24 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\decl\parse\VarDefParser.java           | Java     |         24 |          1 |          4 |         29 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\AddExpParser.java           | Java     |         15 |          1 |          4 |         20 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\CondParser.java             | Java     |         10 |          1 |          4 |         15 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\ConstExpParser.java         | Java     |         10 |          1 |          4 |         15 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\EqExpParser.java            | Java     |         15 |          1 |          4 |         20 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\ExpParser.java              | Java     |         10 |          1 |          3 |         14 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\FuncRParamsParser.java      | Java     |         14 |          0 |          3 |         17 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\LAndExpParser.java          | Java     |         15 |          1 |          4 |         20 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\LOrExpParser.java           | Java     |         15 |          1 |          4 |         20 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\LValParser.java             | Java     |         20 |          1 |          4 |         25 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\MulExpParser.java           | Java     |         15 |          2 |          4 |         21 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\NumberParser.java           | Java     |         14 |          1 |          4 |         19 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\PrimaryExpParser.java       | Java     |         25 |          1 |          4 |         30 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\RelExpParser.java           | Java     |         15 |          1 |          4 |         20 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\UnaryExpParser.java         | Java     |         41 |          1 |          4 |         46 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\expr\parse\UnaryOpParser.java          | Java     |         14 |          0 |          3 |         17 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\func\parse\FuncDefParser.java          | Java     |         24 |          1 |          4 |         29 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\func\parse\FuncFParamParser.java       | Java     |         28 |          1 |          4 |         33 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\func\parse\FuncFParamsParser.java      | Java     |         14 |          1 |          4 |         19 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\func\parse\FuncTypeParser.java         | Java     |         14 |          1 |          4 |         19 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\func\parse\MainFuncDefParser.java      | Java     |         25 |          1 |          4 |         30 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\stmt\parser\BlockParser.java           | Java     |         33 |          1 |          4 |         38 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\syntax\stmt\parser\StmtParser.java            | Java     |        165 |         13 |         11 |        189 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\tokenize\FormatStr.java                       | Java     |         15 |          0 |          5 |         20 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\tokenize\Ident.java                           | Java     |          9 |          0 |          4 |         13 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\tokenize\IntConst.java                        | Java     |         11 |          0 |          4 |         15 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\tokenize\Reserved.java                        | Java     |          6 |          0 |          2 |          8 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\tokenize\Token.java                           | Java     |        100 |          3 |         18 |        121 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\frontend\tokenize\Tokenizer.java                       | Java     |        107 |          1 |         14 |        122 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\.idea\checkstyle-idea.xml        | XML      |         16 |          0 |          0 |         16 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\.idea\libraries\Mars_2021.xml    | XML      |          9 |          0 |          0 |          9 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\.idea\misc.xml                   | XML      |         11 |          0 |          0 |         11 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\.idea\modules.xml                | XML      |          8 |          0 |          0 |          8 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\Resourse\AutoCompileTest.py      | Python   |         49 |          3 |          3 |         55 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\Resourse\AutoFiltedPacker.py     | Python   |         31 |          0 |          5 |         36 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\Resourse\AutoMatchTwo.py         | Python   |         47 |          3 |          3 |         53 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\Resourse\AutoMidCompare.py       | Python   |         55 |          6 |          4 |         65 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\Resourse\AutoMipsCompare.py      | Python   |         77 |          7 |          4 |         88 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\Resourse\AutoRunJar.py           | Python   |         28 |          1 |          3 |         32 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\Resourse\AutoTestJar.py          | Python   |         40 |          2 |          3 |         45 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\Resourse\ImportStyleCheck.py     | Python   |         26 |          0 |          3 |         29 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\Resourse\config.xml              | XML      |        149 |         10 |         10 |        169 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.1\dev0.1.iml                       | XML      |         22 |          0 |          0 |         22 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\.idea\checkstyle-idea.xml        | XML      |         16 |          0 |          0 |         16 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\.idea\libraries\Mars_2021.xml    | XML      |          9 |          0 |          0 |          9 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\.idea\libraries\Mars_20211.xml   | XML      |          9 |          0 |          0 |          9 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\.idea\misc.xml                   | XML      |         11 |          0 |          0 |         11 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\.idea\modules.xml                | XML      |          8 |          0 |          0 |          8 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\Resourse\AutoCompileTest.py      | Python   |         49 |          3 |          3 |         55 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\Resourse\AutoFiltedPacker.py     | Python   |         31 |          0 |          5 |         36 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\Resourse\AutoMatchTwo.py         | Python   |         47 |          3 |          3 |         53 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\Resourse\AutoMidCompare.py       | Python   |         55 |          6 |          4 |         65 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\Resourse\AutoMipsCompare.py      | Python   |         77 |          7 |          4 |         88 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\Resourse\AutoRunJar.py           | Python   |         28 |          1 |          3 |         32 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\Resourse\AutoTestJar.py          | Python   |         40 |          2 |          3 |         45 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\Resourse\ImportStyleCheck.py     | Python   |         26 |          0 |          3 |         29 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\Resourse\config.xml              | XML      |        149 |         10 |         10 |        169 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\dev0.1.iml                       | XML      |         22 |          0 |          0 |         22 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\dev0.2.iml                       | XML      |         22 |          0 |          0 |         22 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\frontend\lang_design.md          | Markdown |        107 |          0 |          5 |        112 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\out\production\dev0.2\todo_checker.md                  | Markdown |         13 |          0 |          1 |         14 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\todo_checker.md                                        | Markdown |         13 |          0 |          1 |         14 |
+| c:\Users\86135\Desktop\CT\projects\dev0.2\util\Pair.java                                         | Java     |         35 |          0 |          9 |         44 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\Compiler.java                                       | Java     |        -12 |          0 |         -4 |        -16 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\driver\CompilerDriver.java                          | Java     |        -23 |         -1 |         -5 |        -29 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\driver\Config.java                                  | Java     |       -102 |         -2 |        -17 |       -121 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\frontend\Source.java                                | Java     |        -51 |          0 |        -14 |        -65 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\frontend\exceptions\FrontendBaseException.java      | Java     |         -9 |          0 |         -3 |        -12 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\frontend\exceptions\TokenTypeNotFoundException.java | Java     |         -6 |          0 |         -3 |         -9 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\frontend\tokenize\FormatStr.java                    | Java     |        -15 |          0 |         -5 |        -20 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\frontend\tokenize\Ident.java                        | Java     |         -9 |          0 |         -4 |        -13 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\frontend\tokenize\IntConst.java                     | Java     |        -11 |          0 |         -4 |        -15 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\frontend\tokenize\Reserved.java                     | Java     |         -6 |          0 |         -2 |         -8 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\frontend\tokenize\Token.java                        | Java     |        -99 |         -3 |        -17 |       -119 |
+| c:\Users\86135\Desktop\CT\projects\submit0.1\frontend\tokenize\Tokenizer.java                    | Java     |        -69 |         -1 |         -8 |        -78 |
+| Total                                                                                            |          |      3,023 |        139 |        316 |      3,478 |
++--------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

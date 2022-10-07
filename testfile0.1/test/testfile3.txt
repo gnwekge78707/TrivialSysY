@@ -1,0 +1,47 @@
+
+
+int nn,ans;
+
+	//s0 s1	// a0,	s2,	s3,	s4
+void hanoi(int k,int a,int b,int c){//$a not enough? borrow from s
+	if(k==1){
+		ans=ans+1;
+		return;
+	}
+	hanoi(k-1,a,c,b);
+	ans=ans+1;
+	hanoi(k-1,c,b,a);
+}
+
+void satisfyReq() {
+	int unaryop = 0;
+	int unaryopr = +-+unaryop;
+	const int constexp1 = 1, constexp2 = 2;
+	const int constexpc= constexp1 + constexp2;;
+	const int carr[3] = {1,2,3};
+	const int carrr[2][2] = {{1,2},{1,1}};
+	int funcArr[2][2] = {{4,3},{0,0}};
+	/*constexpc = constexp1 + constexp2;
+	
+	.
+	*/
+	;;;;;
+
+}
+int main(){
+	nn=getint();
+	ans=0;
+	hanoi(nn,1,2,3);
+	printf("20373444\n");
+	int res = ans;
+	printf("%d\n", res);
+	printf("%d\n", res + res);
+	printf("%d\n", res * res);
+	printf("%d\n", res / res);
+	printf("%d\n", res - res);
+	printf("very weak points\n");
+	printf("very weak points\n");
+	printf("very weak points\n");
+	printf("very weak points\n");
+	return 0;
+}

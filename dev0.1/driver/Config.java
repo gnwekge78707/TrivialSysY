@@ -1,0 +1,120 @@
+package driver;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Objects;
+
+public class Config {
+    private static final Config CONFIG = new Config();
+
+    public static Config getInstance() { return CONFIG; }
+
+    private boolean debugMode = false;
+    private OutputLevel defaultOutputLevel = OutputLevel.TOKENIZE;
+
+    private String sourceFileName = "testfile.txt";
+    private HashMap<OutputLevel, String> outputLevel2TargetName = new HashMap<>();
+
+    private InputStream sourceInputStream = null;
+    private HashMap<OutputLevel, PrintStream> outputLevel2Target = new HashMap<>();
+
+    private Config() {
+        outputLevel2TargetName.put(OutputLevel.TOKENIZE, "output.txt");
+        outputLevel2TargetName.put(OutputLevel.SYNTAX, "output_syntax.txt");
+        outputLevel2TargetName.put(OutputLevel.ERROR, "error.txt");
+        outputLevel2TargetName.put(OutputLevel.MIDCODE, "output_mid_code.txt");
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(outputLevel2TargetName.get(defaultOutputLevel));
+            PrintStream printStream = new PrintStream(fileOutputStream);
+            outputLevel2Target.put(defaultOutputLevel, printStream);
+        } catch (FileNotFoundException e) {
+            System.err.println("InitConfigErr : target file open failed");
+        }
+    }
+
+    public boolean isDebugMode() { return debugMode; }
+
+    public InputStream getSourceInputStream() { return sourceInputStream; }
+
+    public boolean hasOutputLevel(OutputLevel level) { return outputLevel2Target.containsKey(level); }
+
+    public PrintStream getOutputStream(OutputLevel level) {
+        if (hasOutputLevel(level)) {
+            return outputLevel2Target.get(level);
+        } else {
+            return null;
+        }
+    }
+
+    public boolean parseArgs(String[] args) {
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-i")) {
+                // parsing source file
+                if (Objects.nonNull(this.sourceInputStream)) {
+                    System.err.println("ParseArgsErr : duplicated source file");
+                    return false;
+                } else if (i >= args.length - 1) {
+                    System.err.println("ParseArgsErr : source file not found");
+                    return false;
+                }
+                i++;
+                try {
+                    this.sourceInputStream = new FileInputStream(args[i]);
+                    this.sourceFileName = args[i];
+                } catch (FileNotFoundException e) {
+                    System.err.println("ParseArgsErr : source file open failed");
+                    return false;
+                }
+            } else if (args[i].equals("-d") || args[i].equals("--debug")) {
+                this.debugMode = true;
+            } else {
+                // parsing output file
+                boolean isLegitArg = false;
+                for (OutputLevel outputLevel : OutputLevel.values()) {
+                    if (args[i].equals(outputLevel.getArg())) {
+                        isLegitArg = true;
+                        if (!outputLevel2Target.containsKey(outputLevel)) {
+                            outputLevel2Target.put(outputLevel, null);
+                        }
+                        if (i >= args.length - 1) {
+                            System.err.println("ParseArgsErr : target output file not found");
+                            return false;
+                        }
+                        i++;
+                        try {
+                            FileOutputStream fileOutputStream = new FileOutputStream(args[i]);
+                            PrintStream printStream = new PrintStream(fileOutputStream);
+                            outputLevel2Target.put(outputLevel, printStream);
+                        } catch (FileNotFoundException e) {
+                            System.err.println("ParseArgsErr : output file open failed");
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        if (this.sourceInputStream == null) {
+            try {
+                this.sourceInputStream = new FileInputStream(this.sourceFileName);
+            } catch (FileNotFoundException e) {
+                System.err.println("ParseArgsErr : source file open failed");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public enum OutputLevel {
+        TOKENIZE("-T"),
+        SYNTAX("-S"),
+        ERROR("-E"),
+        MIDCODE("-M")
+        ;
+
+        private final String arg;
+
+        OutputLevel(String arg) { this.arg = arg; }
+
+        public String getArg() { return arg; }
+    }
+}

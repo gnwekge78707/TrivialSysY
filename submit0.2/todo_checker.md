@@ -1,0 +1,14 @@
+- to modify exception of undefined token type
+  - 错误处理中可能出现 undefinedTokenType， 需要错误处理+集中处理？
+- pushUp pushBack 
+  - pushUp可以出现在check中，一旦pushUp就确定了当前parse过程的正确
+  - pushBack朝前看的回退操作
+  - 需要选择时朝前看，朝前看则直接判断，否则用check函数
+  - 可以改的优雅，统一朝前看操作，设计实现分离
+    - checkToken前要确定step（即，清空tokenStack）（仅有lookForward时需要注意这个问题）
+    - 所以，在checkToken下handleError时，不许在checkToken下reverse；但是，在lookForward下需要reverse
+
+- error handle prev 
+  - i j k型错误，前一个**非终结符**的行号
+  - 
+- control flow of parser

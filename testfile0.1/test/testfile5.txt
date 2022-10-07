@@ -1,0 +1,47 @@
+
+int ans[100];
+int iftaken[100];
+int n;
+int cnt;
+void func(int u){
+	if(u==(n+1)){
+		cnt=cnt+1;
+		//fake print
+		return;
+	}
+	int i=1;
+	while(i<n+1){
+		if(iftaken[i]==0){
+			ans[u]=i;
+			iftaken[i]=1;
+			func(u+1);
+			iftaken[i]=0;
+		}
+	i=i+1;
+	}
+	return;
+}
+int main(){
+	n=getint();
+	int i=0;cnt=0;
+	while(i<n+1){
+		iftaken[i]=0;
+		ans[i]=0;
+		i=i+1;
+	}
+	func(n);
+	printf("20373444\n");
+	int res = cnt;
+	printf("%d\n", res);
+	printf("%d\n", res + res);
+	printf("%d\n", res * res);
+	printf("%d\n", res / res);
+	printf("%d\n", res - res);
+	printf("very weak points\n");
+	printf("very weak points\n");
+	printf("very weak points\n");
+	printf("very weak points\n");
+	return 0;
+}
+// s1 = n
+// s2 = n+1
