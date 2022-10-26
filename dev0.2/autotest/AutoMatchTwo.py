@@ -1,7 +1,7 @@
 import os
 
 DEV_NULL = 'log.txt'
-JAR_NAME1 = 'MipsCompiler_21_crt.jar'
+JAR_NAME1 = 'Compiler_21_dhy.jar'
 JAR_NAME2 = 'dev0.2.jar'
 
 fileDict = []

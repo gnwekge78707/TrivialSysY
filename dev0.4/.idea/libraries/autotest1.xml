@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="autotest1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/autotest/MipsCompiler_21_crt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/autotest/dev0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/autotest/Compiler_21_dhy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/autotest/dev0.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

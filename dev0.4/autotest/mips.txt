@@ -1,0 +1,506 @@
+# Powered By Yu Ge Compiler 4.3
+
+.data
+	global:
+	0 6 9 0 0 0 0 0 0 0 0 0 0 0 1 2 2 4 56 0 1 2 2 4 80 0 2 6 104 
+	.space 4
+	str_0: .asciiz "20373394\n"
+	str_1: .asciiz "a = "
+	str_2: .asciiz "\n"
+	str_3: .asciiz "b = "
+	str_4: .asciiz "first: "
+	str_5: .asciiz "first : "
+	str_6: .asciiz " is not 2\n"
+	str_7: .asciiz "xxxx\n"
+
+.text
+	la $28, global
+	# @init pre_main:
+		# #basic_block -1
+			# alloc global_3, (const_9)
+				addiu $5, $28, 16
+			# alloc global_4, (const_4)
+				addiu $6, $28, 56
+			# alloc global_6, (const_4)
+				addiu $7, $28, 80
+			# alloc global_8, (const_2)
+				addiu $8, $28, 104
+				sw $5, 12($28)
+				sw $6, 52($28)
+				sw $7, 76($28)
+				sw $8, 100($28)
+				addiu $29, $29, -232
+	# @function func_main:
+		# #basic_block 0
+			# alloc var_1, (const_7)
+				addiu $11, $29, 8
+			# store const_1, (var_1)
+				addiu $1, $0, 1
+				sw $1, 0($11)
+			# add temp_21, var_1, const_4
+				addiu $13, $11, 4
+			# store const_2, (temp_21)
+				addiu $1, $0, 2
+				sw $1, 0($13)
+			# add temp_21, temp_21, const_4
+				addiu $13, $13, 4
+			# store const_3, (temp_21)
+				addiu $1, $0, 3
+				sw $1, 0($13)
+			# add temp_21, temp_21, const_4
+				addiu $13, $13, 4
+			# store const_4, (temp_21)
+				addiu $1, $0, 4
+				sw $1, 0($13)
+			# add temp_21, temp_21, const_4
+				addiu $13, $13, 4
+			# store const_5, (temp_21)
+				addiu $1, $0, 5
+				sw $1, 0($13)
+			# add temp_21, temp_21, const_4
+				addiu $13, $13, 4
+			# store const_7, (temp_21)
+				addiu $1, $0, 7
+				sw $1, 0($13)
+			# add temp_21, temp_21, const_4
+				addiu $13, $13, 4
+			# store const_8, (temp_21)
+				addiu $1, $0, 8
+				sw $1, 0($13)
+			# alloc var_2, (const_1)
+				addiu $13, $29, 44
+			# store const_1, (var_2)
+				addiu $1, $0, 1
+				sw $1, 0($13)
+			# alloc var_3, (const_4)
+				addiu $14, $29, 52
+			# load temp_23, (var_1)
+				lw $13, 0($11)
+			# add temp_26, var_1, const_4
+				addiu $15, $11, 4
+			# load temp_25, (temp_26)
+				lw $15, 0($15)
+			# store const_1, (var_3)
+				addiu $1, $0, 1
+				sw $1, 0($14)
+			# add temp_27, var_3, const_4
+				addiu $14, $14, 4
+			# store const_2, (temp_27)
+				addiu $1, $0, 2
+				sw $1, 0($14)
+			# add temp_27, temp_27, const_4
+				addiu $14, $14, 4
+			# store temp_23, (temp_27)
+				sw $13, 0($14)
+			# add temp_27, temp_27, const_4
+				addiu $14, $14, 4
+			# store temp_25, (temp_27)
+				sw $15, 0($14)
+			# slt temp_29, var_1, const_99
+				slti $13, $11, 99
+			# bnz temp_29 ? THEN_TAG_0 : ELSE_TAG_0
+				bne $13, $0, THEN_TAG_0
+				j ELSE_TAG_0
+		# #basic_block 1
+				THEN_TAG_0:
+			# add temp_30, const_99, const_0
+				addiu $13, $0, 99
+			# jmp INLINE_TAG_0
+		# #basic_block 2
+			# add temp_32, var_1, const_4
+				addiu $13, $11, 4
+			# store const_1, (temp_32)
+				addiu $1, $0, 1
+				sw $1, 0($13)
+			# jmp END_TAG_0
+		# #basic_block 3
+				ELSE_TAG_0:
+			# add temp_34, var_1, const_8
+				addiu $13, $11, 8
+			# load temp_33, (temp_34)
+				lw $13, 0($13)
+			# add temp_36, var_1, const_4
+				addiu $14, $11, 4
+			# load temp_35, (temp_36)
+				lw $14, 0($14)
+			# push temp_35
+			# push temp_33
+			# call func_add1
+				sw $12, 156($29)
+				sw $11, 4($29)
+				sw $31, 0($29)
+				sw $14, -16($29)
+				sw $13, -12($29)
+				addiu $29, $29, -20
+				jal func_add1
+				addiu $29, $29, 20
+				lw $31, 0($29)
+				lw $12, 156($29)
+				lw $11, 4($29)
+			# decl var_4
+			# decl var_5
+			# scan var_4
+				addiu $2, $0, 5
+				syscall
+				xor $13, $2, $0
+			# push var_4
+			# push const_2
+			# call func_add1
+				sw $12, 156($29)
+				sw $11, 4($29)
+				sw $13, 112($29)
+				sw $31, 0($29)
+				sw $13, -16($29)
+				addiu $1, $0, 2
+				sw $1, -12($29)
+				addiu $29, $29, -20
+				jal func_add1
+				addiu $29, $29, 20
+				lw $31, 0($29)
+				lw $12, 156($29)
+				lw $11, 4($29)
+				lw $13, 112($29)
+			# sub temp_40, const_0, var_4
+				addiu $1, $0, 0
+				subu $14, $1, $13
+			# push temp_40
+			# push const_2
+			# call func_add1
+				sw $12, 156($29)
+				sw $11, 4($29)
+				sw $13, 112($29)
+				sw $31, 0($29)
+				sw $14, -16($29)
+				addiu $1, $0, 2
+				sw $1, -12($29)
+				addiu $29, $29, -20
+				jal func_add1
+				addiu $29, $29, 20
+				lw $31, 0($29)
+				lw $12, 156($29)
+				lw $11, 4($29)
+				lw $13, 112($29)
+			# push var_4
+			# push const_1
+			# call func_add1
+				sw $12, 156($29)
+				sw $11, 4($29)
+				sw $31, 0($29)
+				sw $13, -16($29)
+				addiu $1, $0, 1
+				sw $1, -12($29)
+				addiu $29, $29, -20
+				jal func_add1
+				addiu $29, $29, 20
+				lw $31, 0($29)
+				lw $12, 156($29)
+				lw $11, 4($29)
+			# jmp INLINE_TAG_1
+		# #basic_block 4
+			# add temp_54, var_1, const_12
+				addiu $13, $11, 12
+			# load temp_53, (temp_54)
+				lw $13, 0($13)
+			# add temp_56, var_1, const_20
+				addiu $14, $11, 20
+			# load temp_55, (temp_56)
+				lw $14, 0($14)
+			# add temp_57, const_99, const_0
+				addiu $15, $0, 99
+			# jmp INLINE_TAG_2
+		# #basic_block 5
+			# mul temp_58, temp_55, const_99
+				addiu $1, $0, 99
+				mult $14, $1
+				mflo $12
+			# sub temp_59, temp_53, temp_58
+				subu $13, $13, $12
+			# add temp_60, var_1, const_12
+				addiu $12, $11, 12
+			# store temp_59, (temp_60)
+				sw $13, 0($12)
+			# decl var_6
+			# add temp_62, const_99, const_0
+				addiu $12, $0, 99
+			# jmp INLINE_TAG_3
+		# #basic_block 6
+			# push const_1
+			# push const_3
+			# call func_add1
+				sw $11, 4($29)
+				sw $31, 0($29)
+				addiu $1, $0, 1
+				sw $1, -16($29)
+				addiu $1, $0, 3
+				sw $1, -12($29)
+				addiu $29, $29, -20
+				jal func_add1
+				addiu $29, $29, 20
+				lw $31, 0($29)
+				lw $11, 4($29)
+			# add var_6, const_0, const_0
+				addiu $12, $0, 0
+			# bnz const_1 ? THEN_TAG_1 : ELSE_TAG_1
+		# #basic_block 7
+			# jmp END_TAG_1
+		# #basic_block 8
+			# jmp LOOP_TAG_0
+		# #basic_block 9
+				LOOP_TAG_0:
+			# sll temp_71, var_6, const_2
+				sll $13, $12, 2
+			# add temp_71, temp_71, var_1
+				addu $13, $13, $11
+			# add temp_71, temp_71, const_0
+				addiu $13, $13, 0
+			# load temp_70, (temp_71)
+				lw $13, 0($13)
+			# beq temp_70, const_2 ? NEXT_TAG_0 : ELSE_TAG_2
+				addiu $1, $0, 2
+				beq $13, $1, NEXT_TAG_0
+				j ELSE_TAG_2
+		# #basic_block 10
+				NEXT_TAG_0:
+			# bgtz var_1 ? THEN_TAG_2 : ELSE_TAG_2
+				bgtz $11, THEN_TAG_2
+				j ELSE_TAG_2
+		# #basic_block 11
+				THEN_TAG_2:
+			# sll temp_76, var_6, const_2
+				sll $13, $12, 2
+			# add temp_76, temp_76, var_1
+				addu $13, $13, $11
+			# add temp_76, temp_76, const_0
+				addiu $13, $13, 0
+			# load temp_75, (temp_76)
+				lw $13, 0($13)
+			# putn temp_75
+				xor $4, $13, $0
+				addiu $2, $0, 1
+				syscall
+			# puts const_2
+				la $4, str_2
+				addiu $2, $0, 4
+				syscall
+			# jmp END_TAG_2
+		# #basic_block 12
+				ELSE_TAG_2:
+			# sll temp_78, var_6, const_2
+				sll $13, $12, 2
+			# add temp_78, temp_78, var_1
+				addu $13, $13, $11
+			# add temp_78, temp_78, const_0
+				addiu $13, $13, 0
+			# load temp_77, (temp_78)
+				lw $13, 0($13)
+			# bne temp_77, const_2 ? THEN_TAG_3 : ELSE_TAG_3
+				addiu $1, $0, 2
+				bne $13, $1, THEN_TAG_3
+				j ELSE_TAG_3
+		# #basic_block 13
+				THEN_TAG_3:
+			# sll temp_81, var_6, const_2
+				sll $13, $12, 2
+			# add temp_81, temp_81, var_1
+				addu $13, $13, $11
+			# add temp_81, temp_81, const_0
+				addiu $13, $13, 0
+			# load temp_80, (temp_81)
+				lw $13, 0($13)
+			# putn temp_80
+				xor $4, $13, $0
+				addiu $2, $0, 1
+				syscall
+			# puts const_6
+				la $4, str_6
+				addiu $2, $0, 4
+				syscall
+			# jmp END_TAG_3
+		# #basic_block 14
+				ELSE_TAG_3:
+			# puts const_7
+				la $4, str_7
+				addiu $2, $0, 4
+				syscall
+			# add temp_82, var_6, const_1
+				addiu $13, $12, 1
+			# add var_6, temp_82, const_0
+				addiu $12, $13, 0
+			# sll temp_84, temp_82, const_2
+				sll $14, $13, 2
+			# add temp_84, temp_84, var_1
+				addu $14, $14, $11
+			# add temp_84, temp_84, const_0
+				addiu $14, $14, 0
+			# load temp_83, (temp_84)
+				lw $14, 0($14)
+			# sub temp_83, const_0, temp_83
+				addiu $1, $0, 0
+				subu $14, $1, $14
+			# bgez temp_83 ? THEN_TAG_4 : IGNORE_TAG_4
+				bgez $14, THEN_TAG_4
+		# #basic_block 15
+			# blez var_1 ? THEN_TAG_4 : ELSE_TAG_4
+				blez $11, THEN_TAG_4
+				j ELSE_TAG_4
+		# #basic_block 16
+				THEN_TAG_4:
+			# sll temp_89, temp_82, const_2
+				sll $12, $13, 2
+			# add temp_89, temp_89, var_1
+				addu $12, $12, $11
+			# add temp_89, temp_89, const_0
+				addiu $12, $12, 0
+			# load temp_88, (temp_89)
+				lw $12, 0($12)
+			# mul temp_90, temp_88, const_3
+				sll $3, $12, 1
+				addu $12, $3, $12
+			# sll temp_91, temp_82, const_2
+				sll $13, $13, 2
+			# add temp_91, temp_91, var_1
+				addu $13, $13, $11
+			# add temp_91, temp_91, const_0
+				addiu $13, $13, 0
+			# store temp_90, (temp_91)
+				sw $12, 0($13)
+			# jmp STOP_TAG_0
+				j STOP_TAG_0
+		# #basic_block 17
+			# jmp END_TAG_4
+		# #basic_block 18
+				ELSE_TAG_4:
+			# jmp SKIP_TAG_0
+		# #basic_block 19
+			# jmp LOOP_TAG_0
+				j LOOP_TAG_0
+		# #basic_block 20
+				STOP_TAG_0:
+			# load temp_94, (const_0)
+				lw $11, 0($0)
+			# puts const_5
+				la $4, str_5
+				addiu $2, $0, 4
+				syscall
+			# putn temp_94
+				xor $4, $11, $0
+				addiu $2, $0, 1
+				syscall
+			# jmp INLINE_TAG_4
+		# #basic_block 21
+			# load temp_97, (const_0)
+				lw $11, 0($0)
+			# puts const_4
+				la $4, str_4
+				addiu $2, $0, 4
+				syscall
+			# putn temp_97
+				xor $4, $11, $0
+				addiu $2, $0, 1
+				syscall
+			# jmp INLINE_TAG_5
+		# #basic_block 22
+			# exit null
+				addiu $2, $0, 10
+				syscall
+	# @function func_add_three:
+				lw $12, 4($29)
+				lw $13, 8($29)
+				lw $11, 12($29)
+		# #basic_block 0
+			# load temp_1, (param_1)
+				lw $13, 0($13)
+			# add temp_3, param_0, temp_1
+				addu $12, $12, $13
+			# add temp_5, temp_3, param_2
+				addu $11, $12, $11
+			# exit temp_5
+				xor $2, $11, $0
+				jr $31
+	# @function func_add1:
+		func_add1:
+				lw $12, 4($29)
+				lw $13, 8($29)
+		# #basic_block 0
+			# decl var_0
+			# add temp_8, param_0, param_1
+				addu $11, $12, $13
+			# puts const_0
+				la $4, str_0
+				addiu $2, $0, 4
+				syscall
+			# puts const_1
+				la $4, str_1
+				addiu $2, $0, 4
+				syscall
+			# putn param_0
+				xor $4, $12, $0
+				addiu $2, $0, 1
+				syscall
+			# puts const_2
+				la $4, str_2
+				addiu $2, $0, 4
+				syscall
+			# puts const_3
+				la $4, str_3
+				addiu $2, $0, 4
+				syscall
+			# putn param_1
+				xor $4, $13, $0
+				addiu $2, $0, 1
+				syscall
+			# puts const_2
+				la $4, str_2
+				addiu $2, $0, 4
+				syscall
+			# exit temp_8
+				xor $2, $11, $0
+				jr $31
+	# @function func_addmmm:
+				lw $12, 4($29)
+				lw $13, 8($29)
+				lw $11, 12($29)
+		# #basic_block 0
+			# add temp_14, param_0, param_1
+				addu $12, $12, $13
+			# add temp_16, temp_14, param_2
+				addu $11, $12, $11
+			# exit temp_16
+				xor $2, $11, $0
+				jr $31
+	# @function func_add:
+		# #basic_block 0
+			# exit const_99
+				addiu $2, $0, 99
+				jr $31
+	# @function func_printarrrr:
+				lw $11, 4($29)
+		# #basic_block 0
+			# load temp_17, (param_0)
+				lw $11, 0($11)
+			# puts const_4
+				la $4, str_4
+				addiu $2, $0, 4
+				syscall
+			# putn temp_17
+				xor $4, $11, $0
+				addiu $2, $0, 1
+				syscall
+			# exit null
+				jr $31
+	# @function func_printarr:
+				lw $11, 4($29)
+		# #basic_block 0
+			# load temp_19, (param_0)
+				lw $11, 0($11)
+			# puts const_5
+				la $4, str_5
+				addiu $2, $0, 4
+				syscall
+			# putn temp_19
+				xor $4, $11, $0
+				addiu $2, $0, 1
+				syscall
+			# exit null
+				jr $31
+

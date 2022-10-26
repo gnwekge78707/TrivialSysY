@@ -19,5 +19,28 @@
 
 - error handle prev 
   - i j k型错误，前一个**非终结符**的行号
-  - 
-- control flow of parser
+
+
+- myParserDesign
+  - **lookForward**朝前看基本步骤:
+    - updateToken();
+    - if lookForward 函数匹配
+      - if 匹配的终结符在 当前文法 中是终结符
+        - step
+      - if 匹配的终结符在 当前文法 中属于某非终结符
+        - reverse
+    - else
+      - reverse
+  - **checkToken**相当于先updateToken，如果匹配则前进，否则reverse:
+    - if !checkToken(...)
+      - handleError 注意前一个非终结符的含义
+  - 回溯基本步骤:
+    - 确定回溯点 putCheckpoint()
+      - 回溯点之前，一定要处于step过或reverse过的状态 in definite state
+    - 正常parse操作
+    - 决定点，不匹配则回溯 restoreCheckpoint()
+      - better be in definite state
+
+- parse: `[...2]...3`
+  - lookForward 判断3
+    - 否：解析2，吃掉3

@@ -35,6 +35,10 @@ public class Tokenizer {
         }
     }
 
+    public Token getCurrentToken() {
+        return tokens.get(tokenIdx);
+    }
+
     public void step() {
         preTokenIdx = tokenIdx;
         tokenStack.forEach(u -> {

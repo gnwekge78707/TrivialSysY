@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b43f302f-2137-49b2-a82b-00a3b7dc855c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Mars_20212.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/autotest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/autotest1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/dev0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/NodeBase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/TokenNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/ast/BinaryExpNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/ast/CondNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/ast/ExpNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/ast/FuncCallNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/ast/FuncRParamsNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/ast/LValNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/ast/UnaryExpNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax_design.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/dev0_2_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Mars_20211.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Mars_20211.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autotest/Testcases/full_20222/A/testfile14.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/autotest/dev0.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/autotest/testfile.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev0.2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/dev0.2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/syntax/ParserBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/syntax/ParserBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tokenize/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tokenize/Tokenizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/.idea/artifacts/dev0_2_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/.idea/libraries/Mars_20211.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev0.2/.idea/libraries/Mars_20211.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/Resourse/AutoMatchTwo.py" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev0.2/Resourse/AutoMatchTwo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/autotest/AutoMatchTwo.py" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev0.2/autotest/AutoMatchTwo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/autotest/Testcases/Public_B/testfile1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/autotest/Testcases/Public_B/testfile10.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/autotest/Testcases/full_20222/A/testfile14.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/autotest/Testcases/full_20222/A/testfile19.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/autotest/Testcases/full_20222/A/testfile2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/dev0.2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev0.2/dev0.2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/frontend/syntax/ParserBase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev0.2/frontend/syntax/ParserBase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/frontend/tokenize/Tokenizer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev0.2/frontend/tokenize/Tokenizer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dev0.2/todo_checker.md" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dev0.2/todo_checker.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/lang_design.md" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/lang_design.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/ParserBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/ParserBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/AddExpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/AddExpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/CondParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/CondParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/ConstExpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/ConstExpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/EqExpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/EqExpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/ExpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/ExpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/FuncRParamsParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/FuncRParamsParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/LAndExpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/LAndExpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/LOrExpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/LOrExpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/LValParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/LValParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/MulExpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/MulExpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/NumberParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/NumberParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/PrimaryExpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/PrimaryExpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/RelExpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/RelExpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/UnaryExpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/UnaryExpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/UnaryOpParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/expr/parse/UnaryOpParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/syntax/stmt/parser/StmtParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/syntax/stmt/parser/StmtParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dev0.3/frontend/tokenize/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dev0.3/frontend/tokenize/Token.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2GCubdMNEbtCKYjQMfbkkqua1Cc" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.23783033" />
+    <property name="settings.editor.selected.configurable" value="sshConsole" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Compiler" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Compiler" />
+      <module name="dev0.2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b43f302f-2137-49b2-a82b-00a3b7dc855c" name="Changes" comment="" />
+      <created>1665904964918</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1665904964918</updated>
+      <workItem from="1665904969074" duration="68000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

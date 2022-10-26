@@ -1,12 +1,26 @@
 import os
 
 DEV_NULL = 'log.txt'
-JAR_NAME1 = 'old.jar'
-JAR_NAME2 = 'new.jar'
+JAR_NAME1 = 'MipsCompiler_21_crt.jar'
+JAR_NAME2 = 'dev0.2.jar'
+
+fileDict = []
+
+def get_files():
+	print(os.path)
+	for filepath, dirnames, filenames in os.walk(os.getcwd()):
+		for filename in filenames:
+			spl = filename.split('.')
+			if len(spl) == 2 and spl[1] == 'txt' and spl[0].startswith('testfile'):
+				fileDict.append((filepath, filename))
+			print(os.path.join(filepath, filename))
+
 
 if __name__ == '__main__':
 	diff = []
 	fileId = []
+
+	get_files()
 	for i in os.listdir():
 		spl = i.split('.')
 		if len(spl) == 2 and spl[1] == 'txt' and spl[0].startswith('testfile'):
@@ -15,12 +29,13 @@ if __name__ == '__main__':
 			except:
 				pass
 	fileId.sort()
-	for i in fileId:
-		print('--------- running ' + 'testfile' + str(i) + ' ---------')
+	for i, fileInfo in enumerate(fileDict):
+		print('---------------- running ' + 'testfile' + str(i) + ' ----------------')
 		if os.path.exists('testfile.txt'):
 			os.remove('testfile.txt')
-		os.rename('testfile' + str(i) + '.txt', 'testfile.txt')
-		print('---> init finished')
+		input_filename = os.path.join(fileInfo[0], fileInfo[1])
+		os.rename(input_filename, 'testfile.txt')
+		print('---> init finished :', input_filename)
 		########################################################################
 		os.system('java -jar ' + JAR_NAME1 + ' > ' + DEV_NULL)
 		name1 = 'output_' + JAR_NAME1.split('.')[0] + '_' + str(i) + '.txt'
@@ -40,13 +55,21 @@ if __name__ == '__main__':
 			cont1 = file1.read()
 		with open(name2, 'r') as file2:
 			cont2 = file2.read()
-		os.rename('testfile.txt', 'testfile' + str(i) + '.txt')
+		os.rename('testfile.txt', input_filename)
 		if cont1 != cont2:
 			diff.append('testfile' + str(i) + '.txt')
 		print('---> compare finished, ' + str(cont1 == cont2))
 		print('')
-	os.remove('log.txt')
+	#os.remove('log.txt')
 	if len(diff) == 0:
 		print('^^^ all same ^^^')
+		for i in os.listdir():
+			spl = i.split('.')
+			if len(spl) == 2 and spl[1] == 'txt' and spl[0].startswith('output'):
+				try:
+					name_remove = i
+					os.remove(name_remove)
+				except:
+					pass
 	else:
 		print('diff at ' + str(diff))

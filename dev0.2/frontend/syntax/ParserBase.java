@@ -29,12 +29,12 @@ public abstract class ParserBase {
         if (currentToken != null) {
             for (Token.TokenType type : expectedTypes) {
                 if (currentToken.getTokenType().equals(type)) {
-                    tokenizer.step();
+                    step();
                     return true;
                 }
             }
         }
-        tokenizer.reverse();
+        reverse();
         return false;
     }
 
@@ -48,7 +48,10 @@ public abstract class ParserBase {
 
     public void step() { tokenizer.step(); }
 
-    public void reverse() { tokenizer.reverse(); }
+    public void reverse() {
+        tokenizer.reverse();
+        currentToken = tokenizer.getCurrentToken();
+    }
 
     public void putCheckpoint() { tokenizer.putCheckpoint(); }
 
