@@ -1,0 +1,45 @@
+package midend.ir.value.instr.mem;
+
+import midend.ir.Value;
+import midend.ir.type.LLVMType;
+import midend.ir.value.BasicBlock;
+import midend.ir.value.instr.Instruction;
+
+public class AllocaInstr extends Instruction {
+    private final LLVMType allocated;
+
+    public LLVMType getAllocated() {
+        return allocated;
+    }
+
+    public AllocaInstr(LLVMType allocated) {
+        super(InstrType.ALLOCA, new LLVMType.Pointer(allocated), 0);
+        this.allocated = allocated;
+    }
+
+    public AllocaInstr(LLVMType allocated, BasicBlock parent) {
+        super(InstrType.ALLOCA, new LLVMType.Pointer(allocated), 0, parent);
+        this.allocated = allocated;
+    }
+
+    private Value dstVar;
+
+    public AllocaInstr(LLVMType allocated, BasicBlock parent, Value dstVar) {
+        super(InstrType.ALLOCA, new LLVMType.Pointer(allocated), 0, parent);
+        this.allocated = allocated;
+        this.dstVar = dstVar;
+    }
+
+    public Value getDstVar() { return this.dstVar; }
+
+    public boolean hasExplicitDstVar() {
+        return this.dstVar != null;
+    }
+
+    public String getName() { return hasExplicitDstVar() ? dstVar.getName() : super.getName(); }
+
+    @Override
+    public String toString() {
+        return "\t" + this.getName() + " = alloca " + this.getAllocated();
+    }
+}
