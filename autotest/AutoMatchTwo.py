@@ -66,4 +66,4 @@ if __name__ == '__main__':
 				except:
 					pass
 	else:
-		print('diff at ' + str(diff)dd
+		print('diff at ' + str(diff))
