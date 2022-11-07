@@ -1,5 +1,6 @@
 package midend.ir.value.instr.mem;
 
+import backend.MipsAssembly;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
@@ -41,5 +42,16 @@ public class AllocaInstr extends Instruction {
     @Override
     public String toString() {
         return "\t" + this.getName() + " = alloca " + this.getAllocated();
+    }
+
+    /**
+     * note: alloca Instruction's allocated address are preCalculated
+     * address are definite and constant, stored in pointer (this).mipsMemContext
+     * don't need to load to register
+     */
+    public void toAssembly(MipsAssembly assembly) {
+        if (this.getMipsMemContex().getOffset() == -1) {
+            throw new Error("address hasn't been pre-calculated");
+        }
     }
 }

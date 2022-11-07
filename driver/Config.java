@@ -11,7 +11,7 @@ public class Config {
     private boolean debugMode = true;
     private OutputLevel defaultOutputLevel = OutputLevel.SYNTAX;
     private ArrayList<OutputLevel> defaultOutputLevels = new ArrayList<>(
-            Arrays.asList(OutputLevel.ERROR, OutputLevel.SYNTAX, OutputLevel.MIDCODE));
+            Arrays.asList(OutputLevel.ERROR, OutputLevel.SYNTAX, OutputLevel.MIDCODE, OutputLevel.MIPS));
 
     private String sourceFileName = "testfile.txt";
     private HashMap<OutputLevel, String> outputLevel2TargetName = new HashMap<>();
@@ -26,7 +26,7 @@ public class Config {
         outputLevel2TargetName.put(OutputLevel.SYNTAX, "output.txt");
         outputLevel2TargetName.put(OutputLevel.AST, "testfile_ast.txt");
         outputLevel2TargetName.put(OutputLevel.ERROR, "error.txt");
-        outputLevel2TargetName.put(OutputLevel.MIDCODE, "output_llvm.txt");
+        outputLevel2TargetName.put(OutputLevel.MIDCODE, "llvm_ir.txt");
         outputLevel2TargetName.put(OutputLevel.MIPS, "mips.txt");
         for (OutputLevel level : defaultOutputLevels) {
             try {
@@ -129,12 +129,15 @@ public class Config {
     }
 
     public enum Optimize {
-        syntaxTreeExpressionOptimize
+        syntaxTreeExpressionOptimize,
+        llvmMem2Reg,
+        lruLocalRegAlloc
     }
     //syntaxTreeExpressionOptimize is a must have
 
     private void setOptimizeLevel(int o) {
         this.optimizeLevels.add(Optimize.syntaxTreeExpressionOptimize);
+        this.optimizeLevels.add(Optimize.lruLocalRegAlloc);
     }
 
     public boolean hasOptimize(Optimize optimize) {

@@ -1,7 +1,6 @@
 package frontend.syntax.stmt.ast;
 
 import frontend.error.Error;
-import frontend.symbol.FuncSymbol;
 import frontend.symbol.LValSymbol;
 import frontend.symbol.SymbolTable;
 import frontend.syntax.NodeBase;
@@ -13,6 +12,7 @@ import frontend.syntax.func.ast.FuncDefNode;
 import frontend.tokenize.Token;
 import midend.ir.ModuleBuilder;
 import midend.ir.Value;
+import midend.ir.type.LLVMType;
 import midend.ir.value.instr.mem.AllocaInstr;
 import midend.ir.value.instr.mem.StoreInstr;
 
@@ -73,10 +73,21 @@ public class BlockNode extends NodeBase implements Scope, Stmt {
         if (this.getParent() instanceof FuncDefNode) {
             ArrayList<LValSymbol> paramSymbols = symbolTable.getCurrentFunction().getParams();
             for (int i = 0; i < paramSymbols.size(); i++) {
+                //TODO!! 对于函数参数取数组，再在函数开始时分配变量会造成二阶指针
+                // / 但是不分配又会造成 符号表里 变量没有对应 pointer的问题
+                // / 可以新设置一个 Value类： Params，类似 globalVar管理
+                // / by the way, for local array, what is the type? nothing wrong with array pointer
                 LValSymbol lValSymbol = paramSymbols.get(i);
-                Value paramPointer = new AllocaInstr(lValSymbol.getLLVMType(), builder.getCurBasicBlock());
                 Value param = builder.getCurFunction().getParams().get(i);
-                new StoreInstr(paramPointer, param, builder.getCurBasicBlock());
+                Value paramPointer;
+                if (param.getType() instanceof LLVMType.Int) {
+                    paramPointer = new AllocaInstr(lValSymbol.getLLVMType(), builder.getCurBasicBlock());
+                    new StoreInstr(paramPointer, param, builder.getCurBasicBlock());
+                } else if (param.getType() instanceof LLVMType.Pointer) {
+                    paramPointer = param;
+                } else {
+                    throw new java.lang.Error("unsupported function param type");
+                }
                 if (symbolTable.getLValSymbol(lValSymbol.getName(), true) == null) {
                     throw new java.lang.Error("func param not found in func scope");
                 }

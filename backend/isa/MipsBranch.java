@@ -25,7 +25,7 @@ public class MipsBranch extends MipsInstruction {
 
     @Override
     public String toString() {
-        return getInstrName() +
+        return getInstrName() + (getInstrName().length() >= 4 ? "\t" : "\t\t") +
                 " $" + src1 +
                 (src2 >= 0 ? ", $" + src2 : "") +
                 ", " + tag;

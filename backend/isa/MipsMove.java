@@ -12,7 +12,7 @@ public class MipsMove extends MipsInstruction {
 
     @Override
     public String toString() {
-        return getInstrName() +
+        return getInstrName() + (getInstrName().length() >= 4 ? "\t" : "\t\t") +
                 " $" + dst +
                 (src >= 0 ? ", $" + src : "");
     }

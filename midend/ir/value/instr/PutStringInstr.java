@@ -1,6 +1,7 @@
 package midend.ir.value.instr;
 
-import midend.ir.Value;
+import backend.MipsAssembly;
+import backend.template.MipsFuncTemplate;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
 
@@ -24,5 +25,10 @@ public class PutStringInstr extends Instruction {
             sb.append("\t").append("call void @putch(i32 ").append(chInt).append(")\n");
         }
         return sb.toString();
+    }
+
+    @Override
+    public void toAssembly(MipsAssembly assembly) {
+        MipsFuncTemplate.mipsPrintStrTemplate(addr, assembly);
     }
 }

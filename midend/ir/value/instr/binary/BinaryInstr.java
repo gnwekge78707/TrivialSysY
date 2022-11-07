@@ -1,11 +1,11 @@
 package midend.ir.value.instr.binary;
 
+import backend.MipsAssembly;
+import backend.template.MipsCalTemplate;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
 import midend.ir.value.instr.Instruction;
-
-import javax.management.remote.JMXServerErrorException;
 
 public class BinaryInstr extends Instruction {
     private Value dstVar; //default = null
@@ -74,5 +74,39 @@ public class BinaryInstr extends Instruction {
         }
         sb.append(getOperand(0).getName() + ", " + getOperand(1).getName());
         return sb.toString();
+    }
+
+    public void toAssembly(MipsAssembly assembly) {
+        Value dst = hasExplicitDstVar() ? dstVar : this;
+        Value src1 = getOperand(0);
+        Value src2 = getOperand(1);
+        switch (this.getInstrType()) {
+            case ADD:
+                MipsCalTemplate.mipsAddTemplate(dst, src1, src2, assembly);
+                break;
+            case EQ:  break;
+            case NE:  break;
+            case OR:  break;
+            case AND:  break;
+            case MUL:
+                MipsCalTemplate.mipsMulTemplate(dst, src1, src2, assembly);
+                break;
+            case SGE:  break;
+            case SLE:  break;
+            case SGT:  break;
+            case SLT:  break;
+            case SUB:
+                MipsCalTemplate.mipsSubTemplate(dst, src1, src2, assembly);
+                break;
+            case XOR:  break;
+            case SDIV:
+                MipsCalTemplate.mipsDivTemplate(dst, src1, src2, assembly);
+                break;
+            case SREM:
+                MipsCalTemplate.mipsModTemplate(dst, src1, src2, assembly);
+                break;
+            default: break;
+        }
+        dst.getMipsMemContex().updateMem(assembly);
     }
 }

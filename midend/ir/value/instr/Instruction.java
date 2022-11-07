@@ -1,6 +1,8 @@
 package midend.ir.value.instr;
 
+import backend.MipsAssembly;
 import midend.ir.User;
+import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
 import midend.ir.value.Constant;
@@ -33,6 +35,21 @@ public abstract class Instruction extends User {
         }
         if (parent != null) {
             this.iNode.insertAtEnd(parent.getInstrList());
+        }
+    }
+
+    public void setPlaceInfo(BasicBlock basicBlock, int lastUseIdxInBB) {
+        this.getMipsMemContex().setPlaceInfo(basicBlock, lastUseIdxInBB);
+        int idx = lastUseIdxInBB;
+        if (getInstrType() == InstrType.CALL) {
+            for (Value value : getOperands()) {
+                idx++;
+                value.getMipsMemContex().setPlaceInfo(basicBlock, idx);
+            }
+        } else {
+            for (Value value : getOperands()) {
+                value.getMipsMemContex().setPlaceInfo(basicBlock, lastUseIdxInBB);
+            }
         }
     }
 
@@ -105,4 +122,8 @@ public abstract class Instruction extends User {
             return true;
         }
     }
+
+    //====================================================================backend support
+
+    public abstract void toAssembly(MipsAssembly assembly);
 }

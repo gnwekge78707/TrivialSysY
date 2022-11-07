@@ -12,11 +12,11 @@ public class Pair<K, V> implements Serializable {
         this.value = value;
     }
 
-    public K getKey() {
+    public K getFirst() {
         return key;
     }
 
-    public V getValue() {
+    public V getSecond() {
         return value;
     }
 

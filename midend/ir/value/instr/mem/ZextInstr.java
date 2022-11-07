@@ -1,5 +1,6 @@
 package midend.ir.value.instr.mem;
 
+import backend.MipsAssembly;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
@@ -33,5 +34,10 @@ public class ZextInstr extends Instruction {
                 .append(getOperand(0).getName())
                 .append(" to i32");
         return sb.toString();
+    }
+
+    @Override
+    public void toAssembly(MipsAssembly assembly) {
+        //TODO
     }
 }

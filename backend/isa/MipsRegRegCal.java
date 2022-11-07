@@ -14,7 +14,7 @@ public class MipsRegRegCal extends MipsInstruction {
 
     @Override
     public String toString() {
-        return getInstrName() +
+        return getInstrName() + (getInstrName().length() >= 4 ? "\t" : "\t\t") +
                 " $" + dst + ", $" + src1 + ", $" + src2;
     }
 }

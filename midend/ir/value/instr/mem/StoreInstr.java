@@ -1,5 +1,7 @@
 package midend.ir.value.instr.mem;
 
+import backend.MipsAssembly;
+import backend.template.MipsMemTemplate;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
@@ -34,5 +36,12 @@ public class StoreInstr extends Instruction {
                 .append(op0.getType() + " " + op0.getName()).append(", ")
                 .append(op1.getType() + " " + op1.getName());
         return sb.toString();
+    }
+
+    @Override
+    public void toAssembly(MipsAssembly assembly) {
+        MipsMemTemplate.mipsStoreTemplate(getSrcValue(), getPointerValue(), assembly);
+        //FIXME! probably set writeBackTag -> false?
+        //FIXME! also, need updateVariable after binary Instr, load, etc...
     }
 }

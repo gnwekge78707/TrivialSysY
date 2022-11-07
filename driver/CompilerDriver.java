@@ -1,5 +1,6 @@
 package driver;
 
+import backend.MipsBuilder;
 import frontend.Source;
 import frontend.error.ErrorBuffer;
 import frontend.exceptions.FrontendBaseException;
@@ -40,19 +41,27 @@ public class CompilerDriver {
             Output.getInstance().display(Config.OutputLevel.ERROR);
         }
 
+
         if (!ErrorBuffer.getInstance().getErrors().isEmpty()) {
             System.out.println("!testfile has error!");
             return;
         }
-        /*
         ModuleBuilder moduleBuilder = new ModuleBuilder();
         rootNode.buildIR(moduleBuilder);
+        moduleBuilder.getModule().dumpLLVM();
         if (Config.getInstance().hasOutputLevel(Config.OutputLevel.MIDCODE)) {
-            moduleBuilder.getModule().dumpLLVM();
             Output.getInstance().display(Config.OutputLevel.MIDCODE);
         }
-        */
+
+
+        MipsBuilder mipsBuilder = new MipsBuilder(moduleBuilder.getModule());
+        mipsBuilder.buildMipsAssembly();
+        mipsBuilder.dumpMipsAssembly();
+        if (Config.getInstance().hasOutputLevel(Config.OutputLevel.MIPS)) {
+            Output.getInstance().display(Config.OutputLevel.MIPS);
+        }
     }
+
 
     public void run() {
         runFrontEnd();

@@ -1,16 +1,14 @@
 package midend.ir.value.instr.terminator;
 
+import backend.MipsAssembly;
+import backend.template.MipsFuncTemplate;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
+import midend.ir.value.Function;
 import midend.ir.value.instr.Instruction;
 
 public class RetInstr extends Instruction {
-    public RetInstr(Value retValue) {
-        super(InstrType.RET, LLVMType.Void.getVoid(), 1);
-        setOperand(0, retValue);
-        setHasDst(false);
-    }
 
     public RetInstr(Value retValue, BasicBlock parent) {
         super(InstrType.RET, LLVMType.Void.getVoid(), 1, parent);
@@ -30,5 +28,13 @@ public class RetInstr extends Instruction {
             sb.append("void");
         }
         return sb.toString();
+    }
+
+    @Override
+    public void toAssembly(MipsAssembly assembly) {
+        assembly.flushLocalRegisters();
+        Function curFunction = this.getParent().getINode().getParent().getHolder();
+        MipsFuncTemplate.mipsFuncRetTemplate(curFunction, getOperand(0), assembly);
+        assembly.initLocalRegisters();
     }
 }

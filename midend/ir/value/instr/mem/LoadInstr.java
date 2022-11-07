@@ -1,5 +1,7 @@
 package midend.ir.value.instr.mem;
 
+import backend.MipsAssembly;
+import backend.template.MipsMemTemplate;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
@@ -43,5 +45,12 @@ public class LoadInstr extends Instruction {
                 .append(op.getType()).append(" ")
                 .append(op.getName());
         return sb.toString();
+    }
+
+    @Override
+    public void toAssembly(MipsAssembly assembly) {
+        Value dst = hasExplicitDstVar() ? dstVar : this;
+        MipsMemTemplate.mipsLoadTemplate(dst, getPointer(), assembly);
+        dst.getMipsMemContex().updateMem(assembly);
     }
 }

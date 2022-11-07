@@ -1,5 +1,7 @@
 package midend.ir.value;
 
+import backend.MipsAssembly;
+import backend.template.MipsOtherTemplate;
 import midend.ir.Module;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
@@ -10,6 +12,11 @@ import java.util.ArrayList;
 public class Function extends Value {
     public static class Param extends Value {
         public Param(LLVMType type) { super(type, ""); }
+
+        @Override
+        public String toString() {
+            return this.getType().toString();
+        }
     }
 
     private IList.INode<Function, Module> iNode = new IList.INode<>(this);
@@ -41,7 +48,8 @@ public class Function extends Value {
     }
 
     public LLVMType getRetType() {
-        return this.getType();
+        assert this.getType() instanceof LLVMType.Function;
+        return ((LLVMType.Function) this.getType()).getRetType();
     }
 
     public boolean isBuiltIn() {
@@ -61,5 +69,17 @@ public class Function extends Value {
         }
         sb.append(")");
         return sb.toString();
+    }
+
+    //====================================================================backend support
+    public void toAssembly(MipsAssembly assembly) {
+        //TODO! distribute local global registers for graphAlloc
+        assembly.initForNewFunction(0);
+        MipsOtherTemplate.mipsProcessComment("function_" + toString() + ":", assembly);
+        MipsOtherTemplate.mipsProcessTag(getName(), assembly);
+        for (IList.INode<BasicBlock, Function> bbNode : bbList) {
+            BasicBlock bb = bbNode.getValue();
+            bb.toAssembly(assembly);
+        }
     }
 }

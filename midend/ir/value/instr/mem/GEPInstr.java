@@ -1,5 +1,6 @@
 package midend.ir.value.instr.mem;
 
+import backend.MipsAssembly;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
@@ -67,5 +68,10 @@ public class GEPInstr extends Instruction {
                     .append(" ").append(getOperand(i).getName());
         }
         return sb.toString();
+    }
+
+    @Override
+    public void toAssembly(MipsAssembly assembly) {
+        //TODO
     }
 }

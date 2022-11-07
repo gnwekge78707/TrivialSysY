@@ -22,6 +22,14 @@ public class GlobalVariable extends User {
         this.inits = inits;
     }
 
+    public Value getInit() {
+        return init;
+    }
+
+    public ArrayList<Value> getInits() {
+        return inits;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

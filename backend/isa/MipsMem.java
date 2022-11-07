@@ -14,7 +14,7 @@ public class MipsMem extends MipsInstruction {
 
     @Override
     public String toString() {
-        return getInstrName() +
+        return getInstrName() + (getInstrName().length() >= 4 ? "\t" : "\t\t") +
                 " $" + reg + ", " + offset + "($" + addr + ")";
     }
 }

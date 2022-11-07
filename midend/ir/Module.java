@@ -18,6 +18,7 @@ public class Module {
     private HashMap<String, Function> libs = new HashMap<>();
 
     private HashMap<String, Integer> strCon2Idx = new HashMap<>();
+
     public Module() { }
 
     public void addGlobalVar(GlobalVariable variable) {
@@ -38,6 +39,10 @@ public class Module {
 
     public void putStrCon(String str, int idx) {
         strCon2Idx.put(str, idx);
+    }
+
+    public HashMap<String, Integer> getStrCon2Idx() {
+        return strCon2Idx;
     }
 
     public void nameVariable() {
@@ -81,7 +86,7 @@ public class Module {
                 continue;
             }
             Output.getInstance().updateBuffer(Config.OutputLevel.MIDCODE,
-                    "\ndefine dso_local " + func + "#" + String.valueOf(funcCnt++) + " {");
+                    "\ndefine dso_local " + func  + " {");
             for (IList.INode<BasicBlock, Function> bbINode : func.getBbList()) {
                 BasicBlock bb = bbINode.getValue();
                 if (!func.getBbList().getEntry().equals(bbINode)) {

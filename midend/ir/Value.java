@@ -13,6 +13,7 @@ public class Value {
         this.type = type;
         this.name = name;
         this.uses = new LinkedList<>();
+        this.mipsMemContex = new MipsMemContex(this);
     }
 
     public LLVMType getType() {
@@ -42,5 +43,13 @@ public class Value {
     @Override
     public String toString() {
         return type.toString() + " " + name;
+    }
+
+    //------------------------------------------------for backend
+
+    private MipsMemContex mipsMemContex;
+
+    public MipsMemContex getMipsMemContex() {
+        return mipsMemContex;
     }
 }

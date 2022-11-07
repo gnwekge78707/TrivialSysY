@@ -12,7 +12,7 @@ public class MipsMulDiv extends MipsInstruction {
 
     @Override
     public String toString() {
-        return getInstrName() +
+        return getInstrName() + (getInstrName().length() >= 4 ? "\t" : "\t\t") +
                 " $" + src1 + ", $" + src2;
     }
 }

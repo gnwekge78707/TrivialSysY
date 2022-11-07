@@ -1,5 +1,6 @@
 package midend.ir.value.instr.terminator;
 
+import backend.MipsAssembly;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
@@ -51,4 +52,8 @@ public class BrInstr extends Instruction {
         return sb.toString();
     }
 
+    @Override
+    public void toAssembly(MipsAssembly assembly) {
+        //TODO
+    }
 }
