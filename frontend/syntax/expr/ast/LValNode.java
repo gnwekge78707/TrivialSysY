@@ -3,13 +3,13 @@ package frontend.syntax.expr.ast;
 import driver.Config;
 import frontend.error.Error;
 import frontend.symbol.LValSymbol;
-import frontend.symbol.Symbol;
 import frontend.syntax.NodeBase;
 import frontend.tokenize.Token;
 import midend.ir.ModuleBuilder;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.Constant;
+import midend.ir.value.instr.mem.GEPInstr;
 import midend.ir.value.instr.mem.LoadInstr;
 import midend.ir.value.instr.mem.StoreInstr;
 
@@ -102,7 +102,7 @@ public class LValNode extends NodeBase implements Calculatable {
     // / but what if AssignNode -> LVal = LVal;
     // / dst是值还是指针 ? 表达式，数组取到值，是值；在实参中去部分维度，是指针；lsh是指针
     // / 数组还要考虑是函数形参的情况，i32**
-    // / LVal as RParam -> foo(a[b+c*2][3]); need to set corresponding pointer as dst
+    // / LVal as RParam -> foo(a[b+c*2][3]); | a[foo(b,2)][2] = 1; need to set corresponding pointer as dst
     private Value dst; // Constant | Instr | NormalVar
     private LValSymbol dstSymbol;
 
@@ -120,7 +120,7 @@ public class LValNode extends NodeBase implements Calculatable {
             dst = new Constant(type, expContext.getValue());
             return;
         }
-        if (exps.size() == 0) {
+        if (!dstSymbol.isArray()) {
             //fixme: be conservative, just load store
             // / in case of very long expr: t = t1+t2+...+t33+t1+t2+... (reg exceeded)
             Value pointer = dstSymbol.getPointer();
@@ -129,15 +129,41 @@ public class LValNode extends NodeBase implements Calculatable {
             //TODO! array reference
             // / if exps.size < symbol.getDims.size, dst is pointer instead of int (this is func real params - arr type)
             // / 上面就是一个 i32*
+            ArrayList<Value> dimValues = new ArrayList<>();
+            for (NodeBase nodeBase : exps) {
+                nodeBase.buildIR(builder);
+                dimValues.add(((Calculatable) nodeBase).getDst());
+            }
+            Value offset = dstSymbol.dimensions2indexAtBase(dimValues, builder);
+            Value pointer = new GEPInstr(dstSymbol.getPointer(), offset, builder.getCurBasicBlock());
+            if (exps.size() < dstSymbol.getDimensions().size()) {
+                dst = pointer;
+            } else {
+                dst = new LoadInstr(((LLVMType.Pointer) pointer.getType()).getPointedTo(), pointer, builder.getCurBasicBlock());
+            }
         }
     }
 
     public void updateValue(Value src, ModuleBuilder builder) {
         if (exps.size() == 0) {
+            if (dstSymbol.isArray()) {
+                throw new java.lang.Error("cannot store value to array without index");
+            }
             Value pointer = dstSymbol.getPointer();
             new StoreInstr(pointer, src, builder.getCurBasicBlock());
         } else {
             //TODO! update array here
+            if (dstSymbol.getDimensions().size() != exps.size()) {
+                throw new java.lang.Error("cannot store value to array without exceeded index");
+            }
+            ArrayList<Value> dimValues = new ArrayList<>();
+            for (NodeBase nodeBase : exps) {
+                nodeBase.buildIR(builder);
+                dimValues.add(((Calculatable) nodeBase).getDst());
+            }
+            Value offset = dstSymbol.dimensions2indexAtBase(dimValues, builder);
+            Value pointer = new GEPInstr(dstSymbol.getPointer(), offset, builder.getCurBasicBlock());
+            new StoreInstr(pointer, src, builder.getCurBasicBlock());
         }
     }
 }

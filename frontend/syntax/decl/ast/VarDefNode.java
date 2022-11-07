@@ -1,10 +1,8 @@
 package frontend.syntax.decl.ast;
 
 import frontend.error.Error;
-import frontend.symbol.FuncSymbol;
 import frontend.symbol.LValSymbol;
 import frontend.syntax.NodeBase;
-import frontend.syntax.RootNode;
 import frontend.syntax.expr.ast.BinaryExpNode;
 import frontend.syntax.expr.ast.ExpContext;
 import frontend.tokenize.Token;

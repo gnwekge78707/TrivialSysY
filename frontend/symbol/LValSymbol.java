@@ -1,15 +1,15 @@
 package frontend.symbol;
 
-import frontend.syntax.NodeBase;
 import frontend.syntax.expr.ast.BinaryExpNode;
 import frontend.tokenize.Token;
+import midend.ir.ModuleBuilder;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.Constant;
-import midend.ir.value.Function;
+import midend.ir.value.instr.Instruction;
+import midend.ir.value.instr.binary.BinaryInstr;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -127,15 +127,38 @@ public class LValSymbol implements Symbol {
         // int a[4][5][6]; base[2]=1 base[1]=6 base[0]=5*6
         // idx for a[2][3][1] -> 30*2 + 6*3 + 1
         for (int i = dimensions.size() - 1; i >= 0; i--) {
-            base[i] = i == dimensions.size() - 1 ? 0 : base[i + 1] * dimensions.get(i - 1);
+            base[i] = (i == dimensions.size() - 1) ? 1 : base[i + 1] * dimensions.get(i + 1);
         }
-        for (int i = 0; i < dims.size() - 1; i++) {
-            if (dims.get(i) >= this.dimensions.get(i)) {
+        for (int i = 0; i < dims.size(); i++) {
+            if (dims.get(i) >= this.dimensions.get(i) && this.getDimensions().get(i) > 0) {
                 throw new Error("dim for array exceeded limits when indexing");
             }
             res = res + base[i] * dims.get(i);
         }
         return res;
+    }
+
+    public Value dimensions2indexAtBase(ArrayList<Value> dims, ModuleBuilder builder) {
+        if (dims.stream().allMatch(u -> (u instanceof Constant))) {
+            ArrayList<Integer> intDims = new ArrayList<>();
+            dims.forEach(u -> intDims.add(((Constant) u).getConstVal()));
+            return new Constant(LLVMType.Int.getI32(), dimensions2indexAtBase(intDims));
+        }
+        int[] base = new int[dimensions.size()];
+        for (int i = dimensions.size() - 1; i >= 0; i--) {
+            base[i] = (i == dimensions.size() - 1) ? 1 : base[i + 1] * dimensions.get(i + 1);
+        }
+        Value res = null;
+        for (int i = 0; i < dims.size(); i++) {
+            Value tempMul = new BinaryInstr(Instruction.InstrType.MUL, dims.get(i),
+                    new Constant(LLVMType.Int.getI32(), base[i]), builder.getCurBasicBlock());
+            if (res == null) {
+                res = tempMul;
+            } else {
+                res = new BinaryInstr(Instruction.InstrType.ADD, res, tempMul, builder.getCurBasicBlock());
+            }
+        }
+        return res == null ? new Constant(LLVMType.Int.getI32(), 0) : res;
     }
 
     public int getArrSize() {

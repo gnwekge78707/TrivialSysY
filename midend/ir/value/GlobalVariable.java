@@ -39,9 +39,9 @@ public class GlobalVariable extends User {
             sb.append(this.init == null ?
                     "0 " : ((Constant) this.init).getConstVal()
             );
-        } else if (((LLVMType.Pointer) this.getType()).getPointedTo() instanceof LLVMType.Array) {
+        } else if (((LLVMType.Pointer) this.getType()).getPointedTo() instanceof LLVMType.Array arrayType) {
+            sb.append(((LLVMType.Pointer) this.getType()).getPointedTo().toString()).append(" ");
             if (this.inits == null) {
-                sb.append(((LLVMType.Pointer) this.getType()).getPointedTo().toString()).append(" ");
                 sb.append("zeroinitializer ");
             } else {
                 //FIXME!! inits toString method unimplemented

@@ -1,6 +1,5 @@
 package driver;
 
-import backend.MipsBuilder;
 import frontend.Source;
 import frontend.error.ErrorBuffer;
 import frontend.exceptions.FrontendBaseException;
@@ -52,7 +51,7 @@ public class CompilerDriver {
         if (Config.getInstance().hasOutputLevel(Config.OutputLevel.MIDCODE)) {
             Output.getInstance().display(Config.OutputLevel.MIDCODE);
         }
-
+/*
 
         MipsBuilder mipsBuilder = new MipsBuilder(moduleBuilder.getModule());
         mipsBuilder.buildMipsAssembly();
@@ -60,6 +59,8 @@ public class CompilerDriver {
         if (Config.getInstance().hasOutputLevel(Config.OutputLevel.MIPS)) {
             Output.getInstance().display(Config.OutputLevel.MIPS);
         }
+
+ */
     }
 
 
