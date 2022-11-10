@@ -44,7 +44,8 @@ public class GEPInstr extends Instruction {
 
     private static LLVMType getPointerValueType(Value value) {
         assert value.getType() instanceof LLVMType.Pointer;
-        if (((LLVMType.Pointer) value.getType()).getPointedTo() instanceof LLVMType.Array pointedArrType) {
+        if (((LLVMType.Pointer) value.getType()).getPointedTo() instanceof LLVMType.Array) {
+            LLVMType.Array pointedArrType = (LLVMType.Array) ((LLVMType.Pointer) value.getType()).getPointedTo();
             return pointedArrType.getType();
         } else {
             if (!(((LLVMType.Pointer) value.getType()).getPointedTo() instanceof LLVMType.Int)) {
@@ -103,7 +104,8 @@ public class GEPInstr extends Instruction {
                 .append(" ")
                 .append(getOperand(0).getName());
         assert basePointer.getType() instanceof LLVMType.Pointer;
-        if (((LLVMType.Pointer) basePointer.getType()).getPointedTo() instanceof LLVMType.Array pointedArrType) {
+        if (((LLVMType.Pointer) basePointer.getType()).getPointedTo() instanceof LLVMType.Array) {
+            LLVMType.Array pointedArrType = (LLVMType.Array) ((LLVMType.Pointer) basePointer.getType()).getPointedTo();
             sb.append(", ").append(pointedArrType.getType()).append(" ").append(0)
                     .append(", ").append(getOperand(1).getName());
         } else {

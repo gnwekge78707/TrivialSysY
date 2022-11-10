@@ -39,7 +39,7 @@ public class GlobalVariable extends User {
             sb.append(this.init == null ?
                     "0 " : ((Constant) this.init).getConstVal()
             );
-        } else if (((LLVMType.Pointer) this.getType()).getPointedTo() instanceof LLVMType.Array arrayType) {
+        } else if (((LLVMType.Pointer) this.getType()).getPointedTo() instanceof LLVMType.Array) {
             sb.append(((LLVMType.Pointer) this.getType()).getPointedTo().toString()).append(" ");
             if (this.inits == null) {
                 sb.append("zeroinitializer ");

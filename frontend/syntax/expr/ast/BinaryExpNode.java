@@ -149,9 +149,14 @@ public class BinaryExpNode extends NodeBase implements Calculatable, Stmt {
                     getSyntaxType().equals(SyntaxType.LANDEXP) ||
                     getSyntaxType().equals(SyntaxType.LOREXP)) {
                 if (expContext.getValue() != 0 && expContext.getValue() != 1) {
-                    throw new Error("condExp has value other than 0,1 ---");
+                    if (getSyntaxType().equals(SyntaxType.RELEXP)) {
+                        dst = new Constant(LLVMType.Int.getI32(), expContext.getValue());
+                    } else {
+                        throw new Error("condExp has value other than 0,1 ---" + expContext.getValue());
+                    }
+                } else {
+                    dst = new Constant(LLVMType.Int.getI1(), expContext.getValue());
                 }
-                dst = new Constant(LLVMType.Int.getI1(), expContext.getValue());
             } else {
                 dst = new Constant(LLVMType.Int.getI32(), expContext.getValue());
             }

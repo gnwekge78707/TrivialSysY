@@ -26,8 +26,8 @@ ________________________________________________________________________________
 __________________________________________________________________________________
 <UnaryExp>      := <PrimaryExp> | <Ident> '(' [ <FuncRParams> ] ')' | <UnaryOp> <UnaryExp> // PrimaryExp 或者 FunctionCall 或者含有一元运算符
 ------------------> /
------------------{| PrimaryExp (ExpNode | LValNode | NumberNode) 
-------------------| FuncCallNode (Token, FuncRParamsNode) 
+-----------------{| PrimaryExp (ExpNode | LValNode | NumberNode)
+------------------| FuncCallNode (Token, FuncRParamsNode)
 ------------------| UnaryExpNode (Token, UnaryExp...)
 __________________________________________________________________________________
 <UnaryOp>       := '+' | '-' | '!'  // '!' 仅能在条件表达式中出现

@@ -39,6 +39,7 @@ public class CompilerDriver {
         if (Config.getInstance().hasOutputLevel(Config.OutputLevel.ERROR)) {
             Output.getInstance().display(Config.OutputLevel.ERROR);
         }
+        System.out.println("frontend finish");
 
 
         if (!ErrorBuffer.getInstance().getErrors().isEmpty()) {

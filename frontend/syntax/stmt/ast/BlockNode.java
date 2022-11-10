@@ -95,7 +95,10 @@ public class BlockNode extends NodeBase implements Scope, Stmt {
             }
         }
         for (NodeBase nodeBase : blockItems) {
-            nodeBase.buildIR(builder);
+            if (nodeBase != null){
+                // in case of a single ';' per blockItem
+                nodeBase.buildIR(builder);
+            }
         }
     }
 }
