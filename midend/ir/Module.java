@@ -92,8 +92,16 @@ public class Module {
                 if (!func.getBbList().getEntry().equals(bbINode)) {
                     Output.getInstance().updateBuffer(Config.OutputLevel.MIDCODE, bb + ":");
                 }
+                boolean afterTerminatorTag = false;
                 for (IList.INode<Instruction, BasicBlock> instrNode : bbINode.getValue().getInstrList()) {
-                    Output.getInstance().updateBuffer(Config.OutputLevel.MIDCODE, instrNode.getValue().toString());
+                    if (!afterTerminatorTag) {
+                        Output.getInstance().updateBuffer(Config.OutputLevel.MIDCODE, instrNode.getValue().toString());
+                    } else {
+                        instrNode.removeSelf();
+                    }
+                    if (instrNode.getValue().getInstrType().isTerminator()) {
+                        afterTerminatorTag = true;
+                    }
                 }
             }
             Output.getInstance().updateBuffer(Config.OutputLevel.MIDCODE, "}");

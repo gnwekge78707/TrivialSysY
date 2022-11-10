@@ -22,6 +22,10 @@ public class PutStringInstr extends Instruction {
         sb.append("\t");
         for (int i = 0; i < strCon.length(); i++) {
             int chInt = strCon.charAt(i);
+            if (strCon.charAt(i) == '\\' && i + 1 < strCon.length() && strCon.charAt(i + 1) == 'n') {
+                chInt = '\n';
+                i++;
+            }
             sb.append("\t").append("call void @putch(i32 ").append(chInt).append(")\n");
         }
         return sb.toString();
