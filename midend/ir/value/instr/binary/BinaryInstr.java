@@ -57,15 +57,15 @@ public class BinaryInstr extends Instruction {
         sb.append("\t").append(this.getName()).append(" = ");
         switch (this.getInstrType()) {
             case ADD: sb.append("add i32 "); break;
-            case EQ: sb.append("icmp eq " + getOperand(0) + " "); break;
-            case NE: sb.append("icmp ne " + getOperand(0) + " "); break;
+            case EQ: sb.append("icmp eq " + getOperand(0).getType() + " "); break;
+            case NE: sb.append("icmp ne " + getOperand(0).getType() + " "); break;
             case OR: sb.append("or i32 "); break;
             case AND: sb.append("and i32 "); break;
             case MUL: sb.append("mul i32 "); break;
-            case SGE: sb.append("icmp sge " + getOperand(0) + " "); break;
-            case SLE: sb.append("icmp sle " + getOperand(0) + " "); break;
-            case SGT: sb.append("icmp sgt " + getOperand(0) + " "); break;
-            case SLT: sb.append("icmp slt " + getOperand(0) + " "); break;
+            case SGE: sb.append("icmp sge " + getOperand(0).getType() + " "); break;
+            case SLE: sb.append("icmp sle " + getOperand(0).getType() + " "); break;
+            case SGT: sb.append("icmp sgt " + getOperand(0).getType() + " "); break;
+            case SLT: sb.append("icmp slt " + getOperand(0).getType() + " "); break;
             case SUB: sb.append("sub i32 "); break;
             case XOR: sb.append("xor i32 "); break;
             case SDIV: sb.append("sdiv i32 "); break;

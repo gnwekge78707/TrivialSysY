@@ -7,8 +7,6 @@ import frontend.syntax.expr.ast.Calculatable;
 import frontend.syntax.expr.ast.ExpContext;
 import midend.ir.ModuleBuilder;
 import midend.ir.value.BasicBlock;
-import midend.ir.value.instr.Instruction;
-import midend.ir.value.instr.terminator.BrInstr;
 
 public class ConditionNode extends NodeBase implements Stmt {
     private NodeBase cond;
@@ -60,6 +58,7 @@ public class ConditionNode extends NodeBase implements Stmt {
         BasicBlock falseBlock = (elseStmt == null) ? nxtBlock :
                 builder.putBasicBlock("else");
         ((BinaryExpNode) cond).setCondBlock(trueBlock, falseBlock);
+        cond.buildIR(builder);
         if (stmt != null) {
             builder.setCurBasicBlock(trueBlock);
             stmt.buildIR(builder);

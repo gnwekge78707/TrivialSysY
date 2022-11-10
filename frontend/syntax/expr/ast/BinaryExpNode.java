@@ -148,8 +148,8 @@ public class BinaryExpNode extends NodeBase implements Calculatable, Stmt {
                     getSyntaxType().equals(SyntaxType.EQEXP) ||
                     getSyntaxType().equals(SyntaxType.LANDEXP) ||
                     getSyntaxType().equals(SyntaxType.LOREXP)) {
-                if (expContext.getValue() != 0 || expContext.getValue() != 1) {
-                    throw new Error("condExp has value other than 0,1");
+                if (expContext.getValue() != 0 && expContext.getValue() != 1) {
+                    throw new Error("condExp has value other than 0,1 ---");
                 }
                 dst = new Constant(LLVMType.Int.getI1(), expContext.getValue());
             } else {
@@ -231,6 +231,7 @@ public class BinaryExpNode extends NodeBase implements Calculatable, Stmt {
             dst = ((Calculatable) children.get(i)).getDst();
             BasicBlock nextBB = (i + 1 == children.size()) ?
                     trueBlock : builder.putBasicBlock("lAnd_nxt");
+            // TODO! maybe can have less icmp?
             dst = new BinaryInstr(Instruction.InstrType.NE, dst, Constant.getConst0(), builder.getCurBasicBlock());
             builder.putBrInstr(dst, nextBB, this.falseBlock, builder.getCurBasicBlock());
             builder.setCurBasicBlock(nextBB);
@@ -246,7 +247,7 @@ public class BinaryExpNode extends NodeBase implements Calculatable, Stmt {
             landExps.get(i).buildIR(builder);
             builder.setCurBasicBlock(nextBB);
         }
-        BinaryExpNode lastLandExp = (BinaryExpNode) exps.get(exps.size() - 1);
+        BinaryExpNode lastLandExp = (BinaryExpNode) landExps.get(landExps.size() - 1);
         lastLandExp.setCondBlock(this.trueBlock, this.falseBlock);
         lastLandExp.buildIR(builder);
     }

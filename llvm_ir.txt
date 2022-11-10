@@ -7,12 +7,34 @@ define dso_local i32 @main() {
 	store i32 0, i32* %1
 	%2 = alloca i32
 	store i32 1, i32* %2
-3:
+	%3 = load i32, i32* %1
+	%4 = load i32, i32* %2
+	%5 = icmp sgt i32 %3, %4
+	%6 = icmp ne i1 %5, 0
+	br i1 %6, label %17, label %10
+7:
 	ret i32 0
-4:
-	ret i32 1
-5:
+8:
+		call void @putch(i32 97)
+	call void @putch(i32 115)
+
+	br label %7
+9:
 		call void @putch(i32 115)
 
-	br label %3
+	br label %7
+10:
+	%11 = load i32, i32* %1
+	%12 = load i32, i32* %2
+	%13 = load i32, i32* %2
+	%14 = mul i32 %12, %13
+	%15 = icmp slt i32 %11, %14
+	%16 = icmp ne i1 %15, 0
+	br i1 %16, label %8, label %9
+17:
+	%18 = load i32, i32* %2
+	%19 = zext i1 0 to i32
+	%20 = icmp ne i32 %18, %19
+	%21 = icmp ne i1 %20, 0
+	br i1 %21, label %8, label %10
 }
