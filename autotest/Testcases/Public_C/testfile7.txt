@@ -21,7 +21,7 @@ int var_name_10[1][2*3/2+3] = {{7,4,0,6,1,6}}, _var_name11[2][1] = {{0},{0}}, va
 
 void fun_name1_() {  // ¼��2������ȴ�С�� 
 	const int fun1_const_1 = 9+19;
-	int fun1_var1__ =  fun1_const_1 + const_name5[4-3] - var_name_10[1][2];
+	int fun1_var1__ =  fun1_const_1 + const_name5[4-3] - var_name_10[0][2];
 	;
 	int fun1_var2, fun1_var3;
 	fun1_var2 = getint();

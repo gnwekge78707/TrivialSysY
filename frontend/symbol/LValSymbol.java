@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 public class LValSymbol implements Symbol {
     private boolean isConst;
+    private boolean constHasInvalidRef = false;
     private Token ident;
     private Token.TokenType declType;
     private ArrayList<Integer> dimensions = new ArrayList<>(); //todo : in function, first dim is 0
@@ -68,6 +69,14 @@ public class LValSymbol implements Symbol {
 
     public String getName() {
         return ident.toString();
+    }
+
+    public void setConstHasInvalidRef(boolean constHasInvalidRef) {
+        this.constHasInvalidRef = constHasInvalidRef;
+    }
+
+    public boolean isConstHasInvalidRef() {
+        return constHasInvalidRef;
     }
 
     //=================================================LLVM below====================================================//
@@ -131,7 +140,7 @@ public class LValSymbol implements Symbol {
         }
         for (int i = 0; i < dims.size(); i++) {
             if (dims.get(i) >= this.dimensions.get(i) && this.getDimensions().get(i) > 0) {
-                throw new Error("dim for array exceeded limits when indexing");
+                throw new Error("dim for array exceeded limits when indexing:" + this.getName());
             }
             res = res + base[i] * dims.get(i);
         }

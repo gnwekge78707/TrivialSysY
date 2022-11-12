@@ -38,19 +38,16 @@ public class ConditionNode extends NodeBase implements Stmt {
 
     @Override
     public void buildIR(ModuleBuilder builder) {
-        if (stmt == null && elseStmt == null) {
-            return;
-        }
         ExpContext condAns = ((Calculatable) cond).getExpContext();
         boolean passThen = condAns.hasValue() && condAns.getValue() == 0;
         boolean passElse = condAns.hasValue() && condAns.getValue() != 0;
         if (Config.getInstance().hasOptimize(Config.Optimize.syntaxTreeExpressionOptimize) && (passElse || passThen)) {
-            if (!passThen && stmt != null) {
+            if (passElse && stmt != null) {
                 stmt.buildIR(builder);
-            }
-            if (!passElse && elseStmt != null) {
+            } else if (passThen && elseStmt != null) {
                 elseStmt.buildIR(builder);
             }
+            return;
         }
         BasicBlock nxtBlock = builder.putBasicBlock("after_br");
         BasicBlock trueBlock = (stmt == null) ? nxtBlock :

@@ -39,7 +39,7 @@ public class VarDeclNode extends NodeBase {
     @Override
     public void buildIR(ModuleBuilder builder) {
         for (NodeBase nodeBase : varDefs) {
-            if (this.getSyntaxType() == SyntaxType.VARDECL) {
+            if (this.getSyntaxType() == SyntaxType.VARDECL || this.getSyntaxType() == SyntaxType.CONSTDECL) {
                 nodeBase.buildIR(builder);
             }
         }

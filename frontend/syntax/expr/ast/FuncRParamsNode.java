@@ -8,6 +8,7 @@ import midend.ir.ModuleBuilder;
 import midend.ir.Value;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 // <FuncRParams>   := <Exp> { ',' <Exp> }
 public class FuncRParamsNode extends NodeBase {
@@ -51,7 +52,7 @@ public class FuncRParamsNode extends NodeBase {
             //FIXME! call function -> void foo(int a[][10]),
             // first implicit dim do not need to make clear %% wont affect indexing
             for (int j = 1; j < newDims.size(); j++) {
-                if (newDims.get(j) != oldDims.get(j)) {
+                if (!Objects.equals(newDims.get(j), oldDims.get(j))) {
                     handleError(Error.ErrorType.MISMATCHED_PARAM_TYPE);
                     break;
                 }

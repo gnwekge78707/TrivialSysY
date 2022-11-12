@@ -12,6 +12,7 @@ import midend.ir.ModuleBuilder;
 import midend.ir.value.instr.Instruction;
 import midend.ir.value.instr.binary.BinaryInstr;
 import midend.ir.value.instr.mem.ZextInstr;
+import midend.ir.value.instr.terminator.BrInstr;
 
 import java.util.ArrayList;
 
@@ -149,13 +150,20 @@ public class BinaryExpNode extends NodeBase implements Calculatable, Stmt {
                     getSyntaxType().equals(SyntaxType.LANDEXP) ||
                     getSyntaxType().equals(SyntaxType.LOREXP)) {
                 if (expContext.getValue() != 0 && expContext.getValue() != 1) {
-                    if (getSyntaxType().equals(SyntaxType.RELEXP)) {
+                    dst = new Constant(LLVMType.Int.getI32(), expContext.getValue());
+                    /*if (getSyntaxType().equals(SyntaxType.RELEXP)) {
                         dst = new Constant(LLVMType.Int.getI32(), expContext.getValue());
                     } else {
                         throw new Error("condExp has value other than 0,1 ---" + expContext.getValue());
-                    }
+                    }*/
                 } else {
                     dst = new Constant(LLVMType.Int.getI1(), expContext.getValue());
+                }
+                //TODO: next, will cope with if(114); if(i || 114)
+                if (getSyntaxType().equals(SyntaxType.LOREXP) ||
+                        getSyntaxType().equals(SyntaxType.LANDEXP)) {
+                    new BrInstr(expContext.getValue() != 0 ? trueBlock : falseBlock, builder.getCurBasicBlock());
+                    builder.setCurBasicBlock(expContext.getValue() != 0 ? trueBlock : falseBlock);
                 }
             } else {
                 dst = new Constant(LLVMType.Int.getI32(), expContext.getValue());

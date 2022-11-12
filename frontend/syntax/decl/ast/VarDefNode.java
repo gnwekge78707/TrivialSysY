@@ -61,12 +61,17 @@ public class VarDefNode extends NodeBase {
         }
     }
 
-    //FIXME!! need to call build on initVal on non-const condition
-    // /i.e. normal var decl,
+    //FIXME!! const int a[10]={...}; int b = a[num];
+    // / 常量数组索引可能不可计算
     @Override
     public void buildIR(ModuleBuilder builder) {
         if (curSymbol == null) {
             throw new java.lang.Error("ident is duplicated when building ir");
+        }
+        boolean isConstDef = this.getSyntaxType() == SyntaxType.CONSTDEF;
+        boolean constNeedDef = isConstDef && curSymbol.isConstHasInvalidRef();
+        if (isConstDef && !constNeedDef) {
+            return;
         }
         if (builder.getCurFunction() == null) {
             GlobalVariable dst;

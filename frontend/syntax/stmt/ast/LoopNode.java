@@ -33,6 +33,8 @@ public class LoopNode extends NodeBase implements Stmt {
 
     @Override
     public void buildIR(ModuleBuilder builder) {
+        // if stmt is null, should we execute condition?
+        // fixme: true, because condition can be a function call. we also need to execute stmt (even is null)
         ExpContext condAns = ((Calculatable) cond).getExpContext();
         if (Config.getInstance().hasOptimize(Config.Optimize.syntaxTreeExpressionOptimize) &&
                 condAns.hasValue() && condAns.getValue() == 0) {
@@ -47,11 +49,13 @@ public class LoopNode extends NodeBase implements Stmt {
         cond.buildIR(builder);
         builder.setCurBasicBlock(bodyBB);
         //push loop cond stack for break/continue
-        builder.getLoopCondBB().push(condBB);
-        builder.getLoopNextBB().push(nextBB);
-        stmt.buildIR(builder);
-        builder.getLoopCondBB().pop();
-        builder.getLoopNextBB().pop();
+        if (stmt != null) {
+            builder.getLoopCondBB().push(condBB);
+            builder.getLoopNextBB().push(nextBB);
+            stmt.buildIR(builder);
+            builder.getLoopCondBB().pop();
+            builder.getLoopNextBB().pop();
+        }
         //pop
         builder.putBrInstr(condBB, builder.getCurBasicBlock());
         //fixme: curBB may change as builder encounter new bb in loop_body

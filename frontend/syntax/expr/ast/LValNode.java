@@ -63,6 +63,11 @@ public class LValNode extends NodeBase implements Calculatable {
                 Calculatable exp = (Calculatable) nodeBase;
                 if (!exp.getExpContext().hasValue()) {
                     this.expContext = new ExpContext(0, symbol.isConst(), false, new ArrayList<>());
+                    if (symbol.isConst()) {
+                        //TODO: can be -> const int a[]={}; a[num]
+                        System.out.println("setConstHasInvalidRef::" + symbol.getName());
+                        symbol.setConstHasInvalidRef(true);
+                    }
                     return;
                 }
                 if (exp.getExpContext().getValue() >= symbol.getDimensions().get(dims.size())) {
@@ -105,6 +110,16 @@ public class LValNode extends NodeBase implements Calculatable {
     // / LVal as RParam -> foo(a[b+c*2][3]); | a[foo(b,2)][2] = 1; need to set corresponding pointer as dst
     private Value dst; // Constant | Instr | NormalVar
     private LValSymbol dstSymbol;
+
+    /**
+     * dstSymbol 巧妙解决不同scope重定义问题::
+     * int a = 10;
+     * void f() {
+     * printf("%d ", a);
+     * int a = 100;
+     * printf("%d ", a);
+     * }
+     */
 
     public Value getDst() {
         return dst;
