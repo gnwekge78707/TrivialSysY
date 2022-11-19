@@ -1,9 +1,11 @@
 package midend.ir.value.instr.mem;
 
 import backend.MipsAssembly;
+import backend.template.MipsCalTemplate;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
+import midend.ir.value.Constant;
 import midend.ir.value.instr.Instruction;
 
 public class ZextInstr extends Instruction {
@@ -38,6 +40,14 @@ public class ZextInstr extends Instruction {
 
     @Override
     public void toAssembly(MipsAssembly assembly) {
-        //TODO
+        //FIXME!
+        if (getOperand(0) instanceof Constant) {
+            MipsCalTemplate.mipsInitNumTemplate(
+                    this.getMipsMemContex().appointRegister(assembly),
+                    ((Constant) getOperand(0)).getConstVal(),
+                    assembly);
+        } else {
+            this.setMipsMemContex(getOperand(0).getMipsMemContex());
+        }
     }
 }

@@ -167,7 +167,7 @@ public class MipsAssembly {
                     // therefore do not need to write back
                     //FIXME! here if
                     /*
-                     * # 	%49 = load i32, i32* %32
+                     *      # 	%49 = load i32, i32* %32
                      * 		sw		 $30, 184($29)
                      * 		lw		 $30, 128($29)
                      * 		# 	%50 = call i32 @foo()

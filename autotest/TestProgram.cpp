@@ -7,97 +7,55 @@ int getint() {
     return ret;
 }
 
-int g1, g2, g3;
-int e1 = 1, f1 = 1, f2 = 1;
-int i1 = 2, i2; 
-int a9[10];
-int a12[10][10];
-int h1[10], h2[10][10], h3;
-const int c = 10, f3 = 5;
-const int c1[2] = {1,2};
+const int a = 1;
+const int b = 2 * 6 + 1, _a_b[2%2+1] = {5}, _a_3_b[2/2+1][2*1-1] = {{0},{3452%2+4*3}};
+int c, d[2%2+1], _a_4_b[2/2+1][2*1-1] = {{0},{3452%2+4*3}}, z;
+int _d_e =  1;
+int glo_1, glo_2, glo_3, glo_4, glo_5, glo_6, glo_7, glo_8, glo_9;
 
-void add_machine( int e1, int f1, int f2 ){
-	int g1, g2, g3;
-	return;
-}		
-			
-int arr_check_2( int a[][4], int e1, int f1 ){
-	return 1;
-}
-
-void arr_check_1( int a[] ){
-	int b = 1;
-	printf("%d\n", b);
-	return;
-}
-
-int main()
-{	
-	int a1;
-	int arr_check_2 = 1;
-	int a2 = 2;
-	int g1 = 0, g2 = 0, g3 = 0;
-	int a3 = 1, a4 = 2, a5 = 0;
-	int e1 = 2, f1 = 2, f2 = 2;
-	int h1 = 3, h2[3] = {1, 2, 3}, h3;
-	const int b1 = 1;
-	const int a6 = 1, a7 = 2, a8 = 3;	
-	int c = 20;
-	int a10[10] = {1,1,1,1,1,2,2,2,2,2};
-	int a13[4][4] = {{1,2,3,4}, {1,2,3,4}, {1,2,3,4}, {1,2,3,4}};
-	const int a15[2] = {1,1};
-	const int a14[2][2] = {{1,2}, {2,3}};
+void test_1(int var_1, int var_2[], int var_3[][1]){
+	c = var_1 + var_2[0] + var_3[0][0];
 	
-	add_machine( e1 + arr_check_2, f1, f2 );
-	
-	printf("20373608\n");
-	arr_check_1( a13[0] );
-	arr_check_1( a10 );
+} 
 
-	a1 = 4 + c + e1;
-	a9[0] = 1;
-	a9[1] = 2;
-	a12[0][0] = 2;
-	a2 = 0;
-	a3 = 0;
-	g1 = g1 + 4;
-	printf("this is outside g1 %d\n", g1);
-	a13[0][1] = a13[0][1] + g1;
-	{
-		int g1 = 2, g2, g3;
-		int h1, h2, h3;
-		g1 = g1 + 1; 
-		a9[0] = g1 + 1; 
-		printf("this is inside g1 %d\n", g1);
-	}
-	g1 = g1 + 1;
-	printf("this is outside g1 %d agsin\n", g1);
-	while( a2 <= 9 ){
-		a3 = 0;
-		while( a3 <= 9 ){
-			a12[a2][a3] = 1;
-			a3 = a3 + 1;
+int main() {
+	const int f = 1;
+	const int g = 2 * 6 + 1, _a_b_[2%2+1] = {a}, _a_3_b_d[2/2+1][2*1-1] = {{0},{3452%2+4*3}};
+	int c, d[2%2+1], _a_4_b_d[2/2+1][2*1-1] = {{0},{3452%2+4*3}};
+	int _d_e_g = (_a_3_b_d[0][0] + _a_4_b_d[0][0]) * b + 1;
+	d[0] = 1;
+	_a_4_b_d[0][0] = 1;
+	c = _d_e_g + _a_4_b_d[0][0];
+	glo_1 = getint();
+	glo_2 = getint();
+	glo_3 = getint();
+	glo_4 = getint();
+	glo_5 = getint();
+	glo_6 = getint();
+	glo_7 = getint();
+	glo_8 = getint();
+	glo_9 = getint();
+	test_1(c, d, _a_4_b_d);
+	while(glo_9 > 0 || glo_8 > 0 && glo_7 > 0) {
+		if(glo_2>2) {
+			glo_2 = glo_2 - 1;
+			continue;
+		} else {
+			glo_2 = glo_2 - 1;
+			glo_1 = glo_1 - 1;
+			if (glo_1 < 0)
+				break;
 		}
-		a2 = a2 + 1;
 	}
-	if( a2 > 1 ){
-		a2 = a2 - 1;
-		a2 = +1;
-		a2 = -1;
-	}
-	else{
-		a2 = a2 + 1;
-	}
-	if( a2 > 1 ){
-		;
-	}
-	if( a2 > 1 ){
-		
-	}
-	printf("a9[0] is %d\n", a9[0]);
-	printf("a13[0][1] is %d\n", a13[0][1]);
-	printf("a13[0][2] is %d\n", a13[0][2]);
-	printf("a12[9][9] is %d", a12[9][9]);
+	printf("19231076\n");
+	printf(">/!~varg1 is:%d;~\n", glo_1);
+	printf(">/!~varg2 is:%d;~\n", glo_2);
+	printf(">/!~varg3 is:%d;~\n", glo_3);
+	printf(">/!~varg4 is:%d;~\n", glo_4);
+	printf(">/!~varg5 is:%d;~\n", glo_5);
+	printf(">/!~varg6 is:%d;~\n", glo_6);
+	printf(">/!~varg7 is:%d;~\n", glo_7);
+	printf(">/!~varg8 is:%d;~\n", glo_8);
+	printf(">/!~varg9 is:%d;~\n", glo_9);
 	return 0;
 }
-

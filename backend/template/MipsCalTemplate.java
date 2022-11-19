@@ -11,10 +11,11 @@ public class MipsCalTemplate {
             assembly.addObjectCode(MipsInstruction.getAddiu(dstReg, srcReg, num));
         }
         else {
-            MipsCalTemplate.mipsInitNumTemplate(MipsAssembly.at, num, assembly);
             if (num >= 0) {
+                MipsCalTemplate.mipsInitNumTemplate(MipsAssembly.at, num, assembly);
                 assembly.addObjectCode(MipsInstruction.getAddu(dstReg, srcReg, MipsAssembly.at));
             } else {
+                MipsCalTemplate.mipsInitNumTemplate(MipsAssembly.at, -num, assembly);
                 assembly.addObjectCode(MipsInstruction.getSubu(dstReg, srcReg, MipsAssembly.at));
             }
         }
@@ -25,6 +26,12 @@ public class MipsCalTemplate {
     }
 
     public static void mipsInitNumTemplate(int dstReg, int num, MipsAssembly assembly) {
+        if (num < 0) {
+            mipsInitNumTemplate(dstReg, -num, assembly);
+            assembly.addObjectCode(MipsInstruction.getSubu(dstReg, MipsAssembly.zero, dstReg));
+            return;
+        }
+
         if (Short.MIN_VALUE <= num && num <= Short.MAX_VALUE) {
             assembly.addObjectCode(MipsInstruction.getAddiu(dstReg, MipsAssembly.zero, num));
         }
@@ -81,7 +88,10 @@ public class MipsCalTemplate {
         else if (src2 instanceof Constant) {
             int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
             int dstReg = dst.getMipsMemContex().appointRegister(assembly);
-            mipsAddNumTemplate(dstReg, srcReg, -((Constant) src2).getConstVal(), assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSubu(dstReg, srcReg, MipsAssembly.at));
+            // FIXME!!! - addNum Of minus number may cause problem when we are initNum
+            //mipsAddNumTemplate(dstReg, srcReg, -((Constant) src2).getConstVal(), assembly);
         }
         else {
             int src1Reg = src1.getMipsMemContex().loadToRegister(assembly);
@@ -178,6 +188,180 @@ public class MipsCalTemplate {
             int dstReg = dst.getMipsMemContex().appointRegister(assembly);
             assembly.addObjectCode(MipsInstruction.getDiv(src1Reg, src2Reg));
             assembly.addObjectCode(MipsInstruction.getMfhi(dstReg));
+        }
+    }
+
+    //todo ______________________________________________________________________________________________________logical
+
+    public static void mipsSleTemplate(Value dst, Value src1, Value src2, MipsAssembly assembly) {
+        if (src1 instanceof Constant && src2 instanceof Constant) {
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(dstReg,
+                    ((Constant) src1).getConstVal() <= ((Constant) src2).getConstVal() ? 1 : 0,
+                    assembly);
+        }
+        else if (src1 instanceof Constant) {
+            int srcReg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src1).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSle(dstReg, MipsAssembly.at, srcReg));
+        }
+        else if (src2 instanceof Constant) {
+            int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSle(dstReg, srcReg, MipsAssembly.at));
+        }
+        else {
+            int src1Reg = src1.getMipsMemContex().loadToRegister(assembly);
+            int src2Reg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            assembly.addObjectCode(MipsInstruction.getSle(dstReg, src1Reg, src2Reg));
+        }
+    }
+
+    public static void mipsSltTemplate(Value dst, Value src1, Value src2, MipsAssembly assembly) {
+        if (src1 instanceof Constant && src2 instanceof Constant) {
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(dstReg,
+                    ((Constant) src1).getConstVal() < ((Constant) src2).getConstVal() ? 1 : 0,
+                    assembly);
+        }
+        else if (src1 instanceof Constant) {
+            int srcReg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src1).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSlt(dstReg, MipsAssembly.at, srcReg));
+        }
+        else if (src2 instanceof Constant) {
+            int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            int constVal = ((Constant) src2).getConstVal();
+            if (Short.MIN_VALUE <= constVal && constVal <= Short.MAX_VALUE) {
+                assembly.addObjectCode(MipsInstruction.getSlti(dstReg, srcReg, constVal));
+            } else {
+                mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
+                assembly.addObjectCode(MipsInstruction.getSlt(dstReg, srcReg, MipsAssembly.at));
+            }
+        }
+        else {
+            int src1Reg = src1.getMipsMemContex().loadToRegister(assembly);
+            int src2Reg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            assembly.addObjectCode(MipsInstruction.getSlt(dstReg, src1Reg, src2Reg));
+        }
+    }
+
+    public static void mipsSgeTemplate(Value dst, Value src1, Value src2, MipsAssembly assembly) {
+        if (src1 instanceof Constant && src2 instanceof Constant) {
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(dstReg,
+                    ((Constant) src1).getConstVal() >= ((Constant) src2).getConstVal() ? 1 : 0,
+                    assembly);
+        }
+        else if (src1 instanceof Constant) {
+            int srcReg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src1).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSge(dstReg, MipsAssembly.at, srcReg));
+        }
+        else if (src2 instanceof Constant) {
+            int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSge(dstReg, srcReg, MipsAssembly.at));
+        }
+        else {
+            int src1Reg = src1.getMipsMemContex().loadToRegister(assembly);
+            int src2Reg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            assembly.addObjectCode(MipsInstruction.getSge(dstReg, src1Reg, src2Reg));
+        }
+    }
+
+    public static void mipsSgtTemplate(Value dst, Value src1, Value src2, MipsAssembly assembly) {
+        if (src1 instanceof Constant && src2 instanceof Constant) {
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(dstReg,
+                    ((Constant) src1).getConstVal() > ((Constant) src2).getConstVal() ? 1 : 0,
+                    assembly);
+        }
+        else if (src1 instanceof Constant) {
+            int srcReg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            int constVal = ((Constant) src1).getConstVal();
+            if (Short.MIN_VALUE <= constVal && constVal <= Short.MAX_VALUE) {
+                assembly.addObjectCode(MipsInstruction.getSlti(dstReg, srcReg, constVal));
+            } else {
+                mipsInitNumTemplate(MipsAssembly.at, ((Constant) src1).getConstVal(), assembly);
+                assembly.addObjectCode(MipsInstruction.getSgt(dstReg, MipsAssembly.at, srcReg));
+            }
+        }
+        else if (src2 instanceof Constant) {
+            int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSgt(dstReg, srcReg, MipsAssembly.at));
+        }
+        else {
+            int src1Reg = src1.getMipsMemContex().loadToRegister(assembly);
+            int src2Reg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            assembly.addObjectCode(MipsInstruction.getSgt(dstReg, src1Reg, src2Reg));
+        }
+    }
+
+    public static void mipsSneTemplate(Value dst, Value src1, Value src2, MipsAssembly assembly) {
+        if (src1 instanceof Constant && src2 instanceof Constant) {
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(dstReg,
+                    ((Constant) src1).getConstVal() != ((Constant) src2).getConstVal() ? 1 : 0,
+                    assembly);
+        }
+        else if (src1 instanceof Constant) {
+            int srcReg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src1).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSne(dstReg, MipsAssembly.at, srcReg));
+        }
+        else if (src2 instanceof Constant) {
+            int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSne(dstReg, srcReg, MipsAssembly.at));
+        }
+        else {
+            int src1Reg = src1.getMipsMemContex().loadToRegister(assembly);
+            int src2Reg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            assembly.addObjectCode(MipsInstruction.getSne(dstReg, src1Reg, src2Reg));
+        }
+    }
+
+    public static void mipsSeqTemplate(Value dst, Value src1, Value src2, MipsAssembly assembly) {
+        if (src1 instanceof Constant && src2 instanceof Constant) {
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(dstReg,
+                    ((Constant) src1).getConstVal() == ((Constant) src2).getConstVal() ? 1 : 0,
+                    assembly);
+        }
+        else if (src1 instanceof Constant) {
+            int srcReg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src1).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSeq(dstReg, MipsAssembly.at, srcReg));
+        }
+        else if (src2 instanceof Constant) {
+            int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
+            assembly.addObjectCode(MipsInstruction.getSeq(dstReg, srcReg, MipsAssembly.at));
+        }
+        else {
+            int src1Reg = src1.getMipsMemContex().loadToRegister(assembly);
+            int src2Reg = src2.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            assembly.addObjectCode(MipsInstruction.getSeq(dstReg, src1Reg, src2Reg));
         }
     }
 

@@ -11,16 +11,16 @@ import midend.ir.value.instr.Instruction;
 public class RetInstr extends Instruction {
 
     public RetInstr(Value retValue, BasicBlock parent) {
-        super(InstrType.RET, LLVMType.Void.getVoid(), 1, parent);
+        super(InstrType.RET, LLVMType.Void.getVoid(), retValue != null ? 1 : 0, parent);
         setHasDst(false);
-        setOperand(0, retValue);
+        if (retValue != null) setOperand(0, retValue);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\t").append("ret ");
-        if (this.getOperand(0) != null) {
+        if (this.getOperandNum() > 0) {
             sb.append(this.getOperand(0).getType())
                     .append(" ")
                     .append(this.getOperand(0).getName());
@@ -34,7 +34,7 @@ public class RetInstr extends Instruction {
     public void toAssembly(MipsAssembly assembly) {
         assembly.flushLocalRegisters();
         Function curFunction = this.getParent().getINode().getParent().getHolder();
-        MipsFuncTemplate.mipsFuncRetTemplate(curFunction, getOperand(0), assembly);
+        MipsFuncTemplate.mipsFuncRetTemplate(curFunction, this.getOperandNum() > 0 ? getOperand(0) : null, assembly);
         assembly.initLocalRegisters();
     }
 }

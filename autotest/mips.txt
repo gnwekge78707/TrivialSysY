@@ -1,0 +1,428 @@
+.data
+	global:
+	0 0 0 12 0 1 0 0 0 0 0 0 0 0 0 
+	str_1: .asciiz ">/!~varg1 is:"
+	str_7: .asciiz ">/!~varg6 is:"
+	str_3: .asciiz ">/!~varg2 is:"
+	str_0: .asciiz "19231076\n"
+	str_10: .asciiz ">/!~varg9 is:"
+	str_2: .asciiz ";~\n"
+	str_4: .asciiz ">/!~varg3 is:"
+	str_5: .asciiz ">/!~varg4 is:"
+	str_6: .asciiz ">/!~varg5 is:"
+	str_8: .asciiz ">/!~varg7 is:"
+	str_9: .asciiz ">/!~varg8 is:"
+
+
+.text
+		la $28, global
+		addiu	 $29, $29, -244
+
+# function_i32 @main():
+		main:
+	# basicBlock_0
+		# 	%1 = alloca i32
+		# 	%2 = alloca [1 x i32]
+		# 	%3 = alloca [2 x i32]
+		# 	%4 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 0
+		addiu	 $5, $29, 12
+		# 	store i32 0, i32* %4
+		addiu	 $1, $0, 0
+		sw		 $1, 0($5)
+		# 	%5 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 1
+		addiu	 $6, $29, 16
+		# 	store i32 12, i32* %5
+		addiu	 $1, $0, 12
+		sw		 $1, 0($6)
+		# 	%6 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 0
+		addiu	 $7, $29, 12
+		# 	%7 = load i32, i32* %6
+		lw		 $8, 0($7)
+		# 	%8 = add i32 0, %7
+		addiu	 $9, $8, 0
+		# 	%9 = mul i32 %8, 13
+		addiu	 $1, $0, 13
+		mult	 $9, $1
+		mflo	 $10
+		# 	%10 = add i32 %9, 1
+		addiu	 $11, $10, 1
+		# 	%11 = alloca i32
+		# 	store i32 %10, i32* %11
+		sw		 $11, 48($29)
+		# 	%12 = getelementptr [1 x i32], [1 x i32]* %2, i32 0, i32 0
+		addiu	 $12, $29, 8
+		# 	store i32 1, i32* %12
+		addiu	 $1, $0, 1
+		sw		 $1, 0($12)
+		# 	%13 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 0
+		addiu	 $13, $29, 12
+		# 	store i32 1, i32* %13
+		addiu	 $1, $0, 1
+		sw		 $1, 0($13)
+		# 	%14 = load i32, i32* %11
+		lw		 $14, 48($29)
+		# 	%15 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 0
+		addiu	 $15, $29, 12
+		# 	%16 = load i32, i32* %15
+		lw		 $16, 0($15)
+		# 	%17 = add i32 %14, %16
+		addu	 $17, $14, $16
+		# 	store i32 %17, i32* %1
+		sw		 $17, 4($29)
+		# 	%18 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $18, $2, $0
+		# 	store i32 %18, i32* @glo_1
+		sw		 $18, 24($28)
+		# 	%19 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $19, $2, $0
+		# 	store i32 %19, i32* @glo_2
+		sw		 $19, 28($28)
+		# 	%20 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $20, $2, $0
+		# 	store i32 %20, i32* @glo_3
+		sw		 $20, 32($28)
+		# 	%21 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $21, $2, $0
+		# 	store i32 %21, i32* @glo_4
+		sw		 $21, 36($28)
+		# 	%22 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $22, $2, $0
+		# 	store i32 %22, i32* @glo_5
+		sw		 $22, 40($28)
+		# 	%23 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $23, $2, $0
+		# 	store i32 %23, i32* @glo_6
+		sw		 $23, 44($28)
+		# 	%24 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $24, $2, $0
+		# 	store i32 %24, i32* @glo_7
+		sw		 $24, 48($28)
+		# 	%25 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $25, $2, $0
+		# 	store i32 %25, i32* @glo_8
+		sw		 $25, 52($28)
+		# 	%26 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $26, $2, $0
+		# 	store i32 %26, i32* @glo_9
+		sw		 $26, 56($28)
+		# 	%27 = load i32, i32* %1
+		lw		 $27, 4($29)
+		# 	%28 = getelementptr [1 x i32], [1 x i32]* %2, i32 0, i32 0
+		addiu	 $30, $29, 8
+		# 	%29 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 0
+		sw		 $30, 116($29)
+		addiu	 $30, $29, 12
+		# 	call void @test_1(i32 %27,i32* %28,i32* %29)
+		sw		 $5, 20($29)
+		sw		 $6, 24($29)
+		sw		 $7, 28($29)
+		sw		 $8, 32($29)
+		sw		 $9, 36($29)
+		sw		 $10, 40($29)
+		sw		 $11, 44($29)
+		sw		 $12, 52($29)
+		sw		 $13, 56($29)
+		sw		 $14, 60($29)
+		sw		 $15, 64($29)
+		sw		 $16, 68($29)
+		sw		 $17, 72($29)
+		sw		 $18, 76($29)
+		sw		 $19, 80($29)
+		sw		 $20, 84($29)
+		sw		 $21, 88($29)
+		sw		 $22, 92($29)
+		sw		 $23, 96($29)
+		sw		 $24, 100($29)
+		sw		 $25, 104($29)
+		sw		 $26, 108($29)
+		sw		 $27, 112($29)
+		sw		 $30, 120($29)
+		sw		 $31, 0($29)
+		sw		 $27, -44($29)
+		sw		 $30, 120($29)
+		lw		 $30, 116($29)
+		sw		 $30, -40($29)
+		lw		 $30, 120($29)
+		sw		 $30, -36($29)
+		addiu	 $29, $29, -48
+		jal test_1
+		addiu	 $29, $29, 48
+		lw		 $31, 0($29)
+		# 	br label %30
+		j main_30
+	# basicBlock_30
+		main_30:
+		# 	%31 = load i32, i32* @glo_9
+		lw		 $5, 56($28)
+		# 	%32 = icmp sgt i32 %31, 0
+		addiu	 $1, $0, 0
+		sgt		 $6, $5, $1
+		# 	%33 = icmp ne i1 %32, 0
+		# 	br i1 %33, label %34, label %48
+		addiu	 $1, $0, 0
+		bne		 $6, $1, main_34
+		j main_48
+	# basicBlock_34
+		main_34:
+		# 	%35 = load i32, i32* @glo_2
+		lw		 $5, 28($28)
+		# 	%36 = icmp sgt i32 %35, 2
+		addiu	 $1, $0, 2
+		sgt		 $6, $5, $1
+		# 	%37 = icmp ne i1 %36, 0
+		# 	br i1 %37, label %57, label %60
+		addiu	 $1, $0, 0
+		bne		 $6, $1, main_57
+		j main_60
+	# basicBlock_38
+		main_38:
+		la $4, str_0
+		addiu	 $2, $0, 4
+		syscall
+		# 	%39 = load i32, i32* @glo_1
+		lw		 $5, 24($28)
+		la $4, str_1
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %39)
+		xor		 $4, $5, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_2
+		addiu	 $2, $0, 4
+		syscall
+		# 	%40 = load i32, i32* @glo_2
+		lw		 $6, 28($28)
+		la $4, str_3
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %40)
+		xor		 $4, $6, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_2
+		addiu	 $2, $0, 4
+		syscall
+		# 	%41 = load i32, i32* @glo_3
+		lw		 $7, 32($28)
+		la $4, str_4
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %41)
+		xor		 $4, $7, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_2
+		addiu	 $2, $0, 4
+		syscall
+		# 	%42 = load i32, i32* @glo_4
+		lw		 $8, 36($28)
+		la $4, str_5
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %42)
+		xor		 $4, $8, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_2
+		addiu	 $2, $0, 4
+		syscall
+		# 	%43 = load i32, i32* @glo_5
+		lw		 $9, 40($28)
+		la $4, str_6
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %43)
+		xor		 $4, $9, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_2
+		addiu	 $2, $0, 4
+		syscall
+		# 	%44 = load i32, i32* @glo_6
+		lw		 $10, 44($28)
+		la $4, str_7
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %44)
+		xor		 $4, $10, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_2
+		addiu	 $2, $0, 4
+		syscall
+		# 	%45 = load i32, i32* @glo_7
+		lw		 $11, 48($28)
+		la $4, str_8
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %45)
+		xor		 $4, $11, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_2
+		addiu	 $2, $0, 4
+		syscall
+		# 	%46 = load i32, i32* @glo_8
+		lw		 $12, 52($28)
+		la $4, str_9
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %46)
+		xor		 $4, $12, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_2
+		addiu	 $2, $0, 4
+		syscall
+		# 	%47 = load i32, i32* @glo_9
+		lw		 $13, 56($28)
+		la $4, str_10
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %47)
+		xor		 $4, $13, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_2
+		addiu	 $2, $0, 4
+		syscall
+		# 	ret i32 0
+		sw		 $5, 148($29)
+		sw		 $6, 152($29)
+		sw		 $7, 156($29)
+		sw		 $8, 160($29)
+		sw		 $9, 164($29)
+		sw		 $10, 168($29)
+		sw		 $11, 172($29)
+		sw		 $12, 176($29)
+		sw		 $13, 180($29)
+		addiu	 $2, $0, 10
+		syscall
+	# basicBlock_48
+		main_48:
+		# 	%49 = load i32, i32* @glo_8
+		lw		 $5, 52($28)
+		# 	%50 = icmp sgt i32 %49, 0
+		addiu	 $1, $0, 0
+		sgt		 $6, $5, $1
+		# 	%51 = icmp ne i1 %50, 0
+		# 	br i1 %51, label %52, label %38
+		addiu	 $1, $0, 0
+		bne		 $6, $1, main_52
+		j main_38
+	# basicBlock_52
+		main_52:
+		# 	%53 = load i32, i32* @glo_7
+		lw		 $5, 48($28)
+		# 	%54 = icmp sgt i32 %53, 0
+		addiu	 $1, $0, 0
+		sgt		 $6, $5, $1
+		# 	%55 = icmp ne i1 %54, 0
+		# 	br i1 %55, label %34, label %38
+		addiu	 $1, $0, 0
+		bne		 $6, $1, main_34
+		j main_38
+	# basicBlock_56
+		main_56:
+		# 	br label %30
+		j main_30
+	# basicBlock_57
+		main_57:
+		# 	%58 = load i32, i32* @glo_2
+		lw		 $5, 28($28)
+		# 	%59 = sub i32 %58, 1
+		addiu	 $1, $0, 1
+		subu	 $6, $5, $1
+		# 	store i32 %59, i32* @glo_2
+		sw		 $6, 28($28)
+		# 	br label %30
+		j main_30
+	# basicBlock_60
+		main_60:
+		# 	%61 = load i32, i32* @glo_2
+		lw		 $5, 28($28)
+		# 	%62 = sub i32 %61, 1
+		addiu	 $1, $0, 1
+		subu	 $6, $5, $1
+		# 	store i32 %62, i32* @glo_2
+		sw		 $6, 28($28)
+		# 	%63 = load i32, i32* @glo_1
+		lw		 $7, 24($28)
+		# 	%64 = sub i32 %63, 1
+		addiu	 $1, $0, 1
+		subu	 $8, $7, $1
+		# 	store i32 %64, i32* @glo_1
+		sw		 $8, 24($28)
+		# 	%65 = load i32, i32* @glo_1
+		lw		 $9, 24($28)
+		# 	%66 = icmp slt i32 %65, 0
+		slti	 $10, $9, 0
+		# 	%67 = icmp ne i1 %66, 0
+		# 	br i1 %67, label %69, label %68
+		addiu	 $1, $0, 0
+		bne		 $10, $1, main_69
+		j main_68
+	# basicBlock_68
+		main_68:
+		# 	br label %56
+		j main_56
+	# basicBlock_69
+		main_69:
+		# 	br label %38
+		j main_38
+
+# function_void @test_1(i32,i32*,i32*):
+		test_1:
+	# basicBlock_3
+		# 	%4 = alloca i32
+		# 	store i32 %0, i32* %4
+		lw		 $5, 4($29)
+		sw		 $5, 16($29)
+		# 	%5 = load i32, i32* %4
+		lw		 $6, 16($29)
+		# 	%6 = getelementptr i32, i32* %1, i32 0
+		lw		 $8, 8($29)
+		addiu	 $7, $0, 0
+		addu	 $7, $7, $8
+		# 	%7 = load i32, i32* %6
+		lw		 $9, 0($7)
+		# 	%8 = add i32 %5, %7
+		addu	 $10, $6, $9
+		# 	%9 = getelementptr i32, i32* %2, i32 0
+		lw		 $12, 12($29)
+		addiu	 $11, $0, 0
+		addu	 $11, $11, $12
+		# 	%10 = load i32, i32* %9
+		lw		 $13, 0($11)
+		# 	%11 = add i32 %8, %10
+		addu	 $14, $10, $13
+		# 	store i32 %11, i32* @c
+		sw		 $14, 0($28)
+		# 	ret void
+		sw		 $6, 20($29)
+		sw		 $7, 24($29)
+		sw		 $9, 28($29)
+		sw		 $10, 32($29)
+		sw		 $11, 36($29)
+		sw		 $13, 40($29)
+		sw		 $14, 44($29)
+		jr $31

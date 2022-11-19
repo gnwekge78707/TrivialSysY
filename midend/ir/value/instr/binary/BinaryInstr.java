@@ -6,6 +6,7 @@ import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
 import midend.ir.value.instr.Instruction;
+import midend.ir.value.instr.terminator.BrInstr;
 
 public class BinaryInstr extends Instruction {
     private Value dstVar; //default = null
@@ -80,21 +81,34 @@ public class BinaryInstr extends Instruction {
         Value dst = hasExplicitDstVar() ? dstVar : this;
         Value src1 = getOperand(0);
         Value src2 = getOperand(1);
+        boolean onlyHaveBrUsage = this.getUses().stream().allMatch(u -> (u.user instanceof BrInstr));
         switch (this.getInstrType()) {
             case ADD:
                 MipsCalTemplate.mipsAddTemplate(dst, src1, src2, assembly);
                 break;
-            case EQ:  break;
-            case NE:  break;
+            case EQ:
+                if (!onlyHaveBrUsage) MipsCalTemplate.mipsSeqTemplate(dst, src1, src2, assembly);
+                break;
+            case NE:
+                if (!onlyHaveBrUsage) MipsCalTemplate.mipsSneTemplate(dst, src1, src2, assembly);
+                break;
             case OR:  break;
             case AND:  break;
             case MUL:
                 MipsCalTemplate.mipsMulTemplate(dst, src1, src2, assembly);
                 break;
-            case SGE:  break;
-            case SLE:  break;
-            case SGT:  break;
-            case SLT:  break;
+            case SGE:
+                if (!onlyHaveBrUsage) MipsCalTemplate.mipsSgeTemplate(dst, src1, src2, assembly);
+                break;
+            case SLE:
+                if (!onlyHaveBrUsage) MipsCalTemplate.mipsSleTemplate(dst, src1, src2, assembly);
+                break;
+            case SGT:
+                if (!onlyHaveBrUsage) MipsCalTemplate.mipsSgtTemplate(dst, src1, src2, assembly);
+                break;
+            case SLT:
+                if (!onlyHaveBrUsage) MipsCalTemplate.mipsSltTemplate(dst, src1, src2, assembly);
+                break;
             case SUB:
                 MipsCalTemplate.mipsSubTemplate(dst, src1, src2, assembly);
                 break;

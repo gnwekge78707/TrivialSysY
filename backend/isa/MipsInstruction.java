@@ -45,8 +45,24 @@ public abstract class MipsInstruction { // Instr Factory
         return new MipsRegRegCal("slt", dst, src1, src2);
     }
 
-    public static MipsRegRegCal getSltu(int dst, int src1, int src2) {
-        return new MipsRegRegCal("sltu", dst, src1, src2);
+    public static MipsRegRegCal getSle(int dst, int src1, int src2) {
+        return new MipsRegRegCal("sle", dst, src1, src2);
+    }
+
+    public static MipsRegRegCal getSgt(int dst, int src1, int src2) {
+        return new MipsRegRegCal("sgt", dst, src1, src2);
+    }
+
+    public static MipsRegRegCal getSge(int dst, int src1, int src2) {
+        return new MipsRegRegCal("sge", dst, src1, src2);
+    }
+
+    public static MipsRegRegCal getSne(int dst, int src1, int src2) {
+        return new MipsRegRegCal("sne", dst, src1, src2);
+    }
+
+    public static MipsRegRegCal getSeq(int dst, int src1, int src2) {
+        return new MipsRegRegCal("seq", dst, src1, src2);
     }
 
     public static MipsRegRegCal getXor(int dst, int src1, int src2) {
@@ -115,7 +131,7 @@ public abstract class MipsInstruction { // Instr Factory
         return new MipsMove("mflo", dst, -1);
     }
     /**
-     *  Load Store on Reg off add ============================================
+     *  Load Store on Reg off add ==========================================
      */
     public static MipsMem getLw(int reg, int offset, int addr) {
         return new MipsMem("lw", reg, offset, addr);
@@ -142,6 +158,35 @@ public abstract class MipsInstruction { // Instr Factory
     public static MipsBranch getBltz(int src, String tag) {
         return new MipsBranch("bltz", src, tag);
     }
+
+    public static MipsBranch getBnez(int src, String tag) {
+        return new MipsBranch("bnez", src, tag);
+    }
+
+    public static MipsBranch getBne(int src1, int src2, String tag) {
+        return new MipsBranch("bne", src1, src2, tag);
+    }
+
+    public static MipsBranch getBeq(int src1, int src2, String tag) {
+        return new MipsBranch("beq", src1, src2, tag);
+    }
+
+    public static MipsBranch getBge(int src1, int src2, String tag) {
+        return new MipsBranch("bge", src1, src2, tag);
+    }
+
+    public static MipsBranch getBgt(int src1, int src2, String tag) {
+        return new MipsBranch("bgt", src1, src2, tag);
+    }
+
+    public static MipsBranch getBle(int src1, int src2, String tag) {
+        return new MipsBranch("ble", src1, src2, tag);
+    }
+
+    public static MipsBranch getBlt(int src1, int src2, String tag) {
+        return new MipsBranch("blt", src1, src2, tag);
+    }
+
     /**
      *  Other Instr on 4 sth ============================================
      */

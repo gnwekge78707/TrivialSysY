@@ -52,4 +52,8 @@ public class Value {
     public MipsMemContex getMipsMemContex() {
         return mipsMemContex;
     }
+
+    public void setMipsMemContex(MipsMemContex mipsMemContex) {
+        this.mipsMemContex = mipsMemContex;
+    }
 }

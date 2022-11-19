@@ -1,6 +1,7 @@
 package midend.ir.value.instr.mem;
 
 import backend.MipsAssembly;
+import backend.template.MipsMemTemplate;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
@@ -119,5 +120,12 @@ public class GEPInstr extends Instruction {
     @Override
     public void toAssembly(MipsAssembly assembly) {
         //TODO
+        // %dst = gep [i32 x 10], [i32 x 10]* %base, i32 0, i32 %offset
+        // %dst = gep i32, i32* %base, i32 %offset
+        // base是函数参数指针，那它本身就是计算好的地址值 (旧的栈帧里面 有效)，只要加上偏移即可
+        // base是局部数组，那需要计算出 base的绝对地址，然后加上偏移量
+        Value dst = hasExplicitDstVar() ? dstVar : this;
+        MipsMemTemplate.mipsGEPTemplate(dst, basePointer, getOperand(1), assembly);
+        dst.getMipsMemContex().updateMem(assembly);
     }
 }

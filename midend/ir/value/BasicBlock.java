@@ -39,6 +39,8 @@ public class BasicBlock extends Value {
         return iNode.getParent().getHolder();
     }
 
+    public String getMipsTagString() { return getFunction().getName() + "_" + toString(); }
+
     @Override
     public String toString() {
         return getName();
@@ -49,7 +51,7 @@ public class BasicBlock extends Value {
         assembly.initLocalRegisters();
         MipsOtherTemplate.mipsProcessComment("basicBlock_" + this.toString(), assembly);
         if (!getFunction().getBbList().getEntry().getValue().equals(this)) {
-            MipsOtherTemplate.mipsProcessTag(toString() + "_" + getFunction().getName(), assembly);
+            MipsOtherTemplate.mipsProcessTag(getMipsTagString(), assembly);
         }
         int instrIdx = 0;
         for (IList.INode<Instruction, BasicBlock> instrNode : instrList) {

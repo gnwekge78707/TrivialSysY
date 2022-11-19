@@ -22,10 +22,11 @@ public class MipsMemContex {
     //todo: 对于(1)值类型  (2)GEP指针 (3)Param in Function，space offset 为值在 mips中的空间和地址 (字)
     //    / 对于(1)Alloca (2)GlobalVariable指针类型，space offset 为指向变量的空间和地址
 
-    //todo for all offset, 只要不是在直接操作 MipsInstruction.getXXX, 都是字 不是字节
+    //todo for all offset, all is是字节 byte
 
     //FIXME! only consider single layer pointer (no nesting pointer)
     // /只有 Alloca GlobalVariable存的是对应的空间和地址
+    // /数组传参传的如果是局部数组的指针，那 $sp 改变以后地址就失效  所以 base 需要为 0, 需要访问旧的 stackFrame-值还保留着
     public MipsMemContex(Value parent) {
         this.register = this.tempRegister = this.offset = -1;
         this.value = parent;

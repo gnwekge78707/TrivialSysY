@@ -93,3 +93,6 @@
   - 局部变量初始化，可以引用，而且可能出现有控制流的情形：
     - ```int a[1][1]={{1}}; if(x>0)a[0][0]=0;else a[0][0]=2; int b[1][1]={{a[0][0]));```
     - urgent repair -> TODO! FIXME!
+
+## often seen bugs
+- backend, appears `lw $dst, -1($29)`, -1 表示变量的空间没有分配（初始设置为-1）
