@@ -39,7 +39,7 @@ public class BasicBlock extends Value {
         return iNode.getParent().getHolder();
     }
 
-    public String getMipsTagString() { return getFunction().getName() + "_" + toString(); }
+    public String getMipsTagString() { return "bb_" + getFunction().getName() + "_" + toString(); }
 
     @Override
     public String toString() {

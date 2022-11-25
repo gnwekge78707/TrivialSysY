@@ -20,6 +20,7 @@ public class Config {
     private HashMap<OutputLevel, PrintStream> outputLevel2Target = new HashMap<>();
 
     private HashSet<Optimize> optimizeLevels = new HashSet<>();
+    private int defaultOptimizedLevel = 1;
 
     private Config() {
         outputLevel2TargetName.put(OutputLevel.TOKENIZE, "output.txt");
@@ -37,7 +38,7 @@ public class Config {
                 System.err.println("InitConfigErr : target file open failed");
             }
         }
-        setOptimizeLevel(0);
+        setOptimizeLevel(defaultOptimizedLevel);
     }
 
     public boolean isDebugMode() { return debugMode; }
@@ -131,13 +132,21 @@ public class Config {
     public enum Optimize {
         syntaxTreeExpressionOptimize,
         llvmMem2Reg,
-        lruLocalRegAlloc
+        lruLocalRegAlloc,
+        mipsMulDivOptimize
     }
-    //syntaxTreeExpressionOptimize is a must have
+    //syntaxTreeExpressionOptimize is a must-have
 
     private void setOptimizeLevel(int o) {
-        this.optimizeLevels.add(Optimize.syntaxTreeExpressionOptimize);
-        this.optimizeLevels.add(Optimize.lruLocalRegAlloc);
+        if (o == 0) {
+            this.optimizeLevels.add(Optimize.syntaxTreeExpressionOptimize);
+            this.optimizeLevels.add(Optimize.lruLocalRegAlloc);
+        } else if (o == 1) {
+            this.optimizeLevels.add(Optimize.syntaxTreeExpressionOptimize);
+            this.optimizeLevels.add(Optimize.lruLocalRegAlloc);
+            this.optimizeLevels.add(Optimize.mipsMulDivOptimize);
+        }
+
     }
 
     public boolean hasOptimize(Optimize optimize) {

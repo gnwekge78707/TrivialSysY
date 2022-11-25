@@ -7,55 +7,112 @@ int getint() {
     return ret;
 }
 
-const int a = 1;
-const int b = 2 * 6 + 1, _a_b[2%2+1] = {5}, _a_3_b[2/2+1][2*1-1] = {{0},{3452%2+4*3}};
-int c, d[2%2+1], _a_4_b[2/2+1][2*1-1] = {{0},{3452%2+4*3}}, z;
-int _d_e =  1;
-int glo_1, glo_2, glo_3, glo_4, glo_5, glo_6, glo_7, glo_8, glo_9;
+void fun_1(){
+	return;
+}
 
-void test_1(int var_1, int var_2[], int var_3[][1]){
-	c = var_1 + var_2[0] + var_3[0][0];
-	
-} 
+void fun_2(int a){
+	return;
+}
 
-int main() {
-	const int f = 1;
-	const int g = 2 * 6 + 1, _a_b_[2%2+1] = {a}, _a_3_b_d[2/2+1][2*1-1] = {{0},{3452%2+4*3}};
-	int c, d[2%2+1], _a_4_b_d[2/2+1][2*1-1] = {{0},{3452%2+4*3}};
-	int _d_e_g = (_a_3_b_d[0][0] + _a_4_b_d[0][0]) * b + 1;
-	d[0] = 1;
-	_a_4_b_d[0][0] = 1;
-	c = _d_e_g + _a_4_b_d[0][0];
-	glo_1 = getint();
-	glo_2 = getint();
-	glo_3 = getint();
-	glo_4 = getint();
-	glo_5 = getint();
-	glo_6 = getint();
-	glo_7 = getint();
-	glo_8 = getint();
-	glo_9 = getint();
-	test_1(c, d, _a_4_b_d);
-	while(glo_9 > 0 || glo_8 > 0 && glo_7 > 0) {
-		if(glo_2>2) {
-			glo_2 = glo_2 - 1;
-			continue;
-		} else {
-			glo_2 = glo_2 - 1;
-			glo_1 = glo_1 - 1;
-			if (glo_1 < 0)
-				break;
+void fun_3(int a, int b){
+	fun_2(a);
+}
+
+void fun_4(int a, int b, int c){
+	if(a <= b || a < b || a > b || a >= b){
+		if(b <= c && b == a && a != c){
+
 		}
 	}
-	printf("19231076\n");
-	printf(">/!~varg1 is:%d;~\n", glo_1);
-	printf(">/!~varg2 is:%d;~\n", glo_2);
-	printf(">/!~varg3 is:%d;~\n", glo_3);
-	printf(">/!~varg4 is:%d;~\n", glo_4);
-	printf(">/!~varg5 is:%d;~\n", glo_5);
-	printf(">/!~varg6 is:%d;~\n", glo_6);
-	printf(">/!~varg7 is:%d;~\n", glo_7);
-	printf(">/!~varg8 is:%d;~\n", glo_8);
-	printf(">/!~varg9 is:%d;~\n", glo_9);
+
+}
+
+void fun_5(int a[], int b[][2]){
+	int t1 = 2, t2 = 1, t3=0;
+	fun_4(t1, t2, t3 - t2);
+	if(t1 + t2 == 0){
+		fun_4(t1, t2, t3);
+	}else if(t2 + t2 != 0){
+		fun_4(t2, t1, t3);
+		if(t3 == 1){
+			t3 = 0;
+		}
+	}else{
+		return;
+	}
+}
+
+
+void fun_6(){
+	int var_1;
+	var_1 = 1 + 1;
+	var_1 = 1 + 1 * 3;
+	var_1 = 3 * (var_1 / (-2) + 1 % (23 * +2));
+	int a[2][2] = {{1,2}, {1,2}};
+	// func_5(a[1], a);
+	var_1 = var_1 + var_1 / var_1;
+	{
+		int var_1;
+		int var_2[23];
+
+		var_1 = 0;
+		var_1 = 3 % 5;
+		var_1 = var_1 * 5;
+	}
+	return;
+}
+
+void fun_7(int a[]){
+
+}
+
+int funInt(int a, int b[][2]){
+	int var_1[2][2], var_2[1];
+	var_1[1][1] = 2;
+	var_2[0] = 3;
+	int c = 0, d = 0;
+	int i = 0;
+	if(c == 0){
+		c = 1;
+	}
+	while(i < a){
+		if(i == c + d){
+			break;
+		} else {
+			continue;
+		}
+		i = i + 1;
+	}
+
+	while(i < !a || i >= 0){
+		if(i != 0){
+			i = i - 2;
+		}
+		i = i - 1;
+	}
+	return 1;
+}
+
+//	MainFuncDef
+int main(){
+	int n;
+	;
+	n = getint();
+	fun_6();
+	int a[2][2];
+	int b[2];
+	fun_7(a[1]);
+	fun_7(b);
+	printf("19373385");
+	printf("2");
+	printf("3");
+	printf("4");
+	printf("5");
+	printf("6");
+	printf("7");
+	printf("8");
+	printf("9");
+	printf("%d", n);
 	return 0;
 }

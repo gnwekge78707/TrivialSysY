@@ -32,7 +32,7 @@ public class MipsFuncTemplate {
             }
             funcRParams.clear();
             MipsCalTemplate.mipsAddNumTemplate(MipsAssembly.sp, MipsAssembly.sp, -space, assembly);
-            assembly.addObjectCode(MipsInstruction.getJaL(function.getName()));
+            assembly.addObjectCode(MipsInstruction.getJaL(function.getMipsFuncName()));
             MipsCalTemplate.mipsAddNumTemplate(MipsAssembly.sp, MipsAssembly.sp, space, assembly);
             assembly.addObjectCode(MipsInstruction.getLw(MipsAssembly.ra, 0, MipsAssembly.sp));
         }

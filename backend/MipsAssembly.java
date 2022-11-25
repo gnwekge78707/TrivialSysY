@@ -101,7 +101,7 @@ public class MipsAssembly {
         //FIXME! continually call 2 allocReg, they must not be the same
         // /i.e. 一个指令两个操作数，操作数要分配寄存器，寄存器不足的时候，不能一个替换掉另一个
         int replaceIdx = -1;
-        /*
+
         int minLastUseIdx = Integer.MAX_VALUE;
         for (int i = 0; i < localRegisterPool.length; i++) {
             assert allocatedValueBuffer[i] != null;
@@ -116,14 +116,14 @@ public class MipsAssembly {
                 minLastUseIdx = lastUseIdx;
                 replaceIdx = i;
             }
-        }*/
-
+        }
+        /*
         for (int i = 0; i < localRegisterPool.length; i++) {
             assert allocatedValueBuffer[i] != null;
             if (allocatedValueBuffer[i].getMipsMemContex().getLastUseIdxInBB() != dst.getMipsMemContex().getLastUseIdxInBB()) {
                 replaceIdx = i;
             }
-        }
+        }*/
 
         if (allocatedValueBuffer[replaceIdx] != null && regNeedWriteBack[replaceIdx]) {
             allocatedValueBuffer[replaceIdx].getMipsMemContex().writeBackMem(this);

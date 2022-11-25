@@ -125,11 +125,17 @@ public class MipsBuilder {
             dumpStr(".data");
             if (initGlobalVar.size() > 0) {
                 dumpStr("\tglobal:");
+                /*
                 String str = "\t";
                 for (int i = 0; i < initGlobalVar.size(); i++) {
                     str = str + initGlobalVar.get(i) + " ";
+                }*/
+                StringBuilder builder = new StringBuilder();
+                builder.append("\t");
+                for (Integer i : initGlobalVar) {
+                    builder.append(i).append(" ");
                 }
-                dumpStr(str);
+                dumpStr(builder.toString());
             }
             initString.forEach(u -> dumpStr("\t" + u));
         }

@@ -71,12 +71,16 @@ public class Function extends Value {
         return sb.toString();
     }
 
+    public String getMipsFuncName() {
+        return "f_" + super.getName();
+    }
+
     //====================================================================backend support
     public void toAssembly(MipsAssembly assembly) {
         //TODO! distribute local global registers for graphAlloc
         assembly.initForNewFunction(0);
         MipsOtherTemplate.mipsProcessComment("function_" + toString() + ":", assembly);
-        MipsOtherTemplate.mipsProcessTag(getName(), assembly);
+        MipsOtherTemplate.mipsProcessTag(getMipsFuncName(), assembly);
         for (IList.INode<BasicBlock, Function> bbNode : bbList) {
             BasicBlock bb = bbNode.getValue();
             bb.toAssembly(assembly);

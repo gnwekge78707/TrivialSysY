@@ -2,461 +2,539 @@ frontend finish
 declare i32 @getint()
 declare void @putint(i32)
 declare void @putch(i32)
-@c = dso_local global i32 0 
-@d = dso_local global [1 x i32] zeroinitializer 
-@_a_4_b = dso_local global [2 x i32] [i32 0, i32 12]
-@z = dso_local global i32 0 
-@_d_e = dso_local global i32 1
-@glo_1 = dso_local global i32 0 
-@glo_2 = dso_local global i32 0 
-@glo_3 = dso_local global i32 0 
-@glo_4 = dso_local global i32 0 
-@glo_5 = dso_local global i32 0 
-@glo_6 = dso_local global i32 0 
-@glo_7 = dso_local global i32 0 
-@glo_8 = dso_local global i32 0 
-@glo_9 = dso_local global i32 0 
 
-define dso_local void @test_1(i32,i32*,i32*) {
+define dso_local void @fun_1() {
+	ret void
+}
+
+define dso_local void @fun_2(i32) {
+	%2 = alloca i32
+	store i32 %0, i32* %2
+	ret void
+}
+
+define dso_local void @fun_3(i32,i32) {
+	%3 = alloca i32
+	store i32 %0, i32* %3
+	%4 = alloca i32
+	store i32 %1, i32* %4
+	%5 = load i32, i32* %3
+	call void @fun_2(i32 %5)
+	ret void
+}
+
+define dso_local void @fun_4(i32,i32,i32) {
 	%4 = alloca i32
 	store i32 %0, i32* %4
-	%5 = load i32, i32* %4
-	%6 = getelementptr i32, i32* %1, i32 0
-	%7 = load i32, i32* %6
-	%8 = add i32 %5, %7
-	%9 = getelementptr i32, i32* %2, i32 0
-	%10 = load i32, i32* %9
-	%11 = add i32 %8, %10
-	store i32 %11, i32* @c
+	%5 = alloca i32
+	store i32 %1, i32* %5
+	%6 = alloca i32
+	store i32 %2, i32* %6
+	%7 = load i32, i32* %4
+	%8 = load i32, i32* %5
+	%9 = icmp sle i32 %7, %8
+	%10 = icmp ne i1 %9, 0
+	br i1 %10, label %12, label %17
+11:
 	ret void
+12:
+	%13 = load i32, i32* %5
+	%14 = load i32, i32* %6
+	%15 = icmp sle i32 %13, %14
+	%16 = icmp ne i1 %15, 0
+	br i1 %16, label %34, label %32
+17:
+	%18 = load i32, i32* %4
+	%19 = load i32, i32* %5
+	%20 = icmp slt i32 %18, %19
+	%21 = icmp ne i1 %20, 0
+	br i1 %21, label %12, label %22
+22:
+	%23 = load i32, i32* %4
+	%24 = load i32, i32* %5
+	%25 = icmp sgt i32 %23, %24
+	%26 = icmp ne i1 %25, 0
+	br i1 %26, label %12, label %27
+27:
+	%28 = load i32, i32* %4
+	%29 = load i32, i32* %5
+	%30 = icmp sge i32 %28, %29
+	%31 = icmp ne i1 %30, 0
+	br i1 %31, label %12, label %11
+32:
+	br label %11
+33:
+	br label %32
+34:
+	%35 = load i32, i32* %5
+	%36 = load i32, i32* %4
+	%37 = icmp eq i32 %35, %36
+	%38 = icmp ne i1 %37, 0
+	br i1 %38, label %39, label %32
+39:
+	%40 = load i32, i32* %4
+	%41 = load i32, i32* %6
+	%42 = icmp ne i32 %40, %41
+	%43 = icmp ne i1 %42, 0
+	br i1 %43, label %33, label %32
+}
+
+define dso_local void @fun_5(i32*,i32*) {
+	%3 = alloca i32
+	store i32 2, i32* %3
+	%4 = alloca i32
+	store i32 1, i32* %4
+	%5 = alloca i32
+	store i32 0, i32* %5
+	%6 = load i32, i32* %3
+	%7 = load i32, i32* %4
+	%8 = load i32, i32* %5
+	%9 = load i32, i32* %4
+	%10 = sub i32 %8, %9
+	call void @fun_4(i32 %6,i32 %7,i32 %10)
+	%11 = load i32, i32* %3
+	%12 = load i32, i32* %4
+	%13 = add i32 %11, %12
+	%14 = zext i1 0 to i32
+	%15 = icmp eq i32 %13, %14
+	%16 = icmp ne i1 %15, 0
+	br i1 %16, label %18, label %22
+17:
+	ret void
+18:
+	%19 = load i32, i32* %3
+	%20 = load i32, i32* %4
+	%21 = load i32, i32* %5
+	call void @fun_4(i32 %19,i32 %20,i32 %21)
+	br label %17
+22:
+	%23 = load i32, i32* %4
+	%24 = load i32, i32* %4
+	%25 = add i32 %23, %24
+	%26 = zext i1 0 to i32
+	%27 = icmp ne i32 %25, %26
+	%28 = icmp ne i1 %27, 0
+	br i1 %28, label %30, label %38
+29:
+	br label %17
+30:
+	%31 = load i32, i32* %4
+	%32 = load i32, i32* %3
+	%33 = load i32, i32* %5
+	call void @fun_4(i32 %31,i32 %32,i32 %33)
+	%34 = load i32, i32* %5
+	%35 = zext i1 1 to i32
+	%36 = icmp eq i32 %34, %35
+	%37 = icmp ne i1 %36, 0
+	br i1 %37, label %40, label %39
+38:
+	ret void
+39:
+	br label %29
+40:
+	store i32 0, i32* %5
+	br label %39
+}
+
+define dso_local void @fun_6() {
+	%1 = alloca i32
+	store i32 2, i32* %1
+	store i32 4, i32* %1
+	%2 = load i32, i32* %1
+	%3 = sdiv i32 %2, -2
+	%4 = add i32 %3, 1
+	%5 = mul i32 3, %4
+	store i32 %5, i32* %1
+	%6 = alloca [4 x i32]
+	%7 = getelementptr [4 x i32], [4 x i32]* %6, i32 0, i32 0
+	store i32 1, i32* %7
+	%8 = getelementptr [4 x i32], [4 x i32]* %6, i32 0, i32 1
+	store i32 2, i32* %8
+	%9 = getelementptr [4 x i32], [4 x i32]* %6, i32 0, i32 2
+	store i32 1, i32* %9
+	%10 = getelementptr [4 x i32], [4 x i32]* %6, i32 0, i32 3
+	store i32 2, i32* %10
+	%11 = load i32, i32* %1
+	%12 = load i32, i32* %1
+	%13 = load i32, i32* %1
+	%14 = sdiv i32 %12, %13
+	%15 = add i32 %11, %14
+	store i32 %15, i32* %1
+	%16 = alloca i32
+	%17 = alloca [23 x i32]
+	store i32 0, i32* %16
+	store i32 3, i32* %16
+	%18 = load i32, i32* %16
+	%19 = mul i32 %18, 5
+	store i32 %19, i32* %16
+	ret void
+}
+
+define dso_local void @fun_7(i32*) {
+	ret void
+}
+
+define dso_local i32 @funInt(i32,i32*) {
+	%3 = alloca i32
+	store i32 %0, i32* %3
+	%4 = alloca [4 x i32]
+	%5 = alloca [1 x i32]
+	%6 = getelementptr [4 x i32], [4 x i32]* %4, i32 0, i32 3
+	store i32 2, i32* %6
+	%7 = getelementptr [1 x i32], [1 x i32]* %5, i32 0, i32 0
+	store i32 3, i32* %7
+	%8 = alloca i32
+	store i32 0, i32* %8
+	%9 = alloca i32
+	store i32 0, i32* %9
+	%10 = alloca i32
+	store i32 0, i32* %10
+	%11 = load i32, i32* %8
+	%12 = zext i1 0 to i32
+	%13 = icmp eq i32 %11, %12
+	%14 = icmp ne i1 %13, 0
+	br i1 %14, label %16, label %15
+15:
+	br label %17
+16:
+	store i32 1, i32* %8
+	br label %15
+17:
+	%18 = load i32, i32* %10
+	%19 = load i32, i32* %3
+	%20 = icmp slt i32 %18, %19
+	%21 = icmp ne i1 %20, 0
+	br i1 %21, label %22, label %29
+22:
+	%23 = load i32, i32* %10
+	%24 = load i32, i32* %8
+	%25 = load i32, i32* %9
+	%26 = add i32 %24, %25
+	%27 = icmp eq i32 %23, %26
+	%28 = icmp ne i1 %27, 0
+	br i1 %28, label %33, label %34
+29:
+	br label %35
+30:
+	%31 = load i32, i32* %10
+	%32 = add i32 %31, 1
+	store i32 %32, i32* %10
+	br label %17
+33:
+	br label %29
+34:
+	br label %17
+35:
+	%36 = load i32, i32* %10
+	%37 = load i32, i32* %3
+	%38 = icmp eq i32 %37, 0
+	%39 = zext i1 %38 to i32
+	%40 = icmp slt i32 %36, %39
+	%41 = icmp ne i1 %40, 0
+	br i1 %41, label %42, label %48
+42:
+	%43 = load i32, i32* %10
+	%44 = zext i1 0 to i32
+	%45 = icmp ne i32 %43, %44
+	%46 = icmp ne i1 %45, 0
+	br i1 %46, label %55, label %52
+47:
+	ret i32 1
+48:
+	%49 = load i32, i32* %10
+	%50 = icmp sge i32 %49, 0
+	%51 = icmp ne i1 %50, 0
+	br i1 %51, label %42, label %47
+52:
+	%53 = load i32, i32* %10
+	%54 = sub i32 %53, 1
+	store i32 %54, i32* %10
+	br label %35
+55:
+	%56 = load i32, i32* %10
+	%57 = sub i32 %56, 2
+	store i32 %57, i32* %10
+	br label %52
 }
 
 define dso_local i32 @main() {
 	%1 = alloca i32
-	%2 = alloca [1 x i32]
-	%3 = alloca [2 x i32]
-	%4 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 0
-	store i32 0, i32* %4
-	%5 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 1
-	store i32 12, i32* %5
-	%6 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 0
-	%7 = load i32, i32* %6
-	%8 = add i32 0, %7
-	%9 = mul i32 %8, 13
-	%10 = add i32 %9, 1
-	%11 = alloca i32
-	store i32 %10, i32* %11
-	%12 = getelementptr [1 x i32], [1 x i32]* %2, i32 0, i32 0
-	store i32 1, i32* %12
-	%13 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 0
-	store i32 1, i32* %13
-	%14 = load i32, i32* %11
-	%15 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 0
-	%16 = load i32, i32* %15
-	%17 = add i32 %14, %16
-	store i32 %17, i32* %1
-	%18 = call i32 @getint()
-	store i32 %18, i32* @glo_1
-	%19 = call i32 @getint()
-	store i32 %19, i32* @glo_2
-	%20 = call i32 @getint()
-	store i32 %20, i32* @glo_3
-	%21 = call i32 @getint()
-	store i32 %21, i32* @glo_4
-	%22 = call i32 @getint()
-	store i32 %22, i32* @glo_5
-	%23 = call i32 @getint()
-	store i32 %23, i32* @glo_6
-	%24 = call i32 @getint()
-	store i32 %24, i32* @glo_7
-	%25 = call i32 @getint()
-	store i32 %25, i32* @glo_8
-	%26 = call i32 @getint()
-	store i32 %26, i32* @glo_9
-	%27 = load i32, i32* %1
-	%28 = getelementptr [1 x i32], [1 x i32]* %2, i32 0, i32 0
-	%29 = getelementptr [2 x i32], [2 x i32]* %3, i32 0, i32 0
-	call void @test_1(i32 %27,i32* %28,i32* %29)
-	br label %30
-30:
-	%31 = load i32, i32* @glo_9
-	%32 = icmp sgt i32 %31, 0
-	%33 = icmp ne i1 %32, 0
-	br i1 %33, label %34, label %48
-34:
-	%35 = load i32, i32* @glo_2
-	%36 = icmp sgt i32 %35, 2
-	%37 = icmp ne i1 %36, 0
-	br i1 %37, label %57, label %60
-38:
+	%2 = call i32 @getint()
+	store i32 %2, i32* %1
+	call void @fun_6()
+	%3 = alloca [4 x i32]
+	%4 = alloca [2 x i32]
+	%5 = getelementptr [4 x i32], [4 x i32]* %3, i32 0, i32 2
+	call void @fun_7(i32* %5)
+	%6 = getelementptr [2 x i32], [2 x i32]* %4, i32 0, i32 0
+	call void @fun_7(i32* %6)
 		call void @putch(i32 49)
 	call void @putch(i32 57)
-	call void @putch(i32 50)
 	call void @putch(i32 51)
-	call void @putch(i32 49)
-	call void @putch(i32 48)
 	call void @putch(i32 55)
-	call void @putch(i32 54)
-	call void @putch(i32 10)
-
-	%39 = load i32, i32* @glo_1
-		call void @putch(i32 62)
-	call void @putch(i32 47)
-	call void @putch(i32 33)
-	call void @putch(i32 126)
-	call void @putch(i32 118)
-	call void @putch(i32 97)
-	call void @putch(i32 114)
-	call void @putch(i32 103)
-	call void @putch(i32 49)
-	call void @putch(i32 32)
-	call void @putch(i32 105)
-	call void @putch(i32 115)
-	call void @putch(i32 58)
-
-	call void @putint(i32 %39)
-		call void @putch(i32 59)
-	call void @putch(i32 126)
-	call void @putch(i32 10)
-
-	%40 = load i32, i32* @glo_2
-		call void @putch(i32 62)
-	call void @putch(i32 47)
-	call void @putch(i32 33)
-	call void @putch(i32 126)
-	call void @putch(i32 118)
-	call void @putch(i32 97)
-	call void @putch(i32 114)
-	call void @putch(i32 103)
-	call void @putch(i32 50)
-	call void @putch(i32 32)
-	call void @putch(i32 105)
-	call void @putch(i32 115)
-	call void @putch(i32 58)
-
-	call void @putint(i32 %40)
-		call void @putch(i32 59)
-	call void @putch(i32 126)
-	call void @putch(i32 10)
-
-	%41 = load i32, i32* @glo_3
-		call void @putch(i32 62)
-	call void @putch(i32 47)
-	call void @putch(i32 33)
-	call void @putch(i32 126)
-	call void @putch(i32 118)
-	call void @putch(i32 97)
-	call void @putch(i32 114)
-	call void @putch(i32 103)
 	call void @putch(i32 51)
-	call void @putch(i32 32)
-	call void @putch(i32 105)
-	call void @putch(i32 115)
-	call void @putch(i32 58)
-
-	call void @putint(i32 %41)
-		call void @putch(i32 59)
-	call void @putch(i32 126)
-	call void @putch(i32 10)
-
-	%42 = load i32, i32* @glo_4
-		call void @putch(i32 62)
-	call void @putch(i32 47)
-	call void @putch(i32 33)
-	call void @putch(i32 126)
-	call void @putch(i32 118)
-	call void @putch(i32 97)
-	call void @putch(i32 114)
-	call void @putch(i32 103)
-	call void @putch(i32 52)
-	call void @putch(i32 32)
-	call void @putch(i32 105)
-	call void @putch(i32 115)
-	call void @putch(i32 58)
-
-	call void @putint(i32 %42)
-		call void @putch(i32 59)
-	call void @putch(i32 126)
-	call void @putch(i32 10)
-
-	%43 = load i32, i32* @glo_5
-		call void @putch(i32 62)
-	call void @putch(i32 47)
-	call void @putch(i32 33)
-	call void @putch(i32 126)
-	call void @putch(i32 118)
-	call void @putch(i32 97)
-	call void @putch(i32 114)
-	call void @putch(i32 103)
-	call void @putch(i32 53)
-	call void @putch(i32 32)
-	call void @putch(i32 105)
-	call void @putch(i32 115)
-	call void @putch(i32 58)
-
-	call void @putint(i32 %43)
-		call void @putch(i32 59)
-	call void @putch(i32 126)
-	call void @putch(i32 10)
-
-	%44 = load i32, i32* @glo_6
-		call void @putch(i32 62)
-	call void @putch(i32 47)
-	call void @putch(i32 33)
-	call void @putch(i32 126)
-	call void @putch(i32 118)
-	call void @putch(i32 97)
-	call void @putch(i32 114)
-	call void @putch(i32 103)
-	call void @putch(i32 54)
-	call void @putch(i32 32)
-	call void @putch(i32 105)
-	call void @putch(i32 115)
-	call void @putch(i32 58)
-
-	call void @putint(i32 %44)
-		call void @putch(i32 59)
-	call void @putch(i32 126)
-	call void @putch(i32 10)
-
-	%45 = load i32, i32* @glo_7
-		call void @putch(i32 62)
-	call void @putch(i32 47)
-	call void @putch(i32 33)
-	call void @putch(i32 126)
-	call void @putch(i32 118)
-	call void @putch(i32 97)
-	call void @putch(i32 114)
-	call void @putch(i32 103)
-	call void @putch(i32 55)
-	call void @putch(i32 32)
-	call void @putch(i32 105)
-	call void @putch(i32 115)
-	call void @putch(i32 58)
-
-	call void @putint(i32 %45)
-		call void @putch(i32 59)
-	call void @putch(i32 126)
-	call void @putch(i32 10)
-
-	%46 = load i32, i32* @glo_8
-		call void @putch(i32 62)
-	call void @putch(i32 47)
-	call void @putch(i32 33)
-	call void @putch(i32 126)
-	call void @putch(i32 118)
-	call void @putch(i32 97)
-	call void @putch(i32 114)
-	call void @putch(i32 103)
+	call void @putch(i32 51)
 	call void @putch(i32 56)
-	call void @putch(i32 32)
-	call void @putch(i32 105)
-	call void @putch(i32 115)
-	call void @putch(i32 58)
+	call void @putch(i32 53)
 
-	call void @putint(i32 %46)
-		call void @putch(i32 59)
-	call void @putch(i32 126)
-	call void @putch(i32 10)
+		call void @putch(i32 50)
 
-	%47 = load i32, i32* @glo_9
-		call void @putch(i32 62)
-	call void @putch(i32 47)
-	call void @putch(i32 33)
-	call void @putch(i32 126)
-	call void @putch(i32 118)
-	call void @putch(i32 97)
-	call void @putch(i32 114)
-	call void @putch(i32 103)
-	call void @putch(i32 57)
-	call void @putch(i32 32)
-	call void @putch(i32 105)
-	call void @putch(i32 115)
-	call void @putch(i32 58)
+		call void @putch(i32 51)
 
-	call void @putint(i32 %47)
-		call void @putch(i32 59)
-	call void @putch(i32 126)
-	call void @putch(i32 10)
+		call void @putch(i32 52)
 
+		call void @putch(i32 53)
+
+		call void @putch(i32 54)
+
+		call void @putch(i32 55)
+
+		call void @putch(i32 56)
+
+		call void @putch(i32 57)
+
+	%7 = load i32, i32* %1
+	call void @putint(i32 %7)
 	ret i32 0
-48:
-	%49 = load i32, i32* @glo_8
-	%50 = icmp sgt i32 %49, 0
-	%51 = icmp ne i1 %50, 0
-	br i1 %51, label %52, label %38
-52:
-	%53 = load i32, i32* @glo_7
-	%54 = icmp sgt i32 %53, 0
-	%55 = icmp ne i1 %54, 0
-	br i1 %55, label %34, label %38
-56:
-	br label %30
-57:
-	%58 = load i32, i32* @glo_2
-	%59 = sub i32 %58, 1
-	store i32 %59, i32* @glo_2
-	br label %30
-60:
-	%61 = load i32, i32* @glo_2
-	%62 = sub i32 %61, 1
-	store i32 %62, i32* @glo_2
-	%63 = load i32, i32* @glo_1
-	%64 = sub i32 %63, 1
-	store i32 %64, i32* @glo_1
-	%65 = load i32, i32* @glo_1
-	%66 = icmp slt i32 %65, 0
-	%67 = icmp ne i1 %66, 0
-	br i1 %67, label %69, label %68
-68:
-	br label %56
-69:
-	br label %38
 }
-@c, 0
-@d, 4
-@_a_4_b, 8
-@z, 16
-@_d_e, 20
-@glo_1, 24
-@glo_2, 28
-@glo_3, 32
-@glo_4, 36
-@glo_5, 40
-@glo_6, 44
-@glo_7, 48
-@glo_8, 52
-@glo_9, 56
-============================== in  function :: test_1
+============================== in  function :: fun_1
+, space = 0, addr = 4
+============================== in  function :: fun_2
+%0, addr = 4
+%2, space = 4, addr = 8
+, space = 0, addr = 12
+, space = 0, addr = 12
+============================== in  function :: fun_3
+%0, addr = 4
+%1, addr = 8
+%3, space = 4, addr = 12
+, space = 0, addr = 16
+%4, space = 4, addr = 16
+, space = 0, addr = 20
+%5, space = 4, addr = 20
+, space = 0, addr = 24
+, space = 0, addr = 24
+============================== in  function :: fun_4
 %0, addr = 4
 %1, addr = 8
 %2, addr = 12
 %4, space = 4, addr = 16
 , space = 0, addr = 20
 %5, space = 4, addr = 20
+, space = 0, addr = 24
+%6, space = 4, addr = 24
+, space = 0, addr = 28
+%7, space = 4, addr = 28
+%8, space = 4, addr = 32
+%9, space = 4, addr = 36
+%10, space = 4, addr = 40
+, space = 0, addr = 44
+, space = 0, addr = 44
+%13, space = 4, addr = 44
+%14, space = 4, addr = 48
+%15, space = 4, addr = 52
+%16, space = 4, addr = 56
+, space = 0, addr = 60
+%18, space = 4, addr = 60
+%19, space = 4, addr = 64
+%20, space = 4, addr = 68
+%21, space = 4, addr = 72
+, space = 0, addr = 76
+%23, space = 4, addr = 76
+%24, space = 4, addr = 80
+%25, space = 4, addr = 84
+%26, space = 4, addr = 88
+, space = 0, addr = 92
+%28, space = 4, addr = 92
+%29, space = 4, addr = 96
+%30, space = 4, addr = 100
+%31, space = 4, addr = 104
+, space = 0, addr = 108
+, space = 0, addr = 108
+, space = 0, addr = 108
+%35, space = 4, addr = 108
+%36, space = 4, addr = 112
+%37, space = 4, addr = 116
+%38, space = 4, addr = 120
+, space = 0, addr = 124
+%40, space = 4, addr = 124
+%41, space = 4, addr = 128
+%42, space = 4, addr = 132
+%43, space = 4, addr = 136
+, space = 0, addr = 140
+============================== in  function :: fun_5
+%0, addr = 4
+%1, addr = 8
+%3, space = 4, addr = 12
+, space = 0, addr = 16
+%4, space = 4, addr = 16
+, space = 0, addr = 20
+%5, space = 4, addr = 20
+, space = 0, addr = 24
 %6, space = 4, addr = 24
 %7, space = 4, addr = 28
 %8, space = 4, addr = 32
 %9, space = 4, addr = 36
 %10, space = 4, addr = 40
+, space = 0, addr = 44
 %11, space = 4, addr = 44
+%12, space = 4, addr = 48
+%13, space = 4, addr = 52
+%14, space = 4, addr = 56
+%15, space = 4, addr = 60
+%16, space = 4, addr = 64
+, space = 0, addr = 68
+, space = 0, addr = 68
+%19, space = 4, addr = 68
+%20, space = 4, addr = 72
+%21, space = 4, addr = 76
+, space = 0, addr = 80
+, space = 0, addr = 80
+%23, space = 4, addr = 80
+%24, space = 4, addr = 84
+%25, space = 4, addr = 88
+%26, space = 4, addr = 92
+%27, space = 4, addr = 96
+%28, space = 4, addr = 100
+, space = 0, addr = 104
+, space = 0, addr = 104
+%31, space = 4, addr = 104
+%32, space = 4, addr = 108
+%33, space = 4, addr = 112
+, space = 0, addr = 116
+%34, space = 4, addr = 116
+%35, space = 4, addr = 120
+%36, space = 4, addr = 124
+%37, space = 4, addr = 128
+, space = 0, addr = 132
+, space = 0, addr = 132
+, space = 0, addr = 132
+, space = 0, addr = 132
+, space = 0, addr = 132
+============================== in  function :: fun_6
+%1, space = 4, addr = 4
+, space = 0, addr = 8
+, space = 0, addr = 8
+%2, space = 4, addr = 8
+%3, space = 4, addr = 12
+%4, space = 4, addr = 16
+%5, space = 4, addr = 20
+, space = 0, addr = 24
+%6, space = 16, addr = 24
+%7, space = 4, addr = 40
+, space = 0, addr = 44
+%8, space = 4, addr = 44
 , space = 0, addr = 48
+%9, space = 4, addr = 48
+, space = 0, addr = 52
+%10, space = 4, addr = 52
+, space = 0, addr = 56
+%11, space = 4, addr = 56
+%12, space = 4, addr = 60
+%13, space = 4, addr = 64
+%14, space = 4, addr = 68
+%15, space = 4, addr = 72
+, space = 0, addr = 76
+%16, space = 4, addr = 76
+%17, space = 92, addr = 80
+, space = 0, addr = 172
+, space = 0, addr = 172
+%18, space = 4, addr = 172
+%19, space = 4, addr = 176
+, space = 0, addr = 180
+, space = 0, addr = 180
+============================== in  function :: fun_7
+%0, addr = 4
+, space = 0, addr = 8
+============================== in  function :: funInt
+%0, addr = 4
+%1, addr = 8
+%3, space = 4, addr = 12
+, space = 0, addr = 16
+%4, space = 16, addr = 16
+%5, space = 4, addr = 32
+%6, space = 4, addr = 36
+, space = 0, addr = 40
+%7, space = 4, addr = 40
+, space = 0, addr = 44
+%8, space = 4, addr = 44
 , space = 0, addr = 48
+%9, space = 4, addr = 48
+, space = 0, addr = 52
+%10, space = 4, addr = 52
+, space = 0, addr = 56
+%11, space = 4, addr = 56
+%12, space = 4, addr = 60
+%13, space = 4, addr = 64
+%14, space = 4, addr = 68
+, space = 0, addr = 72
+, space = 0, addr = 72
+, space = 0, addr = 72
+, space = 0, addr = 72
+%18, space = 4, addr = 72
+%19, space = 4, addr = 76
+%20, space = 4, addr = 80
+%21, space = 4, addr = 84
+, space = 0, addr = 88
+%23, space = 4, addr = 88
+%24, space = 4, addr = 92
+%25, space = 4, addr = 96
+%26, space = 4, addr = 100
+%27, space = 4, addr = 104
+%28, space = 4, addr = 108
+, space = 0, addr = 112
+, space = 0, addr = 112
+%31, space = 4, addr = 112
+%32, space = 4, addr = 116
+, space = 0, addr = 120
+, space = 0, addr = 120
+, space = 0, addr = 120
+, space = 0, addr = 120
+%36, space = 4, addr = 120
+%37, space = 4, addr = 124
+%38, space = 4, addr = 128
+%39, space = 4, addr = 132
+%40, space = 4, addr = 136
+%41, space = 4, addr = 140
+, space = 0, addr = 144
+%43, space = 4, addr = 144
+%44, space = 4, addr = 148
+%45, space = 4, addr = 152
+%46, space = 4, addr = 156
+, space = 0, addr = 160
+, space = 0, addr = 160
+%49, space = 4, addr = 160
+%50, space = 4, addr = 164
+%51, space = 4, addr = 168
+, space = 0, addr = 172
+%53, space = 4, addr = 172
+%54, space = 4, addr = 176
+, space = 0, addr = 180
+, space = 0, addr = 180
+%56, space = 4, addr = 180
+%57, space = 4, addr = 184
+, space = 0, addr = 188
+, space = 0, addr = 188
 ============================== in  function :: main
 %1, space = 4, addr = 4
 %2, space = 4, addr = 8
-%3, space = 8, addr = 12
-%4, space = 4, addr = 20
-, space = 0, addr = 24
-%5, space = 4, addr = 24
-, space = 0, addr = 28
-%6, space = 4, addr = 28
-%7, space = 4, addr = 32
-%8, space = 4, addr = 36
-%9, space = 4, addr = 40
-%10, space = 4, addr = 44
-%11, space = 4, addr = 48
-, space = 0, addr = 52
-%12, space = 4, addr = 52
-, space = 0, addr = 56
-%13, space = 4, addr = 56
-, space = 0, addr = 60
-%14, space = 4, addr = 60
-%15, space = 4, addr = 64
-%16, space = 4, addr = 68
-%17, space = 4, addr = 72
-, space = 0, addr = 76
-%18, space = 4, addr = 76
-, space = 0, addr = 80
-%19, space = 4, addr = 80
-, space = 0, addr = 84
-%20, space = 4, addr = 84
-, space = 0, addr = 88
-%21, space = 4, addr = 88
-, space = 0, addr = 92
-%22, space = 4, addr = 92
-, space = 0, addr = 96
-%23, space = 4, addr = 96
-, space = 0, addr = 100
-%24, space = 4, addr = 100
-, space = 0, addr = 104
-%25, space = 4, addr = 104
-, space = 0, addr = 108
-%26, space = 4, addr = 108
-, space = 0, addr = 112
-%27, space = 4, addr = 112
-%28, space = 4, addr = 116
-%29, space = 4, addr = 120
-, space = 0, addr = 124
-, space = 0, addr = 124
-%31, space = 4, addr = 124
-%32, space = 4, addr = 128
-%33, space = 4, addr = 132
-, space = 0, addr = 136
-%35, space = 4, addr = 136
-%36, space = 4, addr = 140
-%37, space = 4, addr = 144
-, space = 0, addr = 148
-, space = 0, addr = 148
-%39, space = 4, addr = 148
-, space = 0, addr = 152
-, space = 0, addr = 152
-, space = 0, addr = 152
-%40, space = 4, addr = 152
-, space = 0, addr = 156
-, space = 0, addr = 156
-, space = 0, addr = 156
-%41, space = 4, addr = 156
-, space = 0, addr = 160
-, space = 0, addr = 160
-, space = 0, addr = 160
-%42, space = 4, addr = 160
-, space = 0, addr = 164
-, space = 0, addr = 164
-, space = 0, addr = 164
-%43, space = 4, addr = 164
-, space = 0, addr = 168
-, space = 0, addr = 168
-, space = 0, addr = 168
-%44, space = 4, addr = 168
-, space = 0, addr = 172
-, space = 0, addr = 172
-, space = 0, addr = 172
-%45, space = 4, addr = 172
-, space = 0, addr = 176
-, space = 0, addr = 176
-, space = 0, addr = 176
-%46, space = 4, addr = 176
-, space = 0, addr = 180
-, space = 0, addr = 180
-, space = 0, addr = 180
-%47, space = 4, addr = 180
-, space = 0, addr = 184
-, space = 0, addr = 184
-, space = 0, addr = 184
-, space = 0, addr = 184
-%49, space = 4, addr = 184
-%50, space = 4, addr = 188
-%51, space = 4, addr = 192
-, space = 0, addr = 196
-%53, space = 4, addr = 196
-%54, space = 4, addr = 200
-%55, space = 4, addr = 204
-, space = 0, addr = 208
-, space = 0, addr = 208
-%58, space = 4, addr = 208
-%59, space = 4, addr = 212
-, space = 0, addr = 216
-, space = 0, addr = 216
-%61, space = 4, addr = 216
-%62, space = 4, addr = 220
-, space = 0, addr = 224
-%63, space = 4, addr = 224
-%64, space = 4, addr = 228
-, space = 0, addr = 232
-%65, space = 4, addr = 232
-%66, space = 4, addr = 236
-%67, space = 4, addr = 240
-, space = 0, addr = 244
-, space = 0, addr = 244
-, space = 0, addr = 244
+, space = 0, addr = 12
+, space = 0, addr = 12
+%3, space = 16, addr = 12
+%4, space = 8, addr = 28
+%5, space = 4, addr = 36
+, space = 0, addr = 40
+%6, space = 4, addr = 40
+, space = 0, addr = 44
+, space = 0, addr = 44
+, space = 0, addr = 44
+, space = 0, addr = 44
+, space = 0, addr = 44
+, space = 0, addr = 44
+, space = 0, addr = 44
+, space = 0, addr = 44
+, space = 0, addr = 44
+, space = 0, addr = 44
+%7, space = 4, addr = 44
+, space = 0, addr = 48
+, space = 0, addr = 48
