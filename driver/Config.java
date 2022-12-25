@@ -20,7 +20,8 @@ public class Config {
     private HashMap<OutputLevel, PrintStream> outputLevel2Target = new HashMap<>();
 
     private HashSet<Optimize> optimizeLevels = new HashSet<>();
-    private int defaultOptimizedLevel = 1;
+    private int defaultOptimizedLevel = 0;
+    //FIXME!! some bug with O1's MulDivOptimize
 
     private Config() {
         outputLevel2TargetName.put(OutputLevel.TOKENIZE, "output.txt");

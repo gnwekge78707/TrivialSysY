@@ -1,113 +1,146 @@
 .data
-	str_1: .asciiz "2"
-	str_2: .asciiz "3"
-	str_3: .asciiz "4"
-	str_4: .asciiz "5"
-	str_5: .asciiz "6"
-	str_6: .asciiz "7"
-	str_7: .asciiz "8"
-	str_8: .asciiz "9"
-	str_0: .asciiz "19373385"
+	global:
+	0 
+	str_1: .asciiz "\n"
+	str_2: .asciiz "invaild input!\n"
+	str_0: .asciiz "gcd is "
 
 
 .text
-		addiu	 $29, $29, -48
+		la $28, global
+		addiu	 $29, $29, -84
 
 # function_i32 @main():
 		f_main:
 	# basicBlock_0
 		# 	%1 = alloca i32
-		# 	%2 = call i32 @getint()
+		# 	%2 = alloca i32
+		# 	%3 = call i32 @getint()
 		addiu	 $2, $0, 5
 		syscall
 		xor		 $5, $2, $0
-		# 	store i32 %2, i32* %1
+		# 	store i32 %3, i32* %1
 		sw		 $5, 4($29)
-		# 	call void @fun_6()
-		sw		 $5, 8($29)
-		sw		 $31, 0($29)
-		addiu	 $29, $29, -180
-		jal f_fun_6
-		addiu	 $29, $29, 180
-		lw		 $31, 0($29)
-		# 	%3 = alloca [4 x i32]
-		# 	%4 = alloca [2 x i32]
-		# 	%5 = getelementptr [4 x i32], [4 x i32]* %3, i32 0, i32 2
-		addiu	 $5, $29, 20
-		# 	call void @fun_7(i32* %5)
-		sw		 $5, 36($29)
-		sw		 $31, 0($29)
-		sw		 $5, -4($29)
-		addiu	 $29, $29, -8
-		jal f_fun_7
-		addiu	 $29, $29, 8
-		lw		 $31, 0($29)
-		# 	%6 = getelementptr [2 x i32], [2 x i32]* %4, i32 0, i32 0
-		addiu	 $5, $29, 28
-		# 	call void @fun_7(i32* %6)
-		sw		 $5, 40($29)
-		sw		 $31, 0($29)
-		sw		 $5, -4($29)
-		addiu	 $29, $29, -8
-		jal f_fun_7
-		addiu	 $29, $29, 8
-		lw		 $31, 0($29)
-		la $4, str_0
-		addiu	 $2, $0, 4
-		syscall
-		la $4, str_1
-		addiu	 $2, $0, 4
-		syscall
-		la $4, str_2
-		addiu	 $2, $0, 4
-		syscall
-		la $4, str_3
-		addiu	 $2, $0, 4
-		syscall
-		la $4, str_4
-		addiu	 $2, $0, 4
-		syscall
-		la $4, str_5
-		addiu	 $2, $0, 4
-		syscall
-		la $4, str_6
-		addiu	 $2, $0, 4
-		syscall
-		la $4, str_7
-		addiu	 $2, $0, 4
-		syscall
-		la $4, str_8
-		addiu	 $2, $0, 4
-		syscall
-		# 	%7 = load i32, i32* %1
+		# 	br label %4
+		j bb_main_4
+	# basicBlock_4
+		bb_main_4:
+		# 	%5 = load i32, i32* %1
 		lw		 $5, 4($29)
-		# 	call void @putint(i32 %7)
-		xor		 $4, $5, $0
-		addiu	 $2, $0, 1
+		# 	%6 = icmp ne i32 %5, -1
+		addiu	 $1, $0, 1
+		subu	 $1, $0, $1
+		sne		 $6, $5, $1
+		# 	%7 = icmp ne i1 %6, 0
+		# 	br i1 %7, label %8, label %14
+		addiu	 $1, $0, 0
+		bne		 $6, $1, bb_main_8
+		j bb_main_14
+	# basicBlock_8
+		bb_main_8:
+		# 	%9 = call i32 @getint()
+		addiu	 $2, $0, 5
 		syscall
+		xor		 $5, $2, $0
+		# 	store i32 %9, i32* %2
+		sw		 $5, 8($29)
+		# 	%10 = load i32, i32* %1
+		lw		 $6, 4($29)
+		# 	%11 = zext i1 0 to i32
+		addiu	 $7, $0, 0
+		# 	%12 = icmp eq i32 %10, %11
+		seq		 $8, $6, $7
+		# 	%13 = icmp ne i1 %12, 0
+		# 	br i1 %13, label %19, label %15
+		addiu	 $1, $0, 0
+		bne		 $8, $1, bb_main_19
+		j bb_main_15
+	# basicBlock_14
+		bb_main_14:
 		# 	ret i32 0
-		sw		 $5, 44($29)
 		addiu	 $2, $0, 10
 		syscall
-
-# function_void @fun_1():
-		f_fun_1:
-	# basicBlock_0
-		# 	ret void
-		jr $31
-
-# function_void @fun_2(i32):
-		f_fun_2:
-	# basicBlock_1
-		# 	%2 = alloca i32
-		# 	store i32 %0, i32* %2
+	# basicBlock_15
+		bb_main_15:
+		# 	%16 = load i32, i32* %2
+		lw		 $5, 8($29)
+		# 	%17 = icmp eq i32 %16, 0
+		addiu	 $1, $0, 0
+		seq		 $6, $5, $1
+		# 	%18 = icmp ne i1 %17, 0
+		# 	br i1 %18, label %26, label %21
+		addiu	 $1, $0, 0
+		bne		 $6, $1, bb_main_26
+		j bb_main_21
+	# basicBlock_19
+		bb_main_19:
+		# 	call void @error()
+		sw		 $31, 0($29)
+		addiu	 $29, $29, -4
+		jal f_error
+		addiu	 $29, $29, 4
+		lw		 $31, 0($29)
+		# 	%20 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $5, $2, $0
+		# 	store i32 %20, i32* %1
+		sw		 $5, 4($29)
+		# 	br label %4
+		j bb_main_4
+	# basicBlock_21
+		bb_main_21:
+		# 	%22 = load i32, i32* %1
 		lw		 $5, 4($29)
-		sw		 $5, 8($29)
-		# 	ret void
-		jr $31
+		# 	%23 = load i32, i32* %2
+		lw		 $6, 8($29)
+		# 	call void @gcd(i32 %22,i32 %23)
+		sw		 $5, 64($29)
+		sw		 $6, 68($29)
+		sw		 $31, 0($29)
+		sw		 $5, -104($29)
+		sw		 $6, -100($29)
+		addiu	 $29, $29, -108
+		jal f_gcd
+		addiu	 $29, $29, 108
+		lw		 $31, 0($29)
+		# 	%24 = load i32, i32* @ans
+		lw		 $5, 0($28)
+		# 	call void @output(i32 %24)
+		sw		 $5, 72($29)
+		sw		 $31, 0($29)
+		sw		 $5, -12($29)
+		addiu	 $29, $29, -16
+		jal f_output
+		addiu	 $29, $29, 16
+		lw		 $31, 0($29)
+		# 	%25 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $5, $2, $0
+		# 	store i32 %25, i32* %1
+		sw		 $5, 4($29)
+		# 	br label %4
+		j bb_main_4
+	# basicBlock_26
+		bb_main_26:
+		# 	call void @error()
+		sw		 $31, 0($29)
+		addiu	 $29, $29, -4
+		jal f_error
+		addiu	 $29, $29, 4
+		lw		 $31, 0($29)
+		# 	%27 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $5, $2, $0
+		# 	store i32 %27, i32* %1
+		sw		 $5, 4($29)
+		# 	br label %4
+		j bb_main_4
 
-# function_void @fun_3(i32,i32):
-		f_fun_3:
+# function_void @gcd(i32,i32):
+		f_gcd:
 	# basicBlock_2
 		# 	%3 = alloca i32
 		# 	store i32 %0, i32* %3
@@ -119,552 +152,142 @@
 		sw		 $6, 16($29)
 		# 	%5 = load i32, i32* %3
 		lw		 $7, 12($29)
-		# 	call void @fun_2(i32 %5)
-		sw		 $7, 20($29)
-		sw		 $31, 0($29)
-		sw		 $7, -8($29)
-		addiu	 $29, $29, -12
-		jal f_fun_2
-		addiu	 $29, $29, 12
-		lw		 $31, 0($29)
-		# 	ret void
-		jr $31
-
-# function_void @fun_4(i32,i32,i32):
-		f_fun_4:
-	# basicBlock_3
-		# 	%4 = alloca i32
-		# 	store i32 %0, i32* %4
-		lw		 $5, 4($29)
-		sw		 $5, 16($29)
-		# 	%5 = alloca i32
-		# 	store i32 %1, i32* %5
-		lw		 $6, 8($29)
-		sw		 $6, 20($29)
-		# 	%6 = alloca i32
-		# 	store i32 %2, i32* %6
-		lw		 $7, 12($29)
-		sw		 $7, 24($29)
-		# 	%7 = load i32, i32* %4
-		lw		 $8, 16($29)
-		# 	%8 = load i32, i32* %5
-		lw		 $9, 20($29)
-		# 	%9 = icmp sle i32 %7, %8
-		sle		 $10, $8, $9
-		# 	%10 = icmp ne i1 %9, 0
-		# 	br i1 %10, label %12, label %17
-		addiu	 $1, $0, 0
-		bne		 $10, $1, bb_fun_4_12
-		j bb_fun_4_17
-	# basicBlock_11
-		bb_fun_4_11:
-		# 	ret void
-		jr $31
-	# basicBlock_12
-		bb_fun_4_12:
-		# 	%13 = load i32, i32* %5
-		lw		 $5, 20($29)
-		# 	%14 = load i32, i32* %6
-		lw		 $6, 24($29)
-		# 	%15 = icmp sle i32 %13, %14
-		sle		 $7, $5, $6
-		# 	%16 = icmp ne i1 %15, 0
-		# 	br i1 %16, label %34, label %32
-		addiu	 $1, $0, 0
-		bne		 $7, $1, bb_fun_4_34
-		j bb_fun_4_32
-	# basicBlock_17
-		bb_fun_4_17:
-		# 	%18 = load i32, i32* %4
-		lw		 $5, 16($29)
-		# 	%19 = load i32, i32* %5
-		lw		 $6, 20($29)
-		# 	%20 = icmp slt i32 %18, %19
-		slt		 $7, $5, $6
-		# 	%21 = icmp ne i1 %20, 0
-		# 	br i1 %21, label %12, label %22
-		addiu	 $1, $0, 0
-		bne		 $7, $1, bb_fun_4_12
-		j bb_fun_4_22
-	# basicBlock_22
-		bb_fun_4_22:
-		# 	%23 = load i32, i32* %4
-		lw		 $5, 16($29)
-		# 	%24 = load i32, i32* %5
-		lw		 $6, 20($29)
-		# 	%25 = icmp sgt i32 %23, %24
-		sgt		 $7, $5, $6
-		# 	%26 = icmp ne i1 %25, 0
-		# 	br i1 %26, label %12, label %27
-		addiu	 $1, $0, 0
-		bne		 $7, $1, bb_fun_4_12
-		j bb_fun_4_27
-	# basicBlock_27
-		bb_fun_4_27:
-		# 	%28 = load i32, i32* %4
-		lw		 $5, 16($29)
-		# 	%29 = load i32, i32* %5
-		lw		 $6, 20($29)
-		# 	%30 = icmp sge i32 %28, %29
-		sge		 $7, $5, $6
-		# 	%31 = icmp ne i1 %30, 0
-		# 	br i1 %31, label %12, label %11
-		addiu	 $1, $0, 0
-		bne		 $7, $1, bb_fun_4_12
-		j bb_fun_4_11
-	# basicBlock_32
-		bb_fun_4_32:
-		# 	br label %11
-		j bb_fun_4_11
-	# basicBlock_33
-		bb_fun_4_33:
-		# 	br label %32
-		j bb_fun_4_32
-	# basicBlock_34
-		bb_fun_4_34:
-		# 	%35 = load i32, i32* %5
-		lw		 $5, 20($29)
-		# 	%36 = load i32, i32* %4
-		lw		 $6, 16($29)
-		# 	%37 = icmp eq i32 %35, %36
-		seq		 $7, $5, $6
-		# 	%38 = icmp ne i1 %37, 0
-		# 	br i1 %38, label %39, label %32
-		addiu	 $1, $0, 0
-		bne		 $7, $1, bb_fun_4_39
-		j bb_fun_4_32
-	# basicBlock_39
-		bb_fun_4_39:
-		# 	%40 = load i32, i32* %4
-		lw		 $5, 16($29)
-		# 	%41 = load i32, i32* %6
-		lw		 $6, 24($29)
-		# 	%42 = icmp ne i32 %40, %41
-		sne		 $7, $5, $6
-		# 	%43 = icmp ne i1 %42, 0
-		# 	br i1 %43, label %33, label %32
-		addiu	 $1, $0, 0
-		bne		 $7, $1, bb_fun_4_33
-		j bb_fun_4_32
-
-# function_void @fun_5(i32*,i32*):
-		f_fun_5:
-	# basicBlock_2
-		# 	%3 = alloca i32
-		# 	store i32 2, i32* %3
-		addiu	 $1, $0, 2
-		sw		 $1, 12($29)
-		# 	%4 = alloca i32
-		# 	store i32 1, i32* %4
-		addiu	 $1, $0, 1
-		sw		 $1, 16($29)
-		# 	%5 = alloca i32
-		# 	store i32 0, i32* %5
-		addiu	 $1, $0, 0
-		sw		 $1, 20($29)
-		# 	%6 = load i32, i32* %3
-		lw		 $5, 12($29)
-		# 	%7 = load i32, i32* %4
-		lw		 $6, 16($29)
-		# 	%8 = load i32, i32* %5
-		lw		 $7, 20($29)
-		# 	%9 = load i32, i32* %4
-		lw		 $8, 16($29)
-		# 	%10 = sub i32 %8, %9
-		subu	 $9, $7, $8
-		# 	call void @fun_4(i32 %6,i32 %7,i32 %10)
-		sw		 $5, 24($29)
-		sw		 $6, 28($29)
-		sw		 $7, 32($29)
-		sw		 $8, 36($29)
-		sw		 $9, 40($29)
-		sw		 $31, 0($29)
-		sw		 $5, -136($29)
-		sw		 $6, -132($29)
-		sw		 $9, -128($29)
-		addiu	 $29, $29, -140
-		jal f_fun_4
-		addiu	 $29, $29, 140
-		lw		 $31, 0($29)
-		# 	%11 = load i32, i32* %3
-		lw		 $5, 12($29)
-		# 	%12 = load i32, i32* %4
-		lw		 $6, 16($29)
-		# 	%13 = add i32 %11, %12
-		addu	 $7, $5, $6
-		# 	%14 = zext i1 0 to i32
+		# 	%6 = zext i1 0 to i32
 		addiu	 $8, $0, 0
-		# 	%15 = icmp eq i32 %13, %14
+		# 	%7 = icmp eq i32 %5, %6
 		seq		 $9, $7, $8
-		# 	%16 = icmp ne i1 %15, 0
-		# 	br i1 %16, label %18, label %22
+		# 	%8 = icmp ne i1 %7, 0
+		# 	br i1 %8, label %14, label %9
 		addiu	 $1, $0, 0
-		bne		 $9, $1, bb_fun_5_18
-		j bb_fun_5_22
-	# basicBlock_17
-		bb_fun_5_17:
-		# 	ret void
-		jr $31
-	# basicBlock_18
-		bb_fun_5_18:
-		# 	%19 = load i32, i32* %3
-		lw		 $5, 12($29)
-		# 	%20 = load i32, i32* %4
-		lw		 $6, 16($29)
-		# 	%21 = load i32, i32* %5
-		lw		 $7, 20($29)
-		# 	call void @fun_4(i32 %19,i32 %20,i32 %21)
-		sw		 $5, 68($29)
-		sw		 $6, 72($29)
-		sw		 $7, 76($29)
-		sw		 $31, 0($29)
-		sw		 $5, -136($29)
-		sw		 $6, -132($29)
-		sw		 $7, -128($29)
-		addiu	 $29, $29, -140
-		jal f_fun_4
-		addiu	 $29, $29, 140
-		lw		 $31, 0($29)
-		# 	br label %17
-		j bb_fun_5_17
-	# basicBlock_22
-		bb_fun_5_22:
-		# 	%23 = load i32, i32* %4
+		bne		 $9, $1, bb_gcd_14
+		j bb_gcd_9
+	# basicBlock_9
+		bb_gcd_9:
+		# 	%10 = load i32, i32* %4
 		lw		 $5, 16($29)
-		# 	%24 = load i32, i32* %4
-		lw		 $6, 16($29)
-		# 	%25 = add i32 %23, %24
-		addu	 $7, $5, $6
-		# 	%26 = zext i1 0 to i32
-		addiu	 $8, $0, 0
-		# 	%27 = icmp ne i32 %25, %26
-		sne		 $9, $7, $8
-		# 	%28 = icmp ne i1 %27, 0
-		# 	br i1 %28, label %30, label %38
-		addiu	 $1, $0, 0
-		bne		 $9, $1, bb_fun_5_30
-		j bb_fun_5_38
-	# basicBlock_29
-		bb_fun_5_29:
-		# 	br label %17
-		j bb_fun_5_17
-	# basicBlock_30
-		bb_fun_5_30:
-		# 	%31 = load i32, i32* %4
-		lw		 $5, 16($29)
-		# 	%32 = load i32, i32* %3
-		lw		 $6, 12($29)
-		# 	%33 = load i32, i32* %5
-		lw		 $7, 20($29)
-		# 	call void @fun_4(i32 %31,i32 %32,i32 %33)
-		sw		 $5, 104($29)
-		sw		 $6, 108($29)
-		sw		 $7, 112($29)
-		sw		 $31, 0($29)
-		sw		 $5, -136($29)
-		sw		 $6, -132($29)
-		sw		 $7, -128($29)
-		addiu	 $29, $29, -140
-		jal f_fun_4
-		addiu	 $29, $29, 140
-		lw		 $31, 0($29)
-		# 	%34 = load i32, i32* %5
-		lw		 $5, 20($29)
-		# 	%35 = zext i1 1 to i32
-		addiu	 $6, $0, 1
-		# 	%36 = icmp eq i32 %34, %35
-		seq		 $7, $5, $6
-		# 	%37 = icmp ne i1 %36, 0
-		# 	br i1 %37, label %40, label %39
-		addiu	 $1, $0, 0
-		bne		 $7, $1, bb_fun_5_40
-		j bb_fun_5_39
-	# basicBlock_38
-		bb_fun_5_38:
-		# 	ret void
-		jr $31
-	# basicBlock_39
-		bb_fun_5_39:
-		# 	br label %29
-		j bb_fun_5_29
-	# basicBlock_40
-		bb_fun_5_40:
-		# 	store i32 0, i32* %5
-		addiu	 $1, $0, 0
-		sw		 $1, 20($29)
-		# 	br label %39
-		j bb_fun_5_39
-
-# function_void @fun_6():
-		f_fun_6:
-	# basicBlock_0
-		# 	%1 = alloca i32
-		# 	store i32 2, i32* %1
-		addiu	 $1, $0, 2
-		sw		 $1, 4($29)
-		# 	store i32 4, i32* %1
-		addiu	 $1, $0, 4
-		sw		 $1, 4($29)
-		# 	%2 = load i32, i32* %1
-		lw		 $5, 4($29)
-		# 	%3 = sdiv i32 %2, -2
-		addiu	 $1, $0, 2
-		subu	 $1, $0, $1
-		div		 $5, $1
-		mflo	 $6
-		# 	%4 = add i32 %3, 1
-		addiu	 $7, $6, 1
-		# 	%5 = mul i32 3, %4
-		addiu	 $1, $0, 3
-		mult	 $7, $1
-		mflo	 $8
-		# 	store i32 %5, i32* %1
-		sw		 $8, 4($29)
-		# 	%6 = alloca [4 x i32]
-		# 	%7 = getelementptr [4 x i32], [4 x i32]* %6, i32 0, i32 0
-		addiu	 $9, $29, 24
-		# 	store i32 1, i32* %7
-		addiu	 $1, $0, 1
-		sw		 $1, 0($9)
-		# 	%8 = getelementptr [4 x i32], [4 x i32]* %6, i32 0, i32 1
-		addiu	 $10, $29, 28
-		# 	store i32 2, i32* %8
-		addiu	 $1, $0, 2
-		sw		 $1, 0($10)
-		# 	%9 = getelementptr [4 x i32], [4 x i32]* %6, i32 0, i32 2
-		addiu	 $11, $29, 32
-		# 	store i32 1, i32* %9
-		addiu	 $1, $0, 1
-		sw		 $1, 0($11)
-		# 	%10 = getelementptr [4 x i32], [4 x i32]* %6, i32 0, i32 3
-		addiu	 $12, $29, 36
-		# 	store i32 2, i32* %10
-		addiu	 $1, $0, 2
-		sw		 $1, 0($12)
-		# 	%11 = load i32, i32* %1
-		lw		 $13, 4($29)
-		# 	%12 = load i32, i32* %1
-		lw		 $14, 4($29)
-		# 	%13 = load i32, i32* %1
-		lw		 $15, 4($29)
-		# 	%14 = sdiv i32 %12, %13
-		div		 $14, $15
-		mflo	 $16
-		# 	%15 = add i32 %11, %14
-		addu	 $17, $13, $16
-		# 	store i32 %15, i32* %1
-		sw		 $17, 4($29)
-		# 	%16 = alloca i32
-		# 	%17 = alloca [23 x i32]
-		# 	store i32 0, i32* %16
-		addiu	 $1, $0, 0
-		sw		 $1, 76($29)
-		# 	store i32 3, i32* %16
-		addiu	 $1, $0, 3
-		sw		 $1, 76($29)
-		# 	%18 = load i32, i32* %16
-		lw		 $18, 76($29)
-		# 	%19 = mul i32 %18, 5
-		addiu	 $1, $0, 5
-		mult	 $18, $1
-		mflo	 $19
-		# 	store i32 %19, i32* %16
-		sw		 $19, 76($29)
-		# 	ret void
-		sw		 $5, 8($29)
-		sw		 $6, 12($29)
-		sw		 $7, 16($29)
-		sw		 $8, 20($29)
-		sw		 $9, 40($29)
-		sw		 $10, 44($29)
-		sw		 $11, 48($29)
-		sw		 $12, 52($29)
-		sw		 $13, 56($29)
-		sw		 $14, 60($29)
-		sw		 $15, 64($29)
-		sw		 $16, 68($29)
-		sw		 $17, 72($29)
-		sw		 $18, 172($29)
-		sw		 $19, 176($29)
-		jr $31
-
-# function_void @fun_7(i32*):
-		f_fun_7:
-	# basicBlock_1
-		# 	ret void
-		jr $31
-
-# function_i32 @funInt(i32,i32*):
-		f_funInt:
-	# basicBlock_2
-		# 	%3 = alloca i32
-		# 	store i32 %0, i32* %3
-		lw		 $5, 4($29)
-		sw		 $5, 12($29)
-		# 	%4 = alloca [4 x i32]
-		# 	%5 = alloca [1 x i32]
-		# 	%6 = getelementptr [4 x i32], [4 x i32]* %4, i32 0, i32 3
-		addiu	 $6, $29, 28
-		# 	store i32 2, i32* %6
-		addiu	 $1, $0, 2
-		sw		 $1, 0($6)
-		# 	%7 = getelementptr [1 x i32], [1 x i32]* %5, i32 0, i32 0
-		addiu	 $7, $29, 32
-		# 	store i32 3, i32* %7
-		addiu	 $1, $0, 3
-		sw		 $1, 0($7)
-		# 	%8 = alloca i32
-		# 	store i32 0, i32* %8
-		addiu	 $1, $0, 0
-		sw		 $1, 44($29)
-		# 	%9 = alloca i32
-		# 	store i32 0, i32* %9
-		addiu	 $1, $0, 0
-		sw		 $1, 48($29)
-		# 	%10 = alloca i32
-		# 	store i32 0, i32* %10
-		addiu	 $1, $0, 0
-		sw		 $1, 52($29)
-		# 	%11 = load i32, i32* %8
-		lw		 $8, 44($29)
-		# 	%12 = zext i1 0 to i32
-		addiu	 $9, $0, 0
-		# 	%13 = icmp eq i32 %11, %12
-		seq		 $10, $8, $9
-		# 	%14 = icmp ne i1 %13, 0
-		# 	br i1 %14, label %16, label %15
-		addiu	 $1, $0, 0
-		bne		 $10, $1, bb_funInt_16
-		j bb_funInt_15
-	# basicBlock_15
-		bb_funInt_15:
-		# 	br label %17
-		j bb_funInt_17
-	# basicBlock_16
-		bb_funInt_16:
-		# 	store i32 1, i32* %8
-		addiu	 $1, $0, 1
-		sw		 $1, 44($29)
-		# 	br label %15
-		j bb_funInt_15
-	# basicBlock_17
-		bb_funInt_17:
-		# 	%18 = load i32, i32* %10
-		lw		 $5, 52($29)
-		# 	%19 = load i32, i32* %3
-		lw		 $6, 12($29)
-		# 	%20 = icmp slt i32 %18, %19
-		slt		 $7, $5, $6
-		# 	%21 = icmp ne i1 %20, 0
-		# 	br i1 %21, label %22, label %29
-		addiu	 $1, $0, 0
-		bne		 $7, $1, bb_funInt_22
-		j bb_funInt_29
-	# basicBlock_22
-		bb_funInt_22:
-		# 	%23 = load i32, i32* %10
-		lw		 $5, 52($29)
-		# 	%24 = load i32, i32* %8
-		lw		 $6, 44($29)
-		# 	%25 = load i32, i32* %9
-		lw		 $7, 48($29)
-		# 	%26 = add i32 %24, %25
-		addu	 $8, $6, $7
-		# 	%27 = icmp eq i32 %23, %26
-		seq		 $9, $5, $8
-		# 	%28 = icmp ne i1 %27, 0
-		# 	br i1 %28, label %33, label %34
-		addiu	 $1, $0, 0
-		bne		 $9, $1, bb_funInt_33
-		j bb_funInt_34
-	# basicBlock_29
-		bb_funInt_29:
-		# 	br label %35
-		j bb_funInt_35
-	# basicBlock_30
-		bb_funInt_30:
-		# 	%31 = load i32, i32* %10
-		lw		 $5, 52($29)
-		# 	%32 = add i32 %31, 1
-		addiu	 $6, $5, 1
-		# 	store i32 %32, i32* %10
-		sw		 $6, 52($29)
-		# 	br label %17
-		j bb_funInt_17
-	# basicBlock_33
-		bb_funInt_33:
-		# 	br label %29
-		j bb_funInt_29
-	# basicBlock_34
-		bb_funInt_34:
-		# 	br label %17
-		j bb_funInt_17
-	# basicBlock_35
-		bb_funInt_35:
-		# 	%36 = load i32, i32* %10
-		lw		 $5, 52($29)
-		# 	%37 = load i32, i32* %3
-		lw		 $6, 12($29)
-		# 	%38 = icmp eq i32 %37, 0
-		addiu	 $1, $0, 0
-		seq		 $7, $6, $1
-		# 	%39 = zext i1 %38 to i32
-		# 	%40 = icmp slt i32 %36, %39
-		slt		 $8, $5, $7
-		# 	%41 = icmp ne i1 %40, 0
-		# 	br i1 %41, label %42, label %48
-		addiu	 $1, $0, 0
-		bne		 $8, $1, bb_funInt_42
-		j bb_funInt_48
-	# basicBlock_42
-		bb_funInt_42:
-		# 	%43 = load i32, i32* %10
-		lw		 $5, 52($29)
-		# 	%44 = zext i1 0 to i32
+		# 	%11 = zext i1 0 to i32
 		addiu	 $6, $0, 0
-		# 	%45 = icmp ne i32 %43, %44
-		sne		 $7, $5, $6
-		# 	%46 = icmp ne i1 %45, 0
-		# 	br i1 %46, label %55, label %52
+		# 	%12 = icmp eq i32 %10, %11
+		seq		 $7, $5, $6
+		# 	%13 = icmp ne i1 %12, 0
+		# 	br i1 %13, label %21, label %16
 		addiu	 $1, $0, 0
-		bne		 $7, $1, bb_funInt_55
-		j bb_funInt_52
-	# basicBlock_47
-		bb_funInt_47:
-		# 	ret i32 1
-		addiu	 $2, $0, 1
+		bne		 $7, $1, bb_gcd_21
+		j bb_gcd_16
+	# basicBlock_14
+		bb_gcd_14:
+		# 	%15 = load i32, i32* %4
+		lw		 $5, 16($29)
+		# 	store i32 %15, i32* @ans
+		sw		 $5, 0($28)
+		# 	ret void
+		sw		 $5, 52($29)
 		jr $31
-	# basicBlock_48
-		bb_funInt_48:
-		# 	%49 = load i32, i32* %10
-		lw		 $5, 52($29)
-		# 	%50 = icmp sge i32 %49, 0
+	# basicBlock_16
+		bb_gcd_16:
+		# 	%17 = load i32, i32* %3
+		lw		 $5, 12($29)
+		# 	%18 = load i32, i32* %4
+		lw		 $6, 16($29)
+		# 	%19 = icmp sge i32 %17, %18
+		sge		 $7, $5, $6
+		# 	%20 = icmp ne i1 %19, 0
+		# 	br i1 %20, label %24, label %29
 		addiu	 $1, $0, 0
-		sge		 $6, $5, $1
-		# 	%51 = icmp ne i1 %50, 0
-		# 	br i1 %51, label %42, label %47
-		addiu	 $1, $0, 0
-		bne		 $6, $1, bb_funInt_42
-		j bb_funInt_47
-	# basicBlock_52
-		bb_funInt_52:
-		# 	%53 = load i32, i32* %10
-		lw		 $5, 52($29)
-		# 	%54 = sub i32 %53, 1
-		addiu	 $1, $0, 1
-		subu	 $6, $5, $1
-		# 	store i32 %54, i32* %10
-		sw		 $6, 52($29)
-		# 	br label %35
-		j bb_funInt_35
-	# basicBlock_55
-		bb_funInt_55:
-		# 	%56 = load i32, i32* %10
-		lw		 $5, 52($29)
-		# 	%57 = sub i32 %56, 2
-		addiu	 $1, $0, 2
-		subu	 $6, $5, $1
-		# 	store i32 %57, i32* %10
-		sw		 $6, 52($29)
-		# 	br label %52
-		j bb_funInt_52
+		bne		 $7, $1, bb_gcd_24
+		j bb_gcd_29
+	# basicBlock_21
+		bb_gcd_21:
+		# 	%22 = load i32, i32* %3
+		lw		 $5, 12($29)
+		# 	store i32 %22, i32* @ans
+		sw		 $5, 0($28)
+		# 	ret void
+		sw		 $5, 72($29)
+		jr $31
+	# basicBlock_23
+		bb_gcd_23:
+		# 	ret void
+		jr $31
+	# basicBlock_24
+		bb_gcd_24:
+		# 	%25 = load i32, i32* %3
+		lw		 $5, 12($29)
+		# 	%26 = load i32, i32* %4
+		lw		 $6, 16($29)
+		# 	%27 = srem i32 %25, %26
+		div		 $5, $6
+		mfhi	 $7
+		# 	%28 = load i32, i32* %4
+		lw		 $8, 16($29)
+		# 	call void @gcd(i32 %27,i32 %28)
+		sw		 $5, 76($29)
+		sw		 $6, 80($29)
+		sw		 $7, 84($29)
+		sw		 $8, 88($29)
+		sw		 $31, 0($29)
+		sw		 $7, -104($29)
+		sw		 $8, -100($29)
+		addiu	 $29, $29, -108
+		jal f_gcd
+		addiu	 $29, $29, 108
+		lw		 $31, 0($29)
+		# 	br label %23
+		j bb_gcd_23
+	# basicBlock_29
+		bb_gcd_29:
+		# 	%30 = load i32, i32* %3
+		lw		 $5, 12($29)
+		# 	%31 = load i32, i32* %4
+		lw		 $6, 16($29)
+		# 	%32 = load i32, i32* %3
+		lw		 $7, 12($29)
+		# 	%33 = srem i32 %31, %32
+		div		 $6, $7
+		mfhi	 $8
+		# 	call void @gcd(i32 %30,i32 %33)
+		sw		 $5, 92($29)
+		sw		 $6, 96($29)
+		sw		 $7, 100($29)
+		sw		 $8, 104($29)
+		sw		 $31, 0($29)
+		sw		 $5, -104($29)
+		sw		 $8, -100($29)
+		addiu	 $29, $29, -108
+		jal f_gcd
+		addiu	 $29, $29, 108
+		lw		 $31, 0($29)
+		# 	br label %23
+		j bb_gcd_23
+
+# function_void @output(i32):
+		f_output:
+	# basicBlock_1
+		# 	%2 = alloca i32
+		# 	store i32 %0, i32* %2
+		lw		 $5, 4($29)
+		sw		 $5, 8($29)
+		# 	%3 = load i32, i32* %2
+		lw		 $6, 8($29)
+		la $4, str_0
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %3)
+		xor		 $4, $6, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_1
+		addiu	 $2, $0, 4
+		syscall
+		# 	ret void
+		sw		 $6, 12($29)
+		jr $31
+
+# function_void @error():
+		f_error:
+	# basicBlock_0
+		la $4, str_2
+		addiu	 $2, $0, 4
+		syscall
+		# 	ret void
+		jr $31
