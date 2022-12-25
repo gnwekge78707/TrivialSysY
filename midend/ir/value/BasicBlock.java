@@ -2,14 +2,17 @@ package midend.ir.value;
 
 import backend.MipsAssembly;
 import backend.template.MipsOtherTemplate;
+import driver.Config;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.instr.Instruction;
 import midend.ir.value.instr.PutStringInstr;
 import midend.ir.value.instr.terminator.CallInstr;
+import midend.pass.ConflictGraph;
 import util.IList;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class BasicBlock extends Value {
     private IList.INode<BasicBlock, Function> iNode = new IList.INode<>(this);
@@ -39,11 +42,95 @@ public class BasicBlock extends Value {
         return iNode.getParent().getHolder();
     }
 
-    public String getMipsTagString() { return getFunction().getName() + "_" + toString(); }
+    public String getMipsTagString() { return "bb_" + getFunction().getName() + "_" + toString(); }
 
     @Override
     public String toString() {
         return getName();
+    }
+
+    //===================================================================optimize support
+    private BasicBlock idominator; //被谁直接支配
+    private ArrayList<BasicBlock> idominateds = new ArrayList<>(); //该bb直接支配的bb
+    private ArrayList<BasicBlock> dominators = new ArrayList<>(); //该bb的支配者们
+    private ArrayList<BasicBlock> dominanceFrontier = new ArrayList<>(); //支配边界
+    private int dominanceLevel;
+    private boolean dirty;
+    private HashSet<Value> activeDefSet = new HashSet<>();
+    private HashSet<Value> activeUseSet = new HashSet<>();
+    private HashSet<Value> activeInSet = new HashSet<>();
+    private HashSet<Value> activeOutSet = new HashSet<>();
+
+    public ArrayList<BasicBlock> getPredecessors() {
+        return predecessors;
+    }
+
+    public ArrayList<BasicBlock> getSuccessors() {
+        return successors;
+    }
+
+    public void setSuccessors(ArrayList<BasicBlock> newSuccessors) {
+        successors = newSuccessors;
+    }
+
+    public BasicBlock getIdominator() {
+        return idominator;
+    }
+
+    public void setIdominator(BasicBlock idominator) {
+        this.idominator = idominator;
+    }
+
+    public ArrayList<BasicBlock> getIdominateds() {
+        return idominateds;
+    }
+
+    public ArrayList<BasicBlock> getDominators() {
+        return dominators;
+    }
+
+    public ArrayList<BasicBlock> getDominanceFrontier() {
+        return dominanceFrontier;
+    }
+
+    public int getDominanceLevel() {
+        return dominanceLevel;
+    }
+
+    public void setDominanceLevel(int dominanceLevel) {
+        this.dominanceLevel = dominanceLevel;
+    }
+
+    public boolean isDirty () {
+        return dirty;
+    }
+
+    public void setDirty (boolean dirty) {
+        this.dirty = dirty;
+    }
+
+    public Function getParent() {
+        return iNode.getParent().getHolder();
+    }
+
+    public HashSet<Value> getActiveDefSet() {
+        return activeDefSet;
+    }
+
+    public HashSet<Value> getActiveOutSet() {
+        return activeOutSet;
+    }
+
+    public HashSet<Value> getActiveInSet() {
+        return activeInSet;
+    }
+
+    public HashSet<Value> getActiveUseSet() {
+        return activeUseSet;
+    }
+
+    public void setActiveInSet(HashSet<Value> activeInSet) {
+        this.activeInSet = activeInSet;
     }
 
     //====================================================================backend support
@@ -56,6 +143,9 @@ public class BasicBlock extends Value {
         int instrIdx = 0;
         for (IList.INode<Instruction, BasicBlock> instrNode : instrList) {
             Instruction instr = instrNode.getValue();
+            if (instr == instrList.getLast().getValue() && instr.getInstrType() == Instruction.InstrType.BR) {
+                bbDealRegister(assembly);
+            }
             if (!(instr instanceof PutStringInstr)) {
                 MipsOtherTemplate.mipsProcessComment(instr.toString(), assembly);
             }
@@ -68,13 +158,59 @@ public class BasicBlock extends Value {
             }
             instr.toAssembly(assembly);
         }
+        if (!instrList.isEmpty() && instrList.getLast().getValue().getInstrType() != Instruction.InstrType.BR) {
+            bbDealRegister(assembly);
+        }
+        if (needInitRegAtEndOfBB) {
+            assembly.initLocalRegisters();
+        }
+        //FIXME! could not tell whats wrong
+    }
+
+    private boolean needInitRegAtEndOfBB = false;
+
+    public void bbDealRegister(MipsAssembly assembly) {
         if (!instrList.isEmpty()) {
             Instruction end = instrList.getLast().getValue();
+            if (!Config.getInstance().hasOptimize(Config.Optimize.llvmMem2Reg)) {
+                if (end != null && !end.getInstrType().isTerminator()) {
+                    MipsOtherTemplate.mipsProcessComment("bb end flush reg::", assembly);
+                    assembly.flushLocalRegisters();
+                    needInitRegAtEndOfBB = true;
+                    //assembly.initLocalRegisters();
+                }
+            } else {
+                if (!Config.getInstance().hasOptimize(Config.Optimize.ssaGlobalRegAlloc)) {
+                    if (end != null && end.getInstrType() != Instruction.InstrType.RET) {
+                        MipsOtherTemplate.mipsProcessComment("bb end flush reg::", assembly);
+
+                        if (Config.getInstance().hasOptimize(Config.Optimize.activeVariable)) {
+                            assembly.flushLocalRegisters(this.getActiveOutSet());
+                        } else {
+                            assembly.flushLocalRegisters();
+                        }
+                        needInitRegAtEndOfBB = true;
+                        //assembly.initLocalRegisters();
+                    }
+                } else {
+
+                }
+            }
+            /*
             if (end != null && !end.getInstrType().isTerminator()) {
                 assembly.flushLocalRegisters();
                 assembly.initLocalRegisters();
-            }
+            }*/
+            //FIXME!!! without SSA, could be very wrong
+            // flush's condition too weak,
         }
-        //FIXME! could not tell whats wrong
+    }
+
+    public void buildConflictGraph(ConflictGraph conflictGraph) {
+        activeInSet.forEach(i -> activeInSet.forEach(j -> conflictGraph.link(i, j)));
+        for (Value value : activeDefSet) {
+            if (activeOutSet.contains(value))
+            activeInSet.forEach(k -> conflictGraph.link(value, k));
+        }
     }
 }

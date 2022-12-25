@@ -128,4 +128,16 @@ public class GEPInstr extends Instruction {
         MipsMemTemplate.mipsGEPTemplate(dst, basePointer, getOperand(1), assembly);
         dst.getMipsMemContex().updateMem(assembly);
     }
+
+    public static boolean checkSame(GEPInstr i1, GEPInstr i2) {
+        if (i1.getOperandNum() != i2.getOperandNum()) {
+            return false;
+        }
+        for (int i = 0; i < i1.getOperandNum(); ++i) {
+            if (!i1.getOperand(i).equals(i2.getOperand(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

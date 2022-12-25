@@ -53,6 +53,10 @@ public abstract class Instruction extends User {
         }
     }
 
+    public void setInstrType(InstrType instrType) {
+        this.instrType = instrType;
+    }
+
     public InstrType getInstrType() {
         return instrType;
     }
@@ -100,6 +104,7 @@ public abstract class Instruction extends User {
         ADD, SUB, MUL, SDIV, SREM, XOR, AND, OR, EQ, NE, SLE, SLT, SGE, SGT,
         BR, CALL, RET,
         ALLOCA, LOAD, STORE, GETELEMENTPTR, ZEXT, PHI,
+        COPY, MOVE,
         PUTSTR;
 
         public boolean isArithmetic() { return this.ordinal() <= SREM.ordinal(); }
@@ -114,12 +119,26 @@ public abstract class Instruction extends User {
 
         public boolean needName() { return !(isTerminator() && this != InstrType.CALL); }
 
-        public boolean isInverse(InstrType type1, InstrType type2) {
+        public boolean isCommutative() {
+            switch (this) {
+                case ADD: case MUL: case EQ: case NE: case XOR: case AND: case OR:
+                    return true;
+                case SUB: case SREM: case SDIV: case SGT: case SGE: case SLT: case SLE:
+                    return false;
+                default: throw new RuntimeException("check commutative not Binary");
+            }
+        }
+
+        public static boolean isInverse(InstrType type1, InstrType type2) {
             if (!type1.isBinary() || !type2.isBinary()) {
                 return false;
             }
             //todo: when needed.
-            return true;
+            return type1 == type2 && type1.isCommutative() ||
+                    (type1 == SGT && type2 == SLT) ||
+                    (type1 == SGE && type2 == SLE) ||
+                    (type1 == SLT && type2 == SGT) ||
+                    (type1 == SLE && type2 == SGE);
         }
     }
 

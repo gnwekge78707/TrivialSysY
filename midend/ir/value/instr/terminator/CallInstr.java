@@ -3,6 +3,7 @@ package midend.ir.value.instr.terminator;
 import backend.MipsAssembly;
 import backend.template.MipsCalTemplate;
 import backend.template.MipsFuncTemplate;
+import driver.Config;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
@@ -10,6 +11,7 @@ import midend.ir.value.Function;
 import midend.ir.value.instr.Instruction;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class CallInstr extends Instruction {
     private Value dstVar;
@@ -106,8 +108,26 @@ public class CallInstr extends Instruction {
             return;
         }
         assembly.flushLocalRegisters();
-        MipsFuncTemplate.mipsFuncCallTemplate(getFunction(), this.funcRParams, assembly);
+        if (Config.getInstance().hasOptimize(Config.Optimize.ssaGlobalRegAlloc)) {
+            BasicBlock basicBlock = this.getParent();
+            HashSet<Value> needSave = new HashSet<>(basicBlock.getActiveOutSet());
+            needSave.addAll(basicBlock.getActiveInSet());
+            needSave.forEach(i -> i.getMipsMemContex().saveGlobalRegToMem(assembly));
+        }
+
+        ArrayList<Value> rParams = new ArrayList<>();
+        for (int i = 0; i < funcRParams.size(); i++) {
+            rParams.add(this.getOperand(i + 1));
+        }
+        MipsFuncTemplate.mipsFuncCallTemplate(getFunction(), rParams, assembly);
         assembly.initLocalRegisters();
+        if (Config.getInstance().hasOptimize(Config.Optimize.ssaGlobalRegAlloc)) {
+            BasicBlock basicBlock = this.getParent();
+            HashSet<Value> needSave = new HashSet<>(basicBlock.getActiveOutSet());
+            needSave.addAll(basicBlock.getActiveInSet());
+            needSave.forEach(i -> i.getMipsMemContex().loadGlobalRegToMem(assembly));
+        }
+
         if (this.getType() != LLVMType.Void.getVoid()) {
             int dstReg = dst.getMipsMemContex().appointRegister(assembly);
             MipsCalTemplate.mipsProcessMove(dstReg, MipsAssembly.v0, assembly);

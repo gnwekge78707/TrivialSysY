@@ -1,0 +1,535 @@
+.data
+	global:
+	0 1 2 3 4 5 6 7 8 9 
+	str_1: .asciiz "\n"
+	str_0: .asciiz ", "
+
+
+.text
+		la $28, global
+		addiu	 $29, $29, -444
+
+# function_i32 @main():
+		f_main:
+	# basicBlock_0
+		# 	%1 = alloca i32
+		# 	store i32 2, i32* %1
+		addiu	 $1, $0, 2
+		sw		 $1, 4($29)
+		# 	%2 = alloca i32
+		# 	store i32 5, i32* %2
+		addiu	 $1, $0, 5
+		sw		 $1, 8($29)
+		# 	%3 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $5, $2, $0
+		# 	store i32 %3, i32* %1
+		sw		 $5, 4($29)
+		# 	%4 = call i32 @getint()
+		addiu	 $2, $0, 5
+		syscall
+		xor		 $6, $2, $0
+		# 	store i32 %4, i32* %2
+		sw		 $6, 8($29)
+		# 	%5 = load i32, i32* %1
+		lw		 $7, 4($29)
+		# 	%6 = load i32, i32* %2
+		lw		 $8, 8($29)
+		# 	%7 = mul i32 %5, %6
+		mult	 $7, $8
+		mflo	 $9
+		# 	%8 = sub i32 0, %7
+		addiu	 $1, $0, 0
+		subu	 $10, $1, $9
+		# 	%9 = call i32 @fib(i32 4)
+		sw		 $5, 12($29)
+		sw		 $6, 16($29)
+		sw		 $7, 20($29)
+		sw		 $8, 24($29)
+		sw		 $9, 28($29)
+		sw		 $10, 32($29)
+		sw		 $31, 0($29)
+		addiu	 $1, $0, 4
+		sw		 $1, -64($29)
+		addiu	 $29, $29, -68
+		jal f_fib
+		addiu	 $29, $29, 68
+		lw		 $31, 0($29)
+		xor		 $5, $2, $0
+		# 	%10 = mul i32 %8, %9
+		lw		 $6, 32($29)
+		mult	 $6, $5
+		mflo	 $7
+		# 	%11 = add i32 %10, 0
+		addiu	 $8, $7, 0
+		# 	%12 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 1
+		addiu	 $9, $28, 4
+		# 	%13 = load i32, i32* %12
+		lw		 $10, 0($9)
+		# 	%14 = mul i32 %13, 1
+		addiu	 $1, $0, 1
+		mult	 $10, $1
+		mflo	 $11
+		# 	%15 = add i32 %11, %14
+		addu	 $12, $8, $11
+		# 	%16 = sub i32 %15, 0
+		addiu	 $1, $0, 0
+		subu	 $13, $12, $1
+		# 	%17 = mul i32 %16, 5
+		addiu	 $1, $0, 5
+		mult	 $13, $1
+		mflo	 $14
+		# 	store i32 %17, i32* %1
+		sw		 $14, 4($29)
+		# 	%18 = call i32 @fib(i32 5)
+		sw		 $5, 36($29)
+		sw		 $7, 40($29)
+		sw		 $8, 44($29)
+		sw		 $9, 48($29)
+		sw		 $10, 52($29)
+		sw		 $11, 56($29)
+		sw		 $12, 60($29)
+		sw		 $13, 64($29)
+		sw		 $14, 68($29)
+		sw		 $31, 0($29)
+		addiu	 $1, $0, 5
+		sw		 $1, -64($29)
+		addiu	 $29, $29, -68
+		jal f_fib
+		addiu	 $29, $29, 68
+		lw		 $31, 0($29)
+		xor		 $5, $2, $0
+		# 	%19 = add i32 %18, 2
+		addiu	 $6, $5, 2
+		# 	%20 = call i32 @fib(i32 %19)
+		sw		 $5, 72($29)
+		sw		 $6, 76($29)
+		sw		 $31, 0($29)
+		sw		 $6, -64($29)
+		addiu	 $29, $29, -68
+		jal f_fib
+		addiu	 $29, $29, 68
+		lw		 $31, 0($29)
+		xor		 $5, $2, $0
+		# 	%21 = sub i32 1197, %20
+		addiu	 $1, $0, 1197
+		subu	 $6, $1, $5
+		# 	%22 = add i32 %21, -10091
+		addiu	 $7, $6, -10091
+		# 	store i32 %22, i32* %2
+		sw		 $7, 8($29)
+		# 	%23 = alloca i32
+		# 	store i32 -6, i32* %23
+		addiu	 $1, $0, 6
+		subu	 $1, $0, $1
+		sw		 $1, 92($29)
+		# 	br label %24
+		j bb_main_24
+	# basicBlock_24
+		bb_main_24:
+		# 	%25 = load i32, i32* %1
+		lw		 $5, 4($29)
+		# 	%26 = icmp sle i32 %25, 100
+		addiu	 $1, $0, 100
+		sle		 $6, $5, $1
+		# 	%27 = icmp ne i1 %26, 0
+		# 	br i1 %27, label %28, label %101
+		addiu	 $1, $0, 0
+		bne		 $6, $1, bb_main_28
+		j bb_main_101
+	# basicBlock_28
+		bb_main_28:
+		# 	%29 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 0
+		addiu	 $5, $28, 0
+		# 	%30 = load i32, i32* %29
+		lw		 $6, 0($5)
+		# 	%31 = load i32, i32* %23
+		lw		 $7, 92($29)
+		# 	%32 = load i32, i32* %23
+		lw		 $8, 92($29)
+		# 	%33 = mul i32 %31, %32
+		mult	 $7, $8
+		mflo	 $9
+		# 	%34 = add i32 %30, %33
+		addu	 $10, $6, $9
+		# 	%35 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 0
+		addiu	 $11, $28, 0
+		# 	store i32 %34, i32* %35
+		sw		 $10, 0($11)
+		# 	%36 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 1
+		addiu	 $12, $28, 4
+		# 	%37 = load i32, i32* %36
+		lw		 $13, 0($12)
+		# 	%38 = load i32, i32* %23
+		lw		 $14, 92($29)
+		# 	%39 = load i32, i32* %23
+		lw		 $15, 92($29)
+		# 	%40 = mul i32 %38, %39
+		mult	 $14, $15
+		mflo	 $16
+		# 	%41 = add i32 %37, %40
+		addu	 $17, $13, $16
+		# 	%42 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 1
+		addiu	 $18, $28, 4
+		# 	store i32 %41, i32* %42
+		sw		 $17, 0($18)
+		# 	%43 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 2
+		addiu	 $19, $28, 8
+		# 	%44 = load i32, i32* %43
+		lw		 $20, 0($19)
+		# 	%45 = load i32, i32* %23
+		lw		 $21, 92($29)
+		# 	%46 = load i32, i32* %23
+		lw		 $22, 92($29)
+		# 	%47 = mul i32 %45, %46
+		mult	 $21, $22
+		mflo	 $23
+		# 	%48 = add i32 %44, %47
+		addu	 $24, $20, $23
+		# 	%49 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 2
+		addiu	 $25, $28, 8
+		# 	store i32 %48, i32* %49
+		sw		 $24, 0($25)
+		# 	%50 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 3
+		addiu	 $26, $28, 12
+		# 	%51 = load i32, i32* %50
+		lw		 $27, 0($26)
+		# 	%52 = load i32, i32* %23
+		lw		 $30, 92($29)
+		# 	%53 = load i32, i32* %23
+		sw		 $5, 108($29)
+		lw		 $5, 92($29)
+		# 	%54 = mul i32 %52, %53
+		sw		 $7, 116($29)
+		mult	 $30, $5
+		mflo	 $7
+		# 	%55 = add i32 %51, %54
+		sw		 $8, 120($29)
+		addu	 $8, $27, $7
+		# 	%56 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 3
+		sw		 $6, 112($29)
+		addiu	 $6, $28, 12
+		# 	store i32 %55, i32* %56
+		sw		 $8, 0($6)
+		# 	%57 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 4
+		sw		 $9, 124($29)
+		addiu	 $9, $28, 16
+		# 	%58 = load i32, i32* %57
+		sw		 $10, 128($29)
+		lw		 $10, 0($9)
+		# 	%59 = load i32, i32* %23
+		sw		 $11, 132($29)
+		lw		 $11, 92($29)
+		# 	%60 = load i32, i32* %23
+		sw		 $12, 136($29)
+		lw		 $12, 92($29)
+		# 	%61 = mul i32 %59, %60
+		sw		 $14, 144($29)
+		mult	 $11, $12
+		mflo	 $14
+		# 	%62 = add i32 %58, %61
+		sw		 $15, 148($29)
+		addu	 $15, $10, $14
+		# 	%63 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 4
+		sw		 $13, 140($29)
+		addiu	 $13, $28, 16
+		# 	store i32 %62, i32* %63
+		sw		 $15, 0($13)
+		# 	%64 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 5
+		sw		 $16, 152($29)
+		addiu	 $16, $28, 20
+		# 	%65 = load i32, i32* %64
+		sw		 $17, 156($29)
+		lw		 $17, 0($16)
+		# 	%66 = load i32, i32* %23
+		sw		 $18, 160($29)
+		lw		 $18, 92($29)
+		# 	%67 = load i32, i32* %23
+		sw		 $19, 164($29)
+		lw		 $19, 92($29)
+		# 	%68 = mul i32 %66, %67
+		sw		 $21, 172($29)
+		mult	 $18, $19
+		mflo	 $21
+		# 	%69 = add i32 %65, %68
+		sw		 $22, 176($29)
+		addu	 $22, $17, $21
+		# 	%70 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 5
+		sw		 $20, 168($29)
+		addiu	 $20, $28, 20
+		# 	store i32 %69, i32* %70
+		sw		 $22, 0($20)
+		# 	%71 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 6
+		sw		 $23, 180($29)
+		addiu	 $23, $28, 24
+		# 	%72 = load i32, i32* %71
+		sw		 $24, 184($29)
+		lw		 $24, 0($23)
+		# 	%73 = load i32, i32* %23
+		sw		 $25, 188($29)
+		lw		 $25, 92($29)
+		# 	%74 = load i32, i32* %23
+		sw		 $26, 192($29)
+		lw		 $26, 92($29)
+		# 	%75 = mul i32 %73, %74
+		sw		 $5, 204($29)
+		mult	 $25, $26
+		mflo	 $5
+		# 	%76 = add i32 %72, %75
+		sw		 $30, 200($29)
+		addu	 $30, $24, $5
+		# 	%77 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 6
+		sw		 $7, 208($29)
+		addiu	 $7, $28, 24
+		# 	store i32 %76, i32* %77
+		sw		 $30, 0($7)
+		# 	%78 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 7
+		sw		 $27, 196($29)
+		addiu	 $27, $28, 28
+		# 	%79 = load i32, i32* %78
+		sw		 $6, 216($29)
+		lw		 $6, 0($27)
+		# 	%80 = load i32, i32* %23
+		sw		 $8, 212($29)
+		lw		 $8, 92($29)
+		# 	%81 = load i32, i32* %23
+		sw		 $9, 220($29)
+		lw		 $9, 92($29)
+		# 	%82 = mul i32 %80, %81
+		sw		 $11, 228($29)
+		mult	 $8, $9
+		mflo	 $11
+		# 	%83 = add i32 %79, %82
+		sw		 $12, 232($29)
+		addu	 $12, $6, $11
+		# 	%84 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 7
+		sw		 $10, 224($29)
+		addiu	 $10, $28, 28
+		# 	store i32 %83, i32* %84
+		sw		 $12, 0($10)
+		# 	%85 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 8
+		sw		 $14, 236($29)
+		addiu	 $14, $28, 32
+		# 	%86 = load i32, i32* %85
+		sw		 $13, 244($29)
+		lw		 $13, 0($14)
+		# 	%87 = load i32, i32* %23
+		sw		 $15, 240($29)
+		lw		 $15, 92($29)
+		# 	%88 = load i32, i32* %23
+		sw		 $16, 248($29)
+		lw		 $16, 92($29)
+		# 	%89 = mul i32 %87, %88
+		sw		 $18, 256($29)
+		mult	 $15, $16
+		mflo	 $18
+		# 	%90 = add i32 %86, %89
+		sw		 $19, 260($29)
+		addu	 $19, $13, $18
+		# 	%91 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 8
+		sw		 $17, 252($29)
+		addiu	 $17, $28, 32
+		# 	store i32 %90, i32* %91
+		sw		 $19, 0($17)
+		# 	%92 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 9
+		sw		 $21, 264($29)
+		addiu	 $21, $28, 36
+		# 	%93 = load i32, i32* %92
+		sw		 $20, 272($29)
+		lw		 $20, 0($21)
+		# 	%94 = load i32, i32* %23
+		sw		 $22, 268($29)
+		lw		 $22, 92($29)
+		# 	%95 = load i32, i32* %23
+		sw		 $23, 276($29)
+		lw		 $23, 92($29)
+		# 	%96 = mul i32 %94, %95
+		sw		 $25, 284($29)
+		mult	 $22, $23
+		mflo	 $25
+		# 	%97 = add i32 %93, %96
+		sw		 $26, 288($29)
+		addu	 $26, $20, $25
+		# 	%98 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 9
+		sw		 $5, 292($29)
+		addiu	 $5, $28, 36
+		# 	store i32 %97, i32* %98
+		sw		 $26, 0($5)
+		# 	%99 = load i32, i32* %1
+		sw		 $24, 280($29)
+		lw		 $24, 4($29)
+		# 	%100 = add i32 %99, 1
+		sw		 $7, 300($29)
+		addiu	 $7, $24, 1
+		# 	store i32 %100, i32* %1
+		sw		 $7, 4($29)
+		# 	br label %24
+		j bb_main_24
+	# basicBlock_101
+		bb_main_101:
+		# 	store i32 0, i32* %1
+		addiu	 $1, $0, 0
+		sw		 $1, 4($29)
+		# 	br label %102
+		j bb_main_102
+	# basicBlock_102
+		bb_main_102:
+		# 	%103 = load i32, i32* %1
+		lw		 $5, 4($29)
+		# 	%104 = icmp slt i32 %103, 10
+		slti	 $6, $5, 10
+		# 	%105 = icmp ne i1 %104, 0
+		# 	br i1 %105, label %106, label %113
+		addiu	 $1, $0, 0
+		bne		 $6, $1, bb_main_106
+		j bb_main_113
+	# basicBlock_106
+		bb_main_106:
+		# 	%107 = load i32, i32* %1
+		lw		 $5, 4($29)
+		# 	%108 = mul i32 %107, 1
+		addiu	 $1, $0, 1
+		mult	 $5, $1
+		mflo	 $6
+		# 	%109 = getelementptr [10 x i32], [10 x i32]* @a, i32 0, i32 %108
+		addiu	 $7, $28, 0
+		sll		 $1, $6, 2
+		addu	 $7, $7, $1
+		# 	%110 = load i32, i32* %109
+		lw		 $8, 0($7)
+		# 	call void @putint(i32 %110)
+		xor		 $4, $8, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_0
+		addiu	 $2, $0, 4
+		syscall
+		# 	%111 = load i32, i32* %1
+		lw		 $9, 4($29)
+		# 	%112 = add i32 %111, 1
+		addiu	 $10, $9, 1
+		# 	store i32 %112, i32* %1
+		sw		 $10, 4($29)
+		# 	br label %102
+		j bb_main_102
+	# basicBlock_113
+		bb_main_113:
+		# 	%114 = load i32, i32* %1
+		lw		 $5, 4($29)
+		# 	%115 = load i32, i32* %2
+		lw		 $6, 8($29)
+		# 	%116 = load i32, i32* %23
+		lw		 $7, 92($29)
+		la $4, str_1
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %114)
+		xor		 $4, $5, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_0
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %115)
+		xor		 $4, $6, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_0
+		addiu	 $2, $0, 4
+		syscall
+		# 	call void @putint(i32 %116)
+		xor		 $4, $7, $0
+		addiu	 $2, $0, 1
+		syscall
+		la $4, str_1
+		addiu	 $2, $0, 4
+		syscall
+		# 	ret i32 0
+		sw		 $5, 432($29)
+		sw		 $6, 436($29)
+		sw		 $7, 440($29)
+		addiu	 $2, $0, 10
+		syscall
+
+# function_i32 @fib(i32):
+		f_fib:
+	# basicBlock_1
+		# 	%2 = alloca i32
+		# 	store i32 %0, i32* %2
+		lw		 $5, 4($29)
+		sw		 $5, 8($29)
+		# 	%3 = load i32, i32* %2
+		lw		 $6, 8($29)
+		# 	%4 = zext i1 1 to i32
+		addiu	 $7, $0, 1
+		# 	%5 = icmp eq i32 %3, %4
+		seq		 $8, $6, $7
+		# 	%6 = icmp ne i1 %5, 0
+		# 	br i1 %6, label %11, label %7
+		addiu	 $1, $0, 0
+		bne		 $8, $1, bb_fib_11
+		j bb_fib_7
+	# basicBlock_7
+		bb_fib_7:
+		# 	%8 = load i32, i32* %2
+		lw		 $5, 8($29)
+		# 	%9 = icmp eq i32 %8, 2
+		addiu	 $1, $0, 2
+		seq		 $6, $5, $1
+		# 	%10 = icmp ne i1 %9, 0
+		# 	br i1 %10, label %20, label %12
+		addiu	 $1, $0, 0
+		bne		 $6, $1, bb_fib_20
+		j bb_fib_12
+	# basicBlock_11
+		bb_fib_11:
+		# 	ret i32 1
+		addiu	 $2, $0, 1
+		jr $31
+	# basicBlock_12
+		bb_fib_12:
+		# 	%13 = load i32, i32* %2
+		lw		 $5, 8($29)
+		# 	%14 = sub i32 %13, 1
+		addiu	 $1, $0, 1
+		subu	 $6, $5, $1
+		# 	%15 = call i32 @fib(i32 %14)
+		sw		 $5, 40($29)
+		sw		 $6, 44($29)
+		sw		 $31, 0($29)
+		sw		 $6, -64($29)
+		addiu	 $29, $29, -68
+		jal f_fib
+		addiu	 $29, $29, 68
+		lw		 $31, 0($29)
+		xor		 $5, $2, $0
+		# 	%16 = load i32, i32* %2
+		lw		 $6, 8($29)
+		# 	%17 = sub i32 %16, 2
+		addiu	 $1, $0, 2
+		subu	 $7, $6, $1
+		# 	%18 = call i32 @fib(i32 %17)
+		sw		 $5, 48($29)
+		sw		 $6, 52($29)
+		sw		 $7, 56($29)
+		sw		 $31, 0($29)
+		sw		 $7, -64($29)
+		addiu	 $29, $29, -68
+		jal f_fib
+		addiu	 $29, $29, 68
+		lw		 $31, 0($29)
+		xor		 $5, $2, $0
+		# 	%19 = add i32 %15, %18
+		lw		 $6, 48($29)
+		addu	 $7, $6, $5
+		# 	ret i32 %19
+		sw		 $5, 60($29)
+		sw		 $7, 64($29)
+		xor		 $2, $7, $0
+		jr $31
+	# basicBlock_20
+		bb_fib_20:
+		# 	ret i32 2
+		addiu	 $2, $0, 2
+		jr $31

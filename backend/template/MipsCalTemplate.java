@@ -2,6 +2,7 @@ package backend.template;
 
 import backend.MipsAssembly;
 import backend.isa.MipsInstruction;
+import driver.Config;
 import midend.ir.Value;
 import midend.ir.value.Constant;
 
@@ -109,18 +110,28 @@ public class MipsCalTemplate {
                     assembly);
         }
         else if (src1 instanceof Constant) {
-            int srcReg = src2.getMipsMemContex().loadToRegister(assembly);
-            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
-            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src1).getConstVal(), assembly);
-            assembly.addObjectCode(MipsInstruction.getMult(srcReg, MipsAssembly.at));
-            assembly.addObjectCode(MipsInstruction.getMflo(dstReg));
+            if (Config.getInstance().hasOptimize(Config.Optimize.mipsMulDivOptimize) &&
+                    MipsMulDivOptimize.canOptimizeMul(((Constant) src1).getConstVal())) {
+                MipsMulDivOptimize.mulCalOptimize(dst, src2, ((Constant) src1).getConstVal(), assembly);
+            } else {
+                int srcReg = src2.getMipsMemContex().loadToRegister(assembly);
+                int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+                mipsInitNumTemplate(MipsAssembly.at, ((Constant) src1).getConstVal(), assembly);
+                assembly.addObjectCode(MipsInstruction.getMult(srcReg, MipsAssembly.at));
+                assembly.addObjectCode(MipsInstruction.getMflo(dstReg));
+            }
         }
         else if (src2 instanceof Constant) {
-            int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
-            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
-            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
-            assembly.addObjectCode(MipsInstruction.getMult(srcReg, MipsAssembly.at));
-            assembly.addObjectCode(MipsInstruction.getMflo(dstReg));
+            if (Config.getInstance().hasOptimize(Config.Optimize.mipsMulDivOptimize) &&
+                    MipsMulDivOptimize.canOptimizeMul(((Constant) src2).getConstVal())) {
+                MipsMulDivOptimize.mulCalOptimize(dst, src1, ((Constant) src2).getConstVal(), assembly);
+            } else {
+                int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
+                int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+                mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
+                assembly.addObjectCode(MipsInstruction.getMult(srcReg, MipsAssembly.at));
+                assembly.addObjectCode(MipsInstruction.getMflo(dstReg));
+            }
         }
         else {
             int src1Reg = src1.getMipsMemContex().loadToRegister(assembly);
@@ -146,11 +157,15 @@ public class MipsCalTemplate {
             assembly.addObjectCode(MipsInstruction.getMflo(dstReg));
         }
         else if (src2 instanceof Constant) {
-            int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
-            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
-            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
-            assembly.addObjectCode(MipsInstruction.getDiv(srcReg, MipsAssembly.at));
-            assembly.addObjectCode(MipsInstruction.getMflo(dstReg));
+            if (Config.getInstance().hasOptimize(Config.Optimize.mipsMulDivOptimize)) {
+                MipsMulDivOptimize.divCalOptimize(dst, src1, ((Constant) src2).getConstVal(), assembly);
+            } else {
+                int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
+                int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+                mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
+                assembly.addObjectCode(MipsInstruction.getDiv(srcReg, MipsAssembly.at));
+                assembly.addObjectCode(MipsInstruction.getMflo(dstReg));
+            }
         }
         else {
             int src1Reg = src1.getMipsMemContex().loadToRegister(assembly);
@@ -176,11 +191,15 @@ public class MipsCalTemplate {
             assembly.addObjectCode(MipsInstruction.getMfhi(dstReg));
         }
         else if (src2 instanceof Constant) {
-            int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
-            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
-            mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
-            assembly.addObjectCode(MipsInstruction.getDiv(srcReg, MipsAssembly.at));
-            assembly.addObjectCode(MipsInstruction.getMfhi(dstReg));
+            if (Config.getInstance().hasOptimize(Config.Optimize.mipsMulDivOptimize)) {
+                MipsMulDivOptimize.modCalOptimize(dst, src1, ((Constant) src2).getConstVal(), assembly);
+            } else {
+                int srcReg = src1.getMipsMemContex().loadToRegister(assembly);
+                int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+                mipsInitNumTemplate(MipsAssembly.at, ((Constant) src2).getConstVal(), assembly);
+                assembly.addObjectCode(MipsInstruction.getDiv(srcReg, MipsAssembly.at));
+                assembly.addObjectCode(MipsInstruction.getMfhi(dstReg));
+            }
         }
         else {
             int src1Reg = src1.getMipsMemContex().loadToRegister(assembly);

@@ -12,6 +12,7 @@ import midend.ir.value.Constant;
 import midend.ir.value.Function;
 import midend.ir.value.GlobalVariable;
 import midend.ir.value.instr.Instruction;
+import midend.ir.value.instr.mem.PhiInstr;
 import util.IList;
 
 import java.util.ArrayList;
@@ -74,8 +75,13 @@ public class MipsBuilder {
             int funcStackSpace = (1 << 2); // ra + params (i32, i32*)
             for (Function.Param param : func.getParams()) {
                 param.getMipsMemContex().setOffset(funcStackSpace);
-                System.out.println(param.getName() + ", addr = " + param.getMipsMemContex().getOffset());
+                System.out.println("para-> " + param.getName() + ", addr = " + param.getMipsMemContex().getOffset());
                 funcStackSpace += param.getMipsMemContex().getSpace();
+            }
+            for (PhiInstr virtualValue : func.getVirtualValues()) {
+                virtualValue.getMipsMemContex().setOffset(funcStackSpace);
+                System.out.println("phi-> " + virtualValue.getName() + ", space = " + virtualValue.getMipsMemContex().getSpace() + ", addr = " + virtualValue.getMipsMemContex().getOffset());
+                funcStackSpace += virtualValue.getMipsMemContex().getSpace();
             }
             for (IList.INode<BasicBlock, Function> bbNode : func.getBbList()) {
                 BasicBlock bb = bbNode.getValue();
@@ -83,7 +89,7 @@ public class MipsBuilder {
                     Instruction instr = instrNode.getValue();
                     int instrSpace = instr.getMipsMemContex().getSpace();
                     instr.getMipsMemContex().setOffset(funcStackSpace);
-                    System.out.println(instr.getName() + ", space = " + instr.getMipsMemContex().getSpace() + ", addr = " + instr.getMipsMemContex().getOffset());
+                    System.out.println("instr-> " + ", space = " + instr.getMipsMemContex().getSpace() + ", addr = " + instr.getMipsMemContex().getOffset());
                     funcStackSpace += instrSpace;
                 }
             }
@@ -125,11 +131,17 @@ public class MipsBuilder {
             dumpStr(".data");
             if (initGlobalVar.size() > 0) {
                 dumpStr("\tglobal:");
+                /*
                 String str = "\t";
                 for (int i = 0; i < initGlobalVar.size(); i++) {
                     str = str + initGlobalVar.get(i) + " ";
+                }*/
+                StringBuilder builder = new StringBuilder();
+                builder.append("\t");
+                for (Integer i : initGlobalVar) {
+                    builder.append(i).append(" ");
                 }
-                dumpStr(str);
+                dumpStr(builder.toString());
             }
             initString.forEach(u -> dumpStr("\t" + u));
         }

@@ -21,6 +21,10 @@ public class Module {
 
     public Module() { }
 
+    public Function getLibFunc(String s) {
+        return libs.getOrDefault(s, null);
+    }
+
     public void addGlobalVar(GlobalVariable variable) {
         globalVariables.add(variable);
     }
@@ -72,7 +76,6 @@ public class Module {
     }
 
     public void dumpLLVM() {
-        nameVariable();
         for (Function libFunc : libs.values()) {
             Output.getInstance().updateBuffer(Config.OutputLevel.MIDCODE, "declare " + libFunc);
         }

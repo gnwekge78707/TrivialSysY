@@ -28,11 +28,14 @@ public class MipsFuncTemplate {
                 }
                 int reg = funcRParams.get(i) instanceof Constant ?
                         MipsAssembly.at : funcRParams.get(i).getMipsMemContex().loadToRegister(assembly);
+
+                //TODO : is it funcRPAram | or just call instr's param
+                //System.out.println("func call stack init -> {" + funcRParams.get(i).toString() + "} // " + funcRParams.get(i).getMipsMemContex().getOffset());
                 assembly.addObjectCode(MipsInstruction.getSw(reg, -space + ((i + 1) << 2), MipsAssembly.sp));
             }
             funcRParams.clear();
             MipsCalTemplate.mipsAddNumTemplate(MipsAssembly.sp, MipsAssembly.sp, -space, assembly);
-            assembly.addObjectCode(MipsInstruction.getJaL(function.getName()));
+            assembly.addObjectCode(MipsInstruction.getJaL(function.getMipsFuncName()));
             MipsCalTemplate.mipsAddNumTemplate(MipsAssembly.sp, MipsAssembly.sp, space, assembly);
             assembly.addObjectCode(MipsInstruction.getLw(MipsAssembly.ra, 0, MipsAssembly.sp));
         }

@@ -7,12 +7,12 @@ import java.util.LinkedList;
 public class Value {
     private LLVMType type;
     private String name;
-    private LinkedList<Use> uses;
+    private LinkedList<Use> useList;
 
     public Value(LLVMType type, String name) {
         this.type = type;
         this.name = name;
-        this.uses = new LinkedList<>();
+        this.useList = new LinkedList<>();
         this.mipsMemContex = new MipsMemContex(this);
     }
 
@@ -28,16 +28,24 @@ public class Value {
         this.name = name;
     }
 
-    public LinkedList<Use> getUses() {
-        return uses;
+    public LinkedList<Use> getUseList() {
+        return useList;
     }
 
     public void addUse(Use use) {
-        this.uses.add(use);
+        this.useList.add(use);
     }
 
     public void removeUse(User user, int idx) {
-        this.uses.removeIf(u -> (u.user == user && u.idxOfValueInUser == idx));
+        this.useList.removeIf(u -> (u.user == user && u.idxOfValueInUser == idx));
+    }
+
+    public void replaceSelfWith(Value newValue) {
+        for (int i = useList.size() - 1; i >= 0; i--) {
+            Use use = useList.get(i);
+            use.user.setOperand(use.idxOfValueInUser, newValue);
+        }
+        this.useList.clear();
     }
 
     @Override

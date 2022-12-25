@@ -2,6 +2,7 @@ package midend.ir.value.instr.terminator;
 
 import backend.MipsAssembly;
 import backend.template.MipsFuncTemplate;
+import driver.Config;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
@@ -32,7 +33,11 @@ public class RetInstr extends Instruction {
 
     @Override
     public void toAssembly(MipsAssembly assembly) {
-        assembly.flushLocalRegisters();
+        if (Config.getInstance().hasOptimize(Config.Optimize.activeVariable)) {
+            assembly.flushLocalRegisters(this.getParent().getActiveOutSet());
+        } else {
+            assembly.flushLocalRegisters();
+        }
         Function curFunction = this.getParent().getINode().getParent().getHolder();
         MipsFuncTemplate.mipsFuncRetTemplate(curFunction, this.getOperandNum() > 0 ? getOperand(0) : null, assembly);
         assembly.initLocalRegisters();

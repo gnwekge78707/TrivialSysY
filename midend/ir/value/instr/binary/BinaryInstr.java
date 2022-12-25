@@ -5,6 +5,7 @@ import backend.template.MipsCalTemplate;
 import midend.ir.Value;
 import midend.ir.type.LLVMType;
 import midend.ir.value.BasicBlock;
+import midend.ir.value.Constant;
 import midend.ir.value.instr.Instruction;
 import midend.ir.value.instr.terminator.BrInstr;
 
@@ -81,7 +82,7 @@ public class BinaryInstr extends Instruction {
         Value dst = hasExplicitDstVar() ? dstVar : this;
         Value src1 = getOperand(0);
         Value src2 = getOperand(1);
-        boolean onlyHaveBrUsage = this.getUses().stream().allMatch(u -> (u.user instanceof BrInstr));
+        boolean onlyHaveBrUsage = this.getUseList().stream().allMatch(u -> (u.user instanceof BrInstr));
         switch (this.getInstrType()) {
             case ADD:
                 MipsCalTemplate.mipsAddTemplate(dst, src1, src2, assembly);
@@ -122,5 +123,45 @@ public class BinaryInstr extends Instruction {
             default: break;
         }
         dst.getMipsMemContex().updateMem(assembly);
+    }
+
+    public Value lhs() {
+        return this.getOperand(0);
+    }
+
+    public Value rhs() {
+        return this.getOperand(1);
+    }
+
+    public static boolean checkSame(BinaryInstr b1, BinaryInstr b2) {
+        return (b1.getInstrType() == b2.getInstrType() && b1.lhs().equals(b2.lhs()) && b1.rhs().equals(b2.rhs())) ||
+                (b1.getInstrType() == b2.getInstrType() && b1.getInstrType().isCommutative() && b1.lhs().equals(b2.rhs()) && b1.rhs().equals(b2.lhs())) ||
+                (InstrType.isInverse(b1.getInstrType(), b2.getInstrType()) && b1.lhs().equals(b2.rhs()) && b1.rhs().equals(b2.lhs()));
+    }
+    
+    public static Constant calcBinaryInt(InstrType type, Constant lhs, Constant rhs) {
+        if (lhs.getType() != rhs.getType()) {
+            throw new RuntimeException("different Type in Binary!!!");
+        }
+        if (lhs.getType() == LLVMType.Int.getI1()) {
+            throw new RuntimeException("binary calc i1Type?");
+        }
+        switch (type) {
+            case ADD: return  new Constant(LLVMType.Int.getI32(), lhs.getConstVal() + rhs.getConstVal());
+            case SUB: return  new Constant(LLVMType.Int.getI32(), lhs.getConstVal() - rhs.getConstVal());
+            case MUL: return  new Constant(LLVMType.Int.getI32(), lhs.getConstVal() * rhs.getConstVal());
+            case SDIV: return  new Constant(LLVMType.Int.getI32(), lhs.getConstVal() / rhs.getConstVal());
+            case SREM: return  new Constant(LLVMType.Int.getI32(), lhs.getConstVal() % rhs.getConstVal());
+            case EQ: return  new Constant(LLVMType.Int.getI1(), lhs.getConstVal() == rhs.getConstVal() ? 1 : 0);
+            case NE: return  new Constant(LLVMType.Int.getI1(), lhs.getConstVal() != rhs.getConstVal() ? 1 : 0);
+            case SLE: return  new Constant(LLVMType.Int.getI1(), lhs.getConstVal() <= rhs.getConstVal() ? 1 : 0);
+            case SLT: return  new Constant(LLVMType.Int.getI1(), lhs.getConstVal() < rhs.getConstVal() ? 1 : 0);
+            case SGT: return  new Constant(LLVMType.Int.getI1(), lhs.getConstVal() >= rhs.getConstVal() ? 1 : 0);
+            case SGE: return  new Constant(LLVMType.Int.getI1(), lhs.getConstVal() > rhs.getConstVal() ? 1 : 0);
+            case XOR: return  new Constant(LLVMType.Int.getI32(), lhs.getConstVal() ^ rhs.getConstVal());
+            case AND: return  new Constant(LLVMType.Int.getI32(), lhs.getConstVal() & rhs.getConstVal());
+            case OR: return  new Constant(LLVMType.Int.getI32(), lhs.getConstVal() | rhs.getConstVal());
+            default: throw new RuntimeException("undefined binary operation in calcBinaryInt!!!");
+        }
     }
 }

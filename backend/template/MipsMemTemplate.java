@@ -29,6 +29,19 @@ public class MipsMemTemplate {
         assembly.addObjectCode(MipsInstruction.getSw(dstReg, offset, base));
     }
 
+    public static void mipsMoveTemplate(Value dst, Value src, MipsAssembly assembly) {
+        if (src instanceof Constant) {
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            MipsCalTemplate.mipsInitNumTemplate(dstReg,
+                    ((Constant) src).getConstVal(),
+                    assembly);
+        } else {
+            int srcReg = src.getMipsMemContex().loadToRegister(assembly);
+            int dstReg = dst.getMipsMemContex().appointRegister(assembly);
+            MipsCalTemplate.mipsProcessMove(dstReg, srcReg, assembly);
+        }
+    }
+
     public static void mipsStoreTemplate(Value src, Value pointer, MipsAssembly assembly) {
         if (src instanceof Constant) {
             MipsCalTemplate.mipsInitNumTemplate(MipsAssembly.at, ((Constant) src).getConstVal(), assembly);

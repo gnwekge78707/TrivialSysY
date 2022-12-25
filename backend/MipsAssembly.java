@@ -3,10 +3,12 @@ package backend;
 import backend.isa.MipsInstruction;
 import driver.Config;
 import midend.ir.Value;
+import midend.ir.value.GlobalVariable;
 import util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * manage mips registers and object code
@@ -64,6 +66,10 @@ public class MipsAssembly {
      */
     public void initForNewFunction(int numOfGlobalRegs) {
         int numOfLocalRegs = registerPool.length - numOfGlobalRegs;
+        if (numOfLocalRegs < 3) {
+            numOfGlobalRegs = registerPool.length / 2;
+            numOfLocalRegs = registerPool.length - numOfGlobalRegs;
+        }
         localRegisterPool = new int[numOfLocalRegs];
         globalRegisterPool = new int[numOfGlobalRegs];
         for (int i = 0; i < registerPool.length; i++) {
@@ -101,7 +107,7 @@ public class MipsAssembly {
         //FIXME! continually call 2 allocReg, they must not be the same
         // /i.e. 一个指令两个操作数，操作数要分配寄存器，寄存器不足的时候，不能一个替换掉另一个
         int replaceIdx = -1;
-        /*
+
         int minLastUseIdx = Integer.MAX_VALUE;
         for (int i = 0; i < localRegisterPool.length; i++) {
             assert allocatedValueBuffer[i] != null;
@@ -116,14 +122,14 @@ public class MipsAssembly {
                 minLastUseIdx = lastUseIdx;
                 replaceIdx = i;
             }
-        }*/
-
+        }
+        /*
         for (int i = 0; i < localRegisterPool.length; i++) {
             assert allocatedValueBuffer[i] != null;
             if (allocatedValueBuffer[i].getMipsMemContex().getLastUseIdxInBB() != dst.getMipsMemContex().getLastUseIdxInBB()) {
                 replaceIdx = i;
             }
-        }
+        }*/
 
         if (allocatedValueBuffer[replaceIdx] != null && regNeedWriteBack[replaceIdx]) {
             allocatedValueBuffer[replaceIdx].getMipsMemContex().writeBackMem(this);
@@ -161,31 +167,69 @@ public class MipsAssembly {
         for (int i = 0; i < localRegisterPool.length; i++) {
             if (!regNeedWriteBack[i]) {
                 continue;
-            } else {
-                if (!Config.getInstance().hasOptimize(Config.Optimize.llvmMem2Reg)) {
-                    // if don't have mem2reg, then all local variable are stored in memory
-                    // therefore do not need to write back
-                    //FIXME! here if
-                    /*
-                     *      # 	%49 = load i32, i32* %32
-                     * 		sw		 $30, 184($29)
-                     * 		lw		 $30, 128($29)
-                     * 		# 	%50 = call i32 @foo()
-                     * 		sw		 $31, 0($29)
-                     * 		addiu	 $29, $29, -4
-                     * 		jal foo
-                     * 		addiu	 $29, $29, 4
-                     * 		lw		 $31, 0($29)
-                     * 		xor		 $5, $2, $0
-                     * 		# 	%51 = add i32 %49, %50
-                     * 		lw		 $6, 196($29)
-                     * 		addu	 $7, $6, $5
-                     */
-                    allocatedValueBuffer[i].getMipsMemContex().writeBackMem(this);
-                } else {
-                    allocatedValueBuffer[i].getMipsMemContex().writeBackMem(this);
-                }
             }
+
+            if (!Config.getInstance().hasOptimize(Config.Optimize.llvmMem2Reg)) {
+                // if don't have mem2reg, then all local variable are stored in memory
+                // therefore do not need to write back
+                //FIXME! here if
+                /*
+                 *      # 	%49 = load i32, i32* %32
+                 * 		sw		 $30, 184($29)
+                 * 		lw		 $30, 128($29)
+                 * 		# 	%50 = call i32 @foo()
+                 * 		sw		 $31, 0($29)
+                 * 		addiu	 $29, $29, -4
+                 * 		jal foo
+                 * 		addiu	 $29, $29, 4
+                 * 		lw		 $31, 0($29)
+                 * 		xor		 $5, $2, $0
+                 * 		# 	%51 = add i32 %49, %50
+                 * 		lw		 $6, 196($29)
+                 * 		addu	 $7, $6, $5
+                 */
+                allocatedValueBuffer[i].getMipsMemContex().writeBackMem(this);
+            } else {
+                allocatedValueBuffer[i].getMipsMemContex().writeBackMem(this);
+            }
+
+        }
+    }
+
+    public void flushLocalRegisters(HashSet<Value> onlyInSet) {
+        // TODO! probably active analysis here? just write back active variable
+        for (int i = 0; i < localRegisterPool.length; i++) {
+            if (!regNeedWriteBack[i]) {
+                continue;
+            }
+            boolean needWrite = onlyInSet.contains(allocatedValueBuffer[i]) || (allocatedValueBuffer[i] instanceof GlobalVariable);
+            if (!needWrite) {
+                continue;
+            }
+            if (!Config.getInstance().hasOptimize(Config.Optimize.llvmMem2Reg)) {
+                // if don't have mem2reg, then all local variable are stored in memory
+                // therefore do not need to write back
+                //FIXME! here if
+                /*
+                 *      # 	%49 = load i32, i32* %32
+                 * 		sw		 $30, 184($29)
+                 * 		lw		 $30, 128($29)
+                 * 		# 	%50 = call i32 @foo()
+                 * 		sw		 $31, 0($29)
+                 * 		addiu	 $29, $29, -4
+                 * 		jal foo
+                 * 		addiu	 $29, $29, 4
+                 * 		lw		 $31, 0($29)
+                 * 		xor		 $5, $2, $0
+                 * 		# 	%51 = add i32 %49, %50
+                 * 		lw		 $6, 196($29)
+                 * 		addu	 $7, $6, $5
+                 */
+                allocatedValueBuffer[i].getMipsMemContex().writeBackMem(this);
+            } else {
+                allocatedValueBuffer[i].getMipsMemContex().writeBackMem(this);
+            }
+
         }
     }
 

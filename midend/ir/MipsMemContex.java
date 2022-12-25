@@ -108,6 +108,19 @@ public class MipsMemContex {
         }
     }
 
+    public void saveGlobalRegToMem(MipsAssembly assembly) {
+        if (register > 0) {
+            MipsMemTemplate.mipsProcessSw(register, offset, base, assembly);
+        }
+    }
+
+    public void loadGlobalRegToMem(MipsAssembly assembly) {
+        if (register > 0) {
+            MipsMemTemplate.mipsProcessLw(register, offset, base, assembly);
+            //assembly.processLoadRegister(register, offset, MipsAssembly.sp);
+        }
+    }
+
 
     public int getSpace() {
         return space;

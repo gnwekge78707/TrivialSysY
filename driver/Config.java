@@ -21,6 +21,8 @@ public class Config {
 
     private HashSet<Optimize> optimizeLevels = new HashSet<>();
 
+    private int defaultOptimizedLevel = 1;
+
     private Config() {
         outputLevel2TargetName.put(OutputLevel.TOKENIZE, "output.txt");
         outputLevel2TargetName.put(OutputLevel.SYNTAX, "output.txt");
@@ -37,7 +39,7 @@ public class Config {
                 System.err.println("InitConfigErr : target file open failed");
             }
         }
-        setOptimizeLevel(0);
+        setOptimizeLevel(defaultOptimizedLevel);
     }
 
     public boolean isDebugMode() { return debugMode; }
@@ -131,13 +133,32 @@ public class Config {
     public enum Optimize {
         syntaxTreeExpressionOptimize,
         llvmMem2Reg,
-        lruLocalRegAlloc
+        lruLocalRegAlloc,
+        mipsMulDivOptimize,
+        activeVariable,
+        ssaGlobalRegAlloc
     }
-    //syntaxTreeExpressionOptimize is a must have
+    //syntaxTreeExpressionOptimize is a must-have
 
     private void setOptimizeLevel(int o) {
-        this.optimizeLevels.add(Optimize.syntaxTreeExpressionOptimize);
-        this.optimizeLevels.add(Optimize.lruLocalRegAlloc);
+        if (o == 0) {
+            this.optimizeLevels.add(Optimize.syntaxTreeExpressionOptimize);
+            this.optimizeLevels.add(Optimize.lruLocalRegAlloc);
+        } else if (o == 1) {
+            this.optimizeLevels.add(Optimize.syntaxTreeExpressionOptimize);
+            this.optimizeLevels.add(Optimize.lruLocalRegAlloc);
+            this.optimizeLevels.add(Optimize.mipsMulDivOptimize);
+            this.optimizeLevels.add(Optimize.llvmMem2Reg);
+            this.optimizeLevels.add(Optimize.activeVariable);
+        } else if (o == 2) {
+            this.optimizeLevels.add(Optimize.syntaxTreeExpressionOptimize);
+            this.optimizeLevels.add(Optimize.lruLocalRegAlloc);
+            this.optimizeLevels.add(Optimize.mipsMulDivOptimize);
+            this.optimizeLevels.add(Optimize.llvmMem2Reg);
+            this.optimizeLevels.add(Optimize.activeVariable);
+            this.optimizeLevels.add(Optimize.ssaGlobalRegAlloc);
+        }
+
     }
 
     public boolean hasOptimize(Optimize optimize) {
