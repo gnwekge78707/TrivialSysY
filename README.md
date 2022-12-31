@@ -207,7 +207,7 @@ classDef bb fill: #f9a, stroke: #333, stroke-width: 4px;
 
 
 
-## Supported Grammar (in BNF)
+## Supported Grammar (in extended BNF)
 
 ````markdown
 ## original syntax
