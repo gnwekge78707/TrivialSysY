@@ -75,7 +75,7 @@ classDef aa fill: #DAAEF8FF, stroke: #333, stroke-width: 4px;
 classDef bb fill: #f9a, stroke: #333, stroke-width: 4px;
 ```
 
-- It can be seen that this compiler mainly consists of frontend, middle-end and backend ends:
+- It can be seen that this compiler mainly consists of frontend, middle-end and backend:
   - The front end preforms lexical analysis and syntax analysis, which can generate **Abstract Syntax Tree** representation from source files, and perform certain semantic analysis and error handling.
   - **The middle end is LLVM IR**, which is divided into abstract structures such as Value, Module, User, and Use according to the architecture of the llvm compiler. The front end and the middle end will collaborate to convert AST to LLVM IR. And some optimizations will be carried out in the mid-end, the most important ones include dominance analysis, alias analysis, Mem2Reg, global value label (equivalent to propagation merge + common subexpression deletion), phi node deletion, dead code deletion, branch optimization, active variable analysis, conflict graph construction, etc.
   - After the conflict graph is built, the backend will do register allocation. The backend outputs **Mips Assembly Code**, which manages a LLVMIR-to-MIPS generation template, mips isa instructions, and mips registers.
