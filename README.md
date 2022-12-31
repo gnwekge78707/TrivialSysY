@@ -5,7 +5,7 @@
 
 ------
 
-[Document-CN]() | [Document-EN]()
+[Document-CN](https://github.com/gnwekge78707/TrivialSysY/blob/master/TECH_REPORT.md) | [Document-EN](https://github.com/gnwekge78707/TrivialSysY/blob/master/TECH_REPORT.md)
 
 This project implements a [Sysy language](https://gitlab.eduxiji.net/nscscc/docs/-/commit/b6cd2ebab7d15bb1055a1722fdfa8445b6516965) optimized compilation system with LLVM_IR and MIPS dual backends. This compiler uses java as the programming language, and refers to excellent projects such as LLVM in terms of architecture. It supports part of the C language grammar (the specific grammar is Sysy2021, which supports all Sysy features including multidimensional arrays), and implements multiple optimization algorithm to boost performance. The design and implementation of this compiling system will be further described below.
 
